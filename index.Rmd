@@ -1,0 +1,63 @@
+--- 
+title: "Notes about Distributed Optimization"
+author: "Kun Huang"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+description: These are some notes about distributed optimization, including some algorithms,
+  their analysis of convergence, and some understandings of my own. Although the authors
+  of those literature already provide proofs, I complement some details and try to
+  figure out why should we prove in such a way. Hence they could be more easy to understand,
+  especially for myself.
+documentclass: book
+link-citations: yes
+bibliography:
+- book.bib
+- packages.bib
+site: bookdown::bookdown_site
+biblio-style: apalike
+---
+
+# Introduction
+
+We summarize some distributed gradient based algorithms solving the problem \@ref(eq:obj), namely *Push-Pull Gradient Method*^[In the original paper, the author considers minimizing the sum of $f_i$, known by agent i only] [@pu2018push], and *Distributed Stochastic Gradient Tracking Methods(DSGT)* [@pu2018distributed].
+
+\begin{equation}
+\underset{x\in\mathbb{R}^p}{\min} f(x):=\frac{1}{n}\sum_{i=1}^n f_i(x)
+(\#eq:obj)
+\end{equation}
+Where $f_i:\mathbb{R}^p\to \mathbb{R}$ is known by agent $i$ only, and all the agents communicate and exchange information over a network.  
+
+In general, these two methods use a decision variable $x\in \mathbb{R}^p$ and an auxiliary variable $y\in\mathbb{R}^p$ and have a form of \@ref(eq:unif) for the $(k+1)$th iteration.
+
+\begin{align}
+X_{k+1} &= S_1(X_k-\boldsymbol\alpha Y_k)\\
+Y_{k+1} &= S_2Y_k + T(X_{k+1}) - T(X_k)
+(\#eq:unif)
+\end{align}
+
+Where $S_1$ and $S_2$ are the matrices inducing the graphs, $T(\cdot)$ is the estimate of gradient, and $\boldsymbol\alpha = \text{diag}(\alpha_1,...,\alpha_n)\in\mathbb{R}^{n\times n}$, $\alpha_i$ is the step size initialized for agent $i$. 
+
+\begin{align*}
+X_k &= \left(x_{1,k},x_{2,k},...,x_{n,k}\right)^T\in\mathbb{R}^{n\times p}\\
+
+Y_k &= \left(y_{1,k},y_{2,k},...,y_{n,k}\right)^T\in\mathbb{R}^{n\times p}\\
+\end{align*}
+
+$x_{i,k}\in\mathbb{R}^p$ denotes the decision variable of agent $i$ of the $k$th iteration, $y_{i,k}$ represents the auxiliary variable of agent $i$ of the $k$th iteration.
+
+Under assumption \@ref(exr:muL) , there exists an unique solution to \@ref(eq:obj) $x^*\in\mathbb{R}^{1\times p}$. To prove the convergence of those methods, the idea is to bound three quntities, namely $\bar x_{k+1}-x^*$, $X_{k+1}-\mathbf{1}\bar x_{k+1}$, and $Y_{k+1}-\mathbf{1}\bar y_{k+1}$ by the linear combination of their previous values under corresponding measurements. This will introduce a matrix $A$.  In order to make it converge, we need to make $\rho(A)<1$, i.e. the spectral radius of $A$ to be less than $1$(similar idea with contraction mapping), which will derive constraints to the stepsize $\alpha$. By doing so, the authors prove the convergence of those three methods and derive their convergence rate. 
+
+```{exercise, muL}
+Each $f_i$ is $\mu$-strongly convex and its gradient is $L-$Lipschitz continuous, i.e. $\forall x,x'\in\mathbb{R}^{p}$
+$$
+  \left\langle\nabla f_{i}(x)-\nabla f_{i}\left(x^{\prime}\right), x-x^{\prime}\right\rangle \geq \mu\left\|x-x^{\prime}\right\|_{2}^{2}
+$$
+
+$$
+  \left\|\nabla f_{i}(x)-\nabla f_{i}\left(x^{\prime}\right)\right\|_{2} \leq L\left\|x-x^{\prime}\right\|_{2}
+$$
+```
+
+
