@@ -1,0 +1,13 @@
+book_filename: "DistributedOpt"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "
+  label:
+    exr: 'Assumption'
+    exm: 'Algorithm'
+output_dir: "book_output"
+output:
+  bookdown::pdf_book:
+    includes:
+      in_header: preamble.tex
