@@ -19,7 +19,7 @@ site: bookdown::bookdown_site
 biblio-style: apalike
 ---
 
-# Introduction
+# Introduction{#intro}
 
 We summarize some distributed gradient based algorithms solving the problem \@ref(eq:obj), namely *Push-Pull Gradient Method*^[In the original paper, the author considers minimizing the sum of $f_i$, known by agent i only] [@pu2018push], and *Distributed Stochastic Gradient Tracking Methods(DSGT)* [@pu2018distributed].
 
@@ -62,7 +62,7 @@ $$
 
 We also use the following notation, 
 \begin{equation*}
-F(X) = \sum_{i=1}^n f_i(x_i), X\in\mathbv{R}^{n\times p}
+F(X) = \sum_{i=1}^n f_i(x_i), X\in\mathbb{R}^{n\times p}
 \end{equation*}
 
 \begin{equation*}
