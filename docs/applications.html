@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Applications | Notes about Distributed Optimization</title>
+  <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Applications | Notes about Distributed Optimization" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Applications | Notes about Distributed Optimization" />
+  
+  <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  
+
+<meta name="author" content="Kun Huang" />
+
+
+<meta name="date" content="2020-02-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="dsgt.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
+<li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#linear-system-of-inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Linear system of inequalities</a></li>
+<li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="dsgt.html"><a href="dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4.1" data-path="dsgt.html"><a href="dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="dsgt.html"><a href="dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="dsgt.html"><a href="dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
+<li class="chapter" data-level="4.2.2" data-path="dsgt.html"><a href="dsgt.html#linear-system-of-inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Linear system of inequalities</a></li>
+<li class="chapter" data-level="4.2.3" data-path="dsgt.html"><a href="dsgt.html#spectral-radius-of-a-1"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of A</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes about Distributed Optimization</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="applications" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Applications</h1>
+<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
+<div id="example-one" class="section level2">
+<h2><span class="header-section-number">5.1</span> Example one</h2>
+</div>
+<div id="example-two" class="section level2">
+<h2><span class="header-section-number">5.2</span> Example two</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dsgt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["DistributedOpt.pdf", "DistributedOpt.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
