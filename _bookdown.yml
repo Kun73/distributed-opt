@@ -6,7 +6,7 @@ language:
   label:
     exr: 'Assumption'
     exm: 'Algorithm'
-output_dir: "book_output"
+output_dir: "docs"
 output:
   bookdown::pdf_book:
     includes:
