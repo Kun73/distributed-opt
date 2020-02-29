@@ -175,9 +175,11 @@ The interpretation of $R-\frac{\boldsymbol 1 u^T}{n}$?
 For the push step, 
 
 \begin{align}
-Y_{k+1}-v\bar y_{k+1}&\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\nabla F(X_k)-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
+Y_{k+1}-v\bar y_{k+1}&\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\nabla F(X_k)\\
+&-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
 &=CY_k-v\bar y_k+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
-&=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))+Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
+&=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
+&+Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
 &=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))
 (\#eq:ppvbar)
 \end{align}
@@ -304,15 +306,18 @@ Given an arbitrary norm $\Vert\cdot\Vert$, $\forall W\in\mathbb{R}^{n\times n}$ 
 
 For $\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R$, from \@ref(eq:pp1bar), we have 
 \begin{align}
-\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R&\leq 
-\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k)\Vert_R\\
+\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R
+&\leq 
+\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\\
+&\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k\Vert_R\\
 &\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
 \sigma_R\Vert \boldsymbol\alpha\Vert_2(\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R\cdot \Vert \bar y_k\Vert_2)\\
 &\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
-\sigma_R\Vert \alpha'\Vert_2[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
+\sigma_R\Vert \alpha'\Vert_2[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \\
+&\Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
 &\leq \sigma_R\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+
-\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+\\
+&\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 (\#eq:ineq2pp)
 \end{align}
 
@@ -346,9 +351,10 @@ For $\Vert X_{k+1}-X_k\Vert_2$, we have
 The inequality is based on lemma \@ref(lem:lem35) by choosing a proper rescaling of $\Vert \cdot\Vert_R$. Then by lemma \@ref(lem:lem31) and unite like terms, we have 
 
 \begin{align}
-\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
-&c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C
+&\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
+&c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} +\\
+&\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 (\#eq:ineq3pp)
 \end{align}
 
@@ -388,13 +394,14 @@ Lemma \@ref(lem:lem37) also requires nonnegative matrix, so we also need $a_{11}
 Next we deive the sufficient conditions on $\hat\alpha:=\underset{i}{\max}\alpha_i$ so that $\det{I-A_{pp}}>0$. Additionally, since $\alpha'=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i$ and $\hat\alpha=\underset{i}{\max}\alpha_i$, then $\exists M,s.t.\alpha'=M\hat\alpha$. $M$ is determined once we know the graphs $\mathcal{G}_R$ and $\mathcal{G}_C$ and choose the step sizes for each agent. Then $\det(I-A)$ becomes a function of $\hat\alpha$, thus we can derive the requirement for the step sizes $\alpha_i$ by letting $\det(I-A)=f(\hat\alpha)>0$. 
 
 \begin{align}
-\det(I-A) &= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}\\
-&-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
-&-\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}\\
-&-\left(1-a_{33}\right) a_{12} a_{21}\\
-&\geq \alpha'\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}\\
-&-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}\\
-&-a_{13} a_{21} a_{32} -a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
+\det(I-A) 
+&= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31} -\\
+&a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-\\
+&\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}-\\
+&\left(1-a_{33}\right) a_{12} a_{21}\\
+&\geq \alpha'\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}-\\
+&a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-\\
+&a_{13} a_{21} a_{32} -a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
 &:=\hat\alpha(c_3-c_2\hat\alpha-c_1\hat\alpha^2)>0
 (\#eq:detppo)
 \end{align}

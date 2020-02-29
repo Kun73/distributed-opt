@@ -150,9 +150,11 @@ E\left[\Vert \bar x_{k+1}-x^*\Vert^2|\mathcal{F}_k\right]&amp;\leq
 (1-\alpha\mu)^2\Vert \bar x_k - x^*\Vert^2 + \alpha^2\frac{L^2}{n}\Vert X_k-\mathbf{1}\bar x_k\Vert^2+\alpha^2\frac{\sigma^2}{n}\\&amp;+ 2\alpha (1-\alpha\mu)\Vert \bar x_k-x^*\Vert\cdot\frac{L}{\sqrt{n}}\Vert X_k-\mathbf{1}\bar x_k\Vert\\
 &amp;\leq (1-\alpha\mu)^2\Vert \bar x_k - x^*\Vert^2 + \alpha^2\frac{L^2}{n}\Vert X_k-\mathbf{1}\bar x_k\Vert^2+\alpha^2\frac{\sigma^2}{n}\\
 &amp;+ \alpha\left((1-\alpha\mu)^{2} \mu\left\|\bar{x}_{k}-x^{*}\right\|^{2}+\frac{L^{2}}{\mu n}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}\right)\\
-&amp;=(1-\alpha\mu)(1-(\alpha\mu)^2)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 + \frac{\alpha^2\sigma^2}{n}\\
+&amp;=(1-\alpha\mu)(1-(\alpha\mu)^2)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\\
+&amp;\mathbf{1}\bar x_k\Vert^2 + \frac{\alpha^2\sigma^2}{n}\\
 &amp;\leq 
-(1-\alpha\mu)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 + \frac{\alpha^2\sigma^2}{n}
+(1-\alpha\mu)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 +\\
+&amp;\frac{\alpha^2\sigma^2}{n}
 \tag{4.4}
 \end{align}\]</span>
 
@@ -182,7 +184,8 @@ Then
 \Vert X_{k+1}-\mathbf{1}\bar x_{k+1}\Vert^2&amp;\stackrel{\text{iterate}}{=}
 \Vert WX_k-\alpha WY_k-\mathbf{1}(\bar x_k-\alpha\bar y_k)\Vert^2\\
 &amp;=\left\|W X_{k}-1 \bar{x}_{k}\right\|^{2}-2 \alpha\left\langle W X_{k}-1 \bar{x}_{k}, W Y_{k}-1 \bar{y}_{k}\right\rangle+\alpha^{2}\left\|W Y_{k}-1 \bar{y}_{k}\right\|^{2}\\
-&amp;\leq \rho_{w}^{2}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\alpha \rho_{w}^{2}\left[\frac{\left(1-\rho_{w}^{2}\right)}{2 \alpha \rho_{w}^{2}}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\frac{2 \alpha \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\right]+\alpha^{2} \rho_{w}^{2}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\\
+&amp;\leq \rho_{w}^{2}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\alpha \rho_{w}^{2}\left[\frac{\left(1-\rho_{w}^{2}\right)}{2 \alpha \rho_{w}^{2}}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\frac{2 \alpha \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\right]+\\
+&amp;\alpha^{2} \rho_{w}^{2}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\\
 &amp;=
 \frac{\left(1+\rho_{w}^{2}\right)}{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}+\alpha^{2} \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|Y_{k}-1 \bar{y}_{k}\right\|^{2}
 \tag{4.5}
@@ -198,15 +201,19 @@ Then
 
 \Vert WY_k + G_{k+1} - G_k -\mathbf{1}\bar y_k + \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2\\
 &amp;= \Vert WY_k -  \mathbf{1}\bar y_k\Vert^2 + 
-\Vert G_{k+1} - G_k\Vert^2 + \Vert \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle\\
-&amp;+ 2\langle WY_k-\mathbf{1}\bar y_k + G_{k+1}-G_k, \mathbf{1}(\bar y_k-\bar y_{k+1})\rangle \\
+\Vert G_{k+1} - G_k\Vert^2 + \Vert \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2 + \\
+&amp;2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
++ 2\langle WY_k-\mathbf{1}\bar y_k + G_{k+1}-G_k, \mathbf{1}(\bar y_k-\bar y_{k+1})\rangle \\
 &amp;=\Vert WY_k -  \mathbf{1}\bar y_k\Vert^2 + 
-\Vert G_{k+1} - G_k\Vert^2 + \Vert \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle\\
-&amp;+ 2\langle Y_{k+1}-\mathbf{1}\bar y_{k+1}-\mathbf{1}(\bar y_k-\bar y_{k+1}) , \mathbf{1}(\bar y_k-\bar y_{k+1})\rangle\\
+\Vert G_{k+1} - G_k\Vert^2 + \Vert \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2 +\\
+&amp;2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
++ 2\langle Y_{k+1}-\mathbf{1}\bar y_{k+1}-\mathbf{1}(\bar y_k-\bar y_{k+1}) , \mathbf{1}(\bar y_k-\bar y_{k+1})\rangle\\
 &amp;\stackrel{?}{=}
 \Vert WY_k -  \mathbf{1}\bar y_k\Vert^2 + 
-\Vert G_{k+1} - G_k\Vert^2 - n\Vert \bar y_k-\bar y_{k+1}\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle \\
-&amp;\leq \rho^2_w\Vert Y_k-\mathbf{1}\bar y_k\Vert^2+\Vert G_{k+1} - G_k\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
+\Vert G_{k+1} - G_k\Vert^2 - n\Vert \bar y_k-\bar y_{k+1}\Vert^2 +\\
+&amp;2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle \\
+&amp;\leq \rho^2_w\Vert Y_k-\mathbf{1}\bar y_k\Vert^2+\Vert G_{k+1} - G_k\Vert^2 + \\
+&amp;2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
 \tag{4.6}
 \end{align}\]</span>
 <p><strong>Todo: <span class="math inline">\(\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2\)</span> </strong></p>

@@ -223,9 +223,11 @@ X_{k+1}-\boldsymbol1\bar x_{k+1}&amp;= R(X_k-\boldsymbol\alpha Y_k)-\boldsymbol1
 
 <p>For the push step,</p>
 <span class="math display" id="eq:ppvbar">\[\begin{align}
-Y_{k+1}-v\bar y_{k+1}&amp;\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\nabla F(X_k)-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
+Y_{k+1}-v\bar y_{k+1}&amp;\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\nabla F(X_k)\\
+&amp;-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
 &amp;=CY_k-v\bar y_k+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
-&amp;=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))+Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
+&amp;=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
+&amp;+Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
 &amp;=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))
 \tag{3.6}
 \end{align}\]</span>
@@ -316,15 +318,18 @@ Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.9)</a> can be written 
 
 For <span class="math inline">\(\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R\)</span>, from <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, we have
 <span class="math display" id="eq:ineq2pp">\[\begin{align}
-\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R&amp;\leq 
-\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k)\Vert_R\\
+\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R
+&amp;\leq 
+\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\\
+&amp;\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k\Vert_R\\
 &amp;\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
 \sigma_R\Vert \boldsymbol\alpha\Vert_2(\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R\cdot \Vert \bar y_k\Vert_2)\\
 &amp;\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
-\sigma_R\Vert \alpha&#39;\Vert_2[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
+\sigma_R\Vert \alpha&#39;\Vert_2[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \\
+&amp;\Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
 &amp;\leq \sigma_R\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+
-\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+\\
+&amp;\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \tag{3.11}
 \end{align}\]</span>
 <p>Where the second inquality is derived from lemma <a href="the-push-pull-method.html#lem:lem33">3.7</a> in transforming <span class="math inline">\(\Vert\boldsymbol\alpha\Vert_R=\Vert\boldsymbol\alpha\Vert_2=\hat\alpha\)</span> since <span class="math inline">\(\boldsymbol\alpha\)</span> is diagonal and lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming <span class="math inline">\(\Vert\cdot\Vert_R\)</span> into <span class="math inline">\(\Vert\cdot\Vert_C\)</span>. Next we use lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> and <a href="the-push-pull-method.html#lem:lem31">3.4</a> to transform <span class="math inline">\(\Vert \bar y_k\Vert_R\)</span> into the two parts. Finally, we choose a proper rescaling of the norm <span class="math inline">\(\Vert\cdot\Vert_R\)</span> to derive <span class="math inline">\(\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_2\leq\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R\)</span>.</p>
@@ -348,9 +353,10 @@ For <span class="math inline">\(\Vert X_{k+1}-X_k\Vert_2\)</span>, we have
 \end{align}\]</span>
 <p>The inequality is based on lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> by choosing a proper rescaling of <span class="math inline">\(\Vert \cdot\Vert_R\)</span>. Then by lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> and unite like terms, we have</p>
 <span class="math display" id="eq:ineq3pp">\[\begin{align}
-\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&amp;\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
-&amp;c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C
+&amp;\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
+&amp;c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} +\\
+&amp;\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \tag{3.12}
 \end{align}\]</span>
 <p>In short, <span class="math inline">\(A\)</span> can be written as</p>
@@ -386,13 +392,14 @@ From <a href="the-push-pull-method.html#lem:lem33">3.7</a>, <span class="math in
 
 <p>Next we deive the sufficient conditions on <span class="math inline">\(\hat\alpha:=\underset{i}{\max}\alpha_i\)</span> so that <span class="math inline">\(\det{I-A_{pp}}&gt;0\)</span>. Additionally, since <span class="math inline">\(\alpha&#39;=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i\)</span> and <span class="math inline">\(\hat\alpha=\underset{i}{\max}\alpha_i\)</span>, then <span class="math inline">\(\exists M,s.t.\alpha&#39;=M\hat\alpha\)</span>. <span class="math inline">\(M\)</span> is determined once we know the graphs <span class="math inline">\(\mathcal{G}_R\)</span> and <span class="math inline">\(\mathcal{G}_C\)</span> and choose the step sizes for each agent. Then <span class="math inline">\(\det(I-A)\)</span> becomes a function of <span class="math inline">\(\hat\alpha\)</span>, thus we can derive the requirement for the step sizes <span class="math inline">\(\alpha_i\)</span> by letting <span class="math inline">\(\det(I-A)=f(\hat\alpha)&gt;0\)</span>.</p>
 <span class="math display" id="eq:detppo">\[\begin{align}
-\det(I-A) &amp;= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}\\
-&amp;-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
-&amp;-\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}\\
-&amp;-\left(1-a_{33}\right) a_{12} a_{21}\\
-&amp;\geq \alpha&#39;\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}\\
-&amp;-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}\\
-&amp;-a_{13} a_{21} a_{32} -a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
+\det(I-A) 
+&amp;= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31} -\\
+&amp;a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-\\
+&amp;\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}-\\
+&amp;\left(1-a_{33}\right) a_{12} a_{21}\\
+&amp;\geq \alpha&#39;\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}-\\
+&amp;a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-\\
+&amp;a_{13} a_{21} a_{32} -a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
 &amp;:=\hat\alpha(c_3-c_2\hat\alpha-c_1\hat\alpha^2)&gt;0
 \tag{3.14}
 \end{align}\]</span>

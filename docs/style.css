@@ -1,6 +1,7 @@
 p.caption {
   color: #777;
   margin-top: 10px;
+  margin-right:5px;
 }
 p code {
   white-space: inherit;
