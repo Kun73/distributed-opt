@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-02-28" />
+<meta name="date" content="2020-02-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -258,7 +258,7 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 <p>we then bound <span class="math inline">\((\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T\)</span> by linear system of inequalities.</p>
 
 <div class="lemma">
-<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Let the assumption <a href="index.html#exr:muL">1.1</a>, <a href="the-push-pull-method.html#exr:mrc">3.1</a>, and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold and <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, then <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
+<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Let the assumption <a href="#exr:muL"><strong>??</strong></a>, <a href="the-push-pull-method.html#exr:mrc">3.1</a>, and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold and <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, then <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
 <span class="math display" id="eq:ineqpp">\[\begin{equation}
 \left(
 \begin{array}{c}
@@ -279,8 +279,8 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 \end{equation}\]</span>
 </div>
 
-<p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="index.html#exr:muL">1.1</a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
-<p>Next we derive the elements of <span class="math inline">\(A\)</span>. We add supported lemmas in derivation.</p>
+<p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="#exr:muL"><strong>??</strong></a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
+<p>Next we derive the elements of <span class="math inline">\(A\)</span>, which can be seen in <a href="the-push-pull-method.html#eq:App">(3.13)</a>. We add supported lemmas during derivation.</p>
 <p>First, for <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span>, substitute <span class="math inline">\(\bar x_{k+1}\)</span> using <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we have</p>
 <span class="math display" id="eq:ineq11">\[\begin{align}
 
@@ -290,7 +290,7 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 <p>On the right hand side, <span class="math inline">\(\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2\)</span> is the distance between the optimal and iterated value, <span class="math inline">\(\vert \bar{y}_{k}-g_{k}\Vert_2\)</span> is the distance between average gradient and gradient of iterated value. Lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> connects them with <span class="math inline">\(\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2\)</span> and <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span> and add conditions on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>.</p>
 
 <div class="lemma">
-<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> hold, <span class="math display">\[
+<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="#exr:muL"><strong>??</strong></a> hold, <span class="math display">\[
 \left\|\bar{y}_{k}-g_{k}\right\|_{2} \leq \frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}, \quad\left\|g_{k}\right\|_{2} \leq L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \]</span> In addition, when <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, we have <span class="math display">\[
 \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2} \leq\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}, \quad \forall k
@@ -356,10 +356,70 @@ For <span class="math inline">\(\Vert X_{k+1}-X_k\Vert_2\)</span>, we have
 \hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \tag{3.12}
 \end{align}\]</span>
+<p>In short, <span class="math inline">\(A\)</span> can be written as</p>
+<span class="math display" id="eq:App">\[\begin{equation}
+
+A_{pp} = 
+\left(
+\begin{array}{ccc}
+1-\alpha&#39;\mu &amp; \frac{\alpha&#39;L}{\sqrt{n}} &amp; \frac{\hat\alpha\Vert \mu\Vert_2}{n}\\
+\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L &amp; \sigma_{\mathrm{R}}\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right) &amp;
+\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\\
+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2} &amp;
+c_{0} \delta_{\mathrm{C}, 2} L\left(\|\mathbf{R}-\mathbf{I}\|_{2}+\hat{\alpha}\|\mathbf{R}\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right) &amp;
+\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L
+\end{array}
+\right)
+\tag{3.13}
+\end{equation}\]</span>
 </div>
 <div id="spectral-radius-of-a" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Spectral radius of A</h3>
-<p>Lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> lead us to give conditions on <span class="math inline">\(A\)</span> so that <span class="math inline">\(\rho(A)&lt;1\)</span>.</p>
+<p>Lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> lead us to give conditions on <span class="math inline">\(A\)</span> so that <span class="math inline">\(\rho(A_{pp})&lt;1\)</span>. Hence we need to make <span class="math inline">\(a_{ii}&lt;1,i=1,2,3\)</span> and <span class="math inline">\(\det(I-A_{pp})&lt;1\)</span>.</p>
+From <a href="the-push-pull-method.html#lem:lem33">3.7</a>, <span class="math inline">\(\sigma_R&lt;1\)</span>, so it is sufficient to have <span class="math inline">\(a_{22}\leq\frac{1+\sigma_R}{2}\)</span> so that <span class="math inline">\(a_{22}&lt;1\)</span>. Similar for <span class="math inline">\(a_{33}&lt;1\)</span>, we let <span class="math inline">\(a_{33}\leq\frac{1+\sigma_C}{2}\)</span>. This may explain why the authors let <span class="math inline">\(1-a_{22}\geq \frac{1-\sigma_R}{2}\)</span> and <span class="math inline">\(1-a_{33}\geq\frac{1-\sigma_C}{2}\)</span>. For <span class="math inline">\(a_{11}&lt;1\)</span>, i.e. <span class="math inline">\(\alpha&#39;\mu&gt;0\)</span>, we have
+<span class="math display">\[\begin{equation}
+\alpha&#39; = \frac{1}{n}u^T\boldsymbol{\alpha}v
+=\frac{1}{n}\sum_{i=1}^n\alpha_iu_iv_i&gt;0
+\end{equation}\]</span>
+<p>Which can be seen from lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a> that <span class="math inline">\(u,v\in\mathbb{R}^{n}\)</span> are nonnegative vectors and <span class="math inline">\(\alpha_i\geq0\)</span>.</p>
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> Lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> also requires nonnegative matrix, so we also need <span class="math inline">\(a_{11}=1-\alpha&#39;\mu\geq 0\)</span>, which is satisfied according to lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> by requring <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>.
+</div>
+
+<p>Next we deive the sufficient conditions on <span class="math inline">\(\hat\alpha:=\underset{i}{\max}\alpha_i\)</span> so that <span class="math inline">\(\det{I-A_{pp}}&gt;0\)</span>. Additionally, since <span class="math inline">\(\alpha&#39;=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i\)</span> and <span class="math inline">\(\hat\alpha=\underset{i}{\max}\alpha_i\)</span>, then <span class="math inline">\(\exists M,s.t.\alpha&#39;=M\hat\alpha\)</span>. <span class="math inline">\(M\)</span> is determined once we know the graphs <span class="math inline">\(\mathcal{G}_R\)</span> and <span class="math inline">\(\mathcal{G}_C\)</span> and choose the step sizes for each agent. Then <span class="math inline">\(\det(I-A)\)</span> becomes a function of <span class="math inline">\(\hat\alpha\)</span>, thus we can derive the requirement for the step sizes <span class="math inline">\(\alpha_i\)</span> by letting <span class="math inline">\(\det(I-A)=f(\hat\alpha)&gt;0\)</span>.</p>
+<span class="math display" id="eq:detppo">\[\begin{align}
+\det(I-A) &amp;= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
+&amp;-\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}-\left(1-a_{33}\right) a_{12} a_{21}
+&amp;\geq \alpha&#39;\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}\\
+&amp;-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
+&amp;-a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
+:=\hat\alpha(c_3-c_2\hat\alpha-c_1\hat\alpha^2)&gt;0
+\tag{3.14}
+\end{align}\]</span>
+Where the inequality holds for <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span>, which gives,
+<span class="math display">\[\begin{equation}
+\hat{\alpha} \leq \min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right\}
+\end{equation}\]</span>
+Since <span class="math inline">\(\hat\alpha&gt;0\)</span>, let <a href="the-push-pull-method.html#eq:detppo">(3.14)</a> be positive is equivalent to have <span class="math inline">\(c_3-c_2\hat\alpha-c_1\hat\alpha^2&gt;0\)</span>. Hence,
+<span class="math display">\[\begin{equation}
+\hat\alpha&lt; \frac{\sqrt{c_2^2+4c_1c_2}-c_2}{2c_1}
+=\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}
+\end{equation}\]</span>
+So when
+<span class="math display">\[\begin{equation}
+\hat\alpha\leq \min \left\{\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right, \frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}\}
+\end{equation}\]</span>
+<p><span class="math inline">\(\rho(A_{pp})&lt;1\)</span>.</p>
+
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> \</p>
+<ul>
+<li>If we do not use the inequality in <a href="the-push-pull-method.html#eq:detppo">(3.14)</a>, we can still have <span class="math inline">\(b_3-b_2\hat\alpha-b_1\hat\alpha^2&gt;0\)</span>. However, it is not easy to determine the sign of <span class="math inline">\(b_i,i=1,2,3\)</span> now.</li>
+</ul>
+</div>
+
+<p><strong>Todo:When <span class="math inline">\(\hat\alpha\)</span> is sufficiently small, show <span class="math inline">\(\rho(A_{pp})\approx 1-\alpha&#39;\mu\)</span></strong></p>
 
 </div>
 </div>
