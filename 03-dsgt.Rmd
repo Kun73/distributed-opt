@@ -120,6 +120,8 @@ For $E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]$. W
 (\#eq:dsgt31)
 \end{align}
 
+__Todo: $\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2$ __
+
 
 ### Linear system of inequalities
 

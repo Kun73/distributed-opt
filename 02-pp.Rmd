@@ -240,7 +240,7 @@ Let the assumption \@ref(exr:muL), \@ref(exr:mrc), and \@ref(exr:adigraph) hold 
 
 In general, assumption \@ref(exr:mrc) and \@ref(exr:adigraph) is used to derive the relationships in \@ref(eq:pp1bar), \@ref(eq:ppvbar), and \@ref(eq:xbar2pp). Assumption \@ref(exr:muL) is needed for lemma \@ref(lem:lem31).
 
-Next we derive the elements of $A$. We add supported lemmas in derivation.
+Next we derive the elements of $A$, which can be seen in \@ref(eq:App). We add supported lemmas during derivation.
 
 First, for $\Vert\bar x_{k+1}-x^*\Vert_2$, substitute $\bar x_{k+1}$ using \@ref(eq:xbar2pp), we have 
 
@@ -352,7 +352,75 @@ The inequality is based on lemma \@ref(lem:lem35) by choosing a proper rescaling
 (\#eq:ineq3pp)
 \end{align}
 
+In short, $A$ can be written as 
+
+\begin{equation}
+
+A_{pp} = 
+\left(
+\begin{array}{ccc}
+1-\alpha'\mu & \frac{\alpha'L}{\sqrt{n}} & \frac{\hat\alpha\Vert \mu\Vert_2}{n}\\
+\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L & \sigma_{\mathrm{R}}\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right) &
+\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\\
+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2} &
+c_{0} \delta_{\mathrm{C}, 2} L\left(\|\mathbf{R}-\mathbf{I}\|_{2}+\hat{\alpha}\|\mathbf{R}\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right) &
+\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L
+\end{array}
+\right)
+(\#eq:App)
+\end{equation}
+
 ### Spectral radius of A
 
-Lemma \@ref(lem:lem37) lead us to give conditions on $A$ so that $\rho(A)<1$. 
+Lemma \@ref(lem:lem37) lead us to give conditions on $A$ so that $\rho(A_{pp})<1$. Hence we need to make $a_{ii}<1,i=1,2,3$ and $\det(I-A_{pp})<1$. 
+
+From \@ref(lem:lem33), $\sigma_R<1$, so it is sufficient to have $a_{22}\leq\frac{1+\sigma_R}{2}$ so that $a_{22}<1$. Similar for $a_{33}<1$, we let $a_{33}\leq\frac{1+\sigma_C}{2}$. This may explain why the authors let $1-a_{22}\geq \frac{1-\sigma_R}{2}$ and $1-a_{33}\geq\frac{1-\sigma_C}{2}$. For $a_{11}<1$, i.e. $\alpha'\mu>0$, we have 
+\begin{equation}
+\alpha' = \frac{1}{n}u^T\boldsymbol{\alpha}v
+=\frac{1}{n}\sum_{i=1}^n\alpha_iu_iv_i>0
+\end{equation}
+Which can be seen from lemma \@ref(lem:eigvrc) that $u,v\in\mathbb{R}^{n}$ are nonnegative vectors and $\alpha_i\geq0$.
+
+```{remark}
+Lemma \@ref(lem:lem37) also requires nonnegative matrix, so we also need $a_{11}=1-\alpha'\mu\geq 0$, which is satisfied according to lemma \@ref(lem:lem31) by requring $\alpha'\leq \frac{2}{\mu+L}$.
+```
+
+Next we deive the sufficient conditions on $\hat\alpha:=\underset{i}{\max}\alpha_i$ so that $\det{I-A_{pp}}>0$. Additionally, since $\alpha'=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i$ and $\hat\alpha=\underset{i}{\max}\alpha_i$, then $\exists M,s.t.\alpha'=M\hat\alpha$. $M$ is determined once we know the graphs $\mathcal{G}_R$ and $\mathcal{G}_C$ and choose the step sizes for each agent. Then $\det(I-A)$ becomes a function of $\hat\alpha$, thus we can derive the requirement for the step sizes $\alpha_i$ by letting $\det(I-A)=f(\hat\alpha)>0$. 
+
+\begin{align}
+\det(I-A) &= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
+&-\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}-\left(1-a_{33}\right) a_{12} a_{21}
+&\geq \alpha'\mu \frac{(1-\sigma_R)(1-\sigma_C)}{4}\\
+&-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
+&-a_{13} a_{31}-a_{23} a_{32}- a_{12} a_{21}\\
+:=\hat\alpha(c_3-c_2\hat\alpha-c_1\hat\alpha^2)>0
+(\#eq:detppo)
+\end{align}
+Where the inequality holds for $1>(1-a_{22})\geq\frac{1-\sigma_R}{2}$,and $1>(1-a_{33})\geq\frac{1-\sigma_C}{2}$, which gives, \begin{equation}
+\hat{\alpha} \leq \min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right\}
+\end{equation}
+
+Since $\hat\alpha>0$, let \@ref(eq:detppo) be positive is equivalent to have $c_3-c_2\hat\alpha-c_1\hat\alpha^2>0$. Hence,
+\begin{equation}
+\hat\alpha< \frac{\sqrt{c_2^2+4c_1c_2}-c_2}{2c_1}
+=\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}
+\end{equation}
+
+So when 
+\begin{equation}
+\hat\alpha\leq \min \left\{\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right, \frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}\}
+\end{equation}
+
+$\rho(A_{pp})<1$.
+
+```{remark}
+\\
+
+- If we do not use the inequality in \@ref(eq:detppo), we can still have $b_3-b_2\hat\alpha-b_1\hat\alpha^2>0$. However, it is not easy to determine the sign of $b_i,i=1,2,3$ now. 
+
+```
+
+__Todo:When $\hat\alpha$ is sufficiently small, show $\rho(A_{pp})\approx 1-\alpha'\mu$__
+
+
 
