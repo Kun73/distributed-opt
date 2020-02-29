@@ -16,7 +16,7 @@ The matrix $R\in\mathbb{R}^{n\times n}$ is nonnegative row-stochastic and $C\in\
  
 
 ```{exercise, adigraph}
-The graphs $\mathcal{G}_R$ and $\mathcal{G}_{C^T}$ each contain at least one spaning tree. Moreover, there exists at least one node that is a root of spanning trees for both $\mathcal{G}_{R}$ and $\mathcal{G}_{C^T}$, i.e. $\mathcal{R}_{\mathbf{R}} \cap \mathcal{R}_{\mathbf{C}^{\top}} \neq \emptyset$, where $\mathcal{R}_R$ is the set of roots of all possible spanning trees in the graph $\mathcal{G}_R$. 
+The graphs $\mathcal{G}_R$ and $\mathcal{G}_{C^T}$ each contain at least one spaning tree. Moreover, there exists at least one node that is a root of spanning trees for both $\mathcal{G}_{R}$ and $\mathcal{G}_{C^T}$, i.e. $\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}} \neq \emptyset$, where $\mathcal{R}_R$ is the set of roots of all possible spanning trees in the graph $\mathcal{G}_R$. 
 ```
 
  
@@ -26,7 +26,7 @@ Assumption \@ref(exr:adigraph) is to say that at least one agent is connected to
  
 
 ```{exercise, palpha}
-$\exists i\in \mathcal{R}_{\mathbf{R}} \cap \mathcal{R}_{\mathbf{C}^{\top}}$ whose step size $\alpha_i>0$
+$\exists i\in \mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}$ whose step size $\alpha_i>0$
   
 ```
 
@@ -346,9 +346,9 @@ For $\Vert X_{k+1}-X_k\Vert_2$, we have
 The inequality is based on lemma \@ref(lem:lem35) by choosing a proper rescaling of $\Vert \cdot\Vert_R$. Then by lemma \@ref(lem:lem31) and unite like terms, we have 
 
 \begin{align}
-\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
-&c_{0} \delta_{\mathrm{C}, 2} L\left(\|\mathbf{R}-I\|_{2}+\hat{\alpha}\|\mathbf{R}\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
+&c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 (\#eq:ineq3pp)
 \end{align}
 
@@ -362,9 +362,9 @@ A_{pp} =
 1-\alpha'\mu & \frac{\alpha'L}{\sqrt{n}} & \frac{\hat\alpha\Vert \mu\Vert_2}{n}\\
 \hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L & \sigma_{\mathrm{R}}\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right) &
 \hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\\
-\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2} &
-c_{0} \delta_{\mathrm{C}, 2} L\left(\|\mathbf{R}-\mathbf{I}\|_{2}+\hat{\alpha}\|\mathbf{R}\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right) &
-\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L
+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2} &
+c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-\mathbf{I}\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right) &
+\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L
 \end{array}
 \right)
 (\#eq:App)
@@ -397,7 +397,7 @@ Next we deive the sufficient conditions on $\hat\alpha:=\underset{i}{\max}\alpha
 (\#eq:detppo)
 \end{align}
 Where the inequality holds for $1>(1-a_{22})\geq\frac{1-\sigma_R}{2}$,and $1>(1-a_{33})\geq\frac{1-\sigma_C}{2}$, which gives, \begin{equation}
-\hat{\alpha} \leq \min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right\}
+\hat{\alpha} \leq \min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right\}
 \end{equation}
 
 Since $\hat\alpha>0$, let \@ref(eq:detppo) be positive is equivalent to have $c_3-c_2\hat\alpha-c_1\hat\alpha^2>0$. Hence,
@@ -408,10 +408,12 @@ Since $\hat\alpha>0$, let \@ref(eq:detppo) be positive is equivalent to have $c_
 
 So when 
 \begin{equation}
-\hat\alpha\leq \min \left\{\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\right, \frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}\}
+\hat\alpha\leq \min \left\{\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right, \frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}\}
 \end{equation}
 
 $\rho(A_{pp})<1$.
+
+__Todo: $\min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right\}\stackrel{?}=\frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}$ __
 
 ```{remark}
 \\
