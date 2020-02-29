@@ -255,7 +255,7 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 <p>we then bound <span class="math inline">\((\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T\)</span> by linear system of inequalities.</p>
 
 <div class="lemma">
-<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Let the assumption <a href="#exr:muL"><strong>??</strong></a>, <a href="the-push-pull-method.html#exr:mrc">3.1</a>, and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold and <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, then <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
+<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Let the assumption <a href="index.html#exr:muL">1.1</a>, <a href="the-push-pull-method.html#exr:mrc">3.1</a>, and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold and <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, then <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
 <span class="math display" id="eq:ineqpp">\[\begin{equation}
 \left(
 \begin{array}{c}
@@ -276,7 +276,7 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 \end{equation}\]</span>
 </div>
 
-<p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="#exr:muL"><strong>??</strong></a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
+<p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="index.html#exr:muL">1.1</a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
 <p>Next we derive the elements of <span class="math inline">\(A\)</span>, which can be seen in <a href="the-push-pull-method.html#eq:App">(3.13)</a>. We add supported lemmas during derivation.</p>
 <p>First, for <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span>, substitute <span class="math inline">\(\bar x_{k+1}\)</span> using <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we have</p>
 <span class="math display" id="eq:ineq11">\[\begin{align}
@@ -287,7 +287,7 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 <p>On the right hand side, <span class="math inline">\(\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2\)</span> is the distance between the optimal and iterated value, <span class="math inline">\(\vert \bar{y}_{k}-g_{k}\Vert_2\)</span> is the distance between average gradient and gradient of iterated value. Lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> connects them with <span class="math inline">\(\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2\)</span> and <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span> and add conditions on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>.</p>
 
 <div class="lemma">
-<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="#exr:muL"><strong>??</strong></a> hold, <span class="math display">\[
+<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> hold, <span class="math display">\[
 \left\|\bar{y}_{k}-g_{k}\right\|_{2} \leq \frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}, \quad\left\|g_{k}\right\|_{2} \leq L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \]</span> In addition, when <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, we have <span class="math display">\[
 \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2} \leq\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}, \quad \forall k
