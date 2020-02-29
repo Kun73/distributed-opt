@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-02-27" />
+<meta name="date" content="2020-02-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -63,9 +63,6 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
 <li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
@@ -90,9 +87,6 @@
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -167,9 +161,9 @@ Y_{k+1} &amp;= CY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 <div class="remark">
  <span class="remark"><em>Remark. </em></span>  In the initialization of algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a>, <span class="math inline">\(y_{i,0}=\nabla f_i(x_{i,0}),i=1,2,...,n\)</span>,i.e., <span class="math inline">\(Y_0=\nabla F(X_0)\)</span> is important since
 <span class="math display">\[\begin{align*}
-\mathbf{1}^T Y_{1} &amp;= \mathbf{1}(CY_0+\nabla F(X_1)-\nabla F(X_0))\\
-&amp;= \mathbf{1}\nabla F(X_1)+Y_0-\nabla F(X_0)\\
-&amp;= \mathbf{1}\nabla F(X_1)
+\mathbf{1}^T Y_{1} &amp;= \mathbf{1}^T(CY_0+\nabla F(X_1)-\nabla F(X_0))\\
+&amp;= \mathbf{1}^T\nabla F(X_1)+Y_0-\nabla F(X_0)\\
+&amp;= \mathbf{1}^T\nabla F(X_1)
 \end{align*}\]</span>
 Then by induction, we can have
 <span class="math display" id="eq:avgy">\[\begin{equation}
@@ -181,7 +175,7 @@ Then by induction, we can have
 </div>
 <div id="analysis-of-convergence" class="section level2">
 <h2><span class="header-section-number">3.2</span> Analysis of Convergence</h2>
-<p>we first bound <span class="math inline">\((\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T\)</span> by linear system of inequalities in terms of their previous values. Then we show <span class="math inline">\(\rho(A)&lt;1\)</span> under appropriate step size based on <a href="the-push-pull-method.html#lem:lem37">3.2</a>.</p>
+<p>we first bound <span class="math inline">\((\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T\)</span> by linear system of inequalities in terms of their previous values. Then based on lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>, we derive how should we choose the step size <span class="math inline">\(\alpha_i\)</span> so that <span class="math inline">\(\rho(A)&lt;1\)</span>.</p>
 
 <div class="lemma">
 <span id="lem:lem37" class="lemma"><strong>Lemma 3.2  </strong></span>Given a nonnegative, irreducible matrix <span class="math inline">\(M=(m_{ij})\in \mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(m_{ii}&lt;\lambda, i=1,2,3\)</span> for some <span class="math inline">\(\lambda&gt;0\)</span>. <span class="math inline">\(\rho(M)&lt;\lambda\Leftrightarrow \text{det}(\lambda I-M)&gt;0\)</span>
@@ -190,9 +184,10 @@ Then by induction, we can have
 <p>In this chapter, we define the matrix norm of <span class="math inline">\(X\in\mathbb R^{n\times p }\)</span> as,</p>
 
 <div class="definition">
-<span id="def:normpp" class="definition"><strong>Definition 3.1  </strong></span>Given arbitary vector norm <span class="math inline">\(\Vert\cdot\Vert\)</span> on <span class="math inline">\(\mathbb{R}^n\)</span>, XR^{np }, X:= ||_{2}, where <span class="math inline">\(x^{(j)},j=1,2,...,p\)</span> denote the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(X\)</span>, <span class="math inline">\(\Vert \cdot\Vert_2\)</span> denotes <span class="math inline">\(2-\)</span>norm.
+<span id="def:normpp" class="definition"><strong>Definition 3.1  </strong></span>Given an arbitary vector norm <span class="math inline">\(\Vert\cdot\Vert\)</span> on <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(\forall X\in\mathbb{R}^{n\times p }, \Vert X\Vert:= \left\|\left[\left\|\mathbf{x}^{(1)}\right\|,\left\|\mathbf{x}^{(2)}\right\|, \ldots,\left\|\mathbf{x}^{(p)}\right\|\right]\right\|_{2}\)</span>, where <span class="math inline">\(x^{(j)},j=1,2,...,p\)</span> denote the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(X\)</span>, <span class="math inline">\(\Vert \cdot\Vert_2\)</span> denotes <span class="math inline">\(2-\)</span>norm.
 </div>
 
+<p>For example, when <span class="math inline">\(\Vert\cdot\Vert\)</span> is the <span class="math inline">\(2-\)</span>norm, then the matrix norm under definition <a href="the-push-pull-method.html#def:normpp">3.1</a> is the Frobenius norm.</p>
 <p>While in the chapter of distributed stochastic gradient tracking method, we use Frobenius norm.</p>
 <div id="relationship-between-two-iteration-steps" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Relationship between two iteration steps</h3>
@@ -201,7 +196,7 @@ Then by induction, we can have
 \bar x_k := \frac{1}{n}u^TX_k\in\mathbb{R}^{1\times p},\quad \bar y_k:= \frac{1}{n}\boldsymbol 1 \nabla F(X_k)\in\mathbb{R}^{1\times p}
 \tag{3.3}
 \end{equation}\]</span>
-<p>The authors do not define <span class="math inline">\(\bar x_k\)</span> as <span class="math inline">\(\frac{1}{n}\boldsymbol 1^TX_k\)</span> is because the pulling information is subject to the graph <span class="math inline">\(\mathcal{G}_R\)</span>, not the whole system.</p>
+<p>The authors do not define <span class="math inline">\(\bar x_k\)</span> as <span class="math inline">\(\frac{1}{n}\boldsymbol 1^TX_k\)</span> is because the pulling information is subject to the graph <span class="math inline">\(\mathcal{G}_R\)</span>, which is not connected.</p>
 <p>For the pull step,</p>
 <span class="math display" id="eq:barxpp">\[\begin{equation}
 \bar x_{k+1} = \frac{1}{n}u^TX_{k+1}\stackrel{\text{pull step}}{=}\frac{1}{n}u^TR(X_k-\boldsymbol\alpha Y_k)=\bar x_k-\frac{1}{n}u^T\boldsymbol\alpha Y_k
@@ -247,27 +242,23 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 <span class="math display">\[\begin{equation}
 (y_1-\frac{1}{n}v_1\sum_{i=1}^ny_i,...,y_n-\frac{1}{n}v_n\sum_{i=1}^ny_i)^T
 \end{equation}\]</span>
-<p>Where <span class="math inline">\(v=(v_1,...,v_n)^T\in\mathbb{R}^n,y_i\in\mathbb R^p\)</span>. It denotes the difference between each agent <span class="math inline">\(i\)</span>’s average gradient and the overall mean subjected to its pushed situation with other agents.</p>
+<p>Where <span class="math inline">\(v=(v_1,...,v_n)^T\in\mathbb{R}^n,y_i\in\mathbb R^p\)</span>.</p>
 <p>Additionally, recall our goal is to bound those three distance, from <a href="the-push-pull-method.html#eq:barxpp">(3.4)</a>, we separate <span class="math inline">\(Y_k\)</span> as <span class="math inline">\(Y_k-v\bar y_k\)</span> and <span class="math inline">\(v\bar y_k\)</span>, then</p>
 <span class="math display" id="eq:xbar2pp">\[\begin{align}
 
 \bar x_{k+1} &amp;=\bar x_k -\underbrace{\frac{1}{n}u^T\boldsymbol\alpha v}_{\alpha&#39;}\bar y_k-\frac{1}{n}u^T\boldsymbol \alpha(Y_k-v\bar y_k)\\
-&amp;=\bar x_k-\alpha&#39;(\bar y_k-\underbrace{\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)}_{g_k})-\frac{1}{n}\alpha&#39;\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)-frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)\\
+&amp;=\bar x_k-\alpha&#39;(\bar y_k-\underbrace{\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)}_{g_k})-\frac{1}{n}\alpha&#39;\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)\\
 &amp;=\bar x_k-\alpha&#39;(\bar y_k-g_k)-\alpha&#39;g_k-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)
 \tag{3.7}
 \end{align}\]</span>
-The auther introduce <span class="math inline">\(g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)\)</span> is because we can prove
-<span class="math display" id="eq:baryknabla">\[\begin{equation}
-\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)
-\tag{3.8}
-\end{equation}\]</span>
+<p>The auther introduce <span class="math inline">\(g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)\)</span> is because <span class="math inline">\(\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)\)</span>, i.e, equation <a href="the-push-pull-method.html#eq:avgy">(3.2)</a>. It is the gradient of the obejective function at <span class="math inline">\(\bar x_k\)</span>.</p>
 </div>
 <div id="linear-system-of-inequalities" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Linear system of inequalities</h3>
 <p>we then bound <span class="math inline">\((\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T\)</span> by linear system of inequalities.</p>
 
 <div class="lemma">
-<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Under some conditions, <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
+<span id="lem:eapp" class="lemma"><strong>Lemma 3.3  </strong></span>Let the assumption <a href="index.html#exr:muL">1.1</a>, <a href="the-push-pull-method.html#exr:mrc">3.1</a>, and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold and <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, then <span class="math inline">\(\exists A\in \mathbb R^{3\times 3}, s.t.\)</span>
 <span class="math display" id="eq:ineqpp">\[\begin{equation}
 \left(
 \begin{array}{c}
@@ -284,21 +275,22 @@ The auther introduce <span class="math inline">\(g_k=\frac{1}{n}\boldsymbol 1^T\
 \Vert Y_{k}-v\bar y_{k}\Vert_C
 \end{array}
 \right)
-\tag{3.9}
+\tag{3.8}
 \end{equation}\]</span>
 </div>
 
+<p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="index.html#exr:muL">1.1</a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
 <p>Next we derive the elements of <span class="math inline">\(A\)</span>. We add supported lemmas in derivation.</p>
 <p>First, for <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span>, substitute <span class="math inline">\(\bar x_{k+1}\)</span> using <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we have</p>
 <span class="math display" id="eq:ineq11">\[\begin{align}
 
 \Vert\bar x_{k+1}-x^*\Vert_2&amp;\leq \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2}+\alpha^{\prime}\left\|\bar{y}_{k}-g_{k}\right\|_{2}+\frac{1}{n}\left\|u^{\top} \boldsymbol{\alpha}\left(Y_{k}-v \bar{y}_{k}\right)\right\|_{2}
-\tag{3.10}
+\tag{3.9}
 \end{align}\]</span>
 <p>On the right hand side, <span class="math inline">\(\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2\)</span> is the distance between the optimal and iterated value, <span class="math inline">\(\vert \bar{y}_{k}-g_{k}\Vert_2\)</span> is the distance between average gradient and gradient of iterated value. Lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> connects them with <span class="math inline">\(\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2\)</span> and <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span> and add conditions on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>.</p>
 
 <div class="lemma">
-<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Given <span class="math inline">\(f_i, i=1,2,...,n\)</span> are <span class="math inline">\(\mu\)</span>-strongly convex and <span class="math inline">\(L\)</span> Lipschitz continuous, <span class="math display">\[
+<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> hold, <span class="math display">\[
 \left\|\bar{y}_{k}-g_{k}\right\|_{2} \leq \frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}, \quad\left\|g_{k}\right\|_{2} \leq L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \]</span> In addition, when <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, we have <span class="math display">\[
 \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2} \leq\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}, \quad \forall k
@@ -312,12 +304,12 @@ The auther introduce <span class="math inline">\(g_k=\frac{1}{n}\boldsymbol 1^T\
 </div>
 
 <p>On the other hand, <span class="math inline">\(\boldsymbol\alpha=\text{diag}(\alpha_1,...,\alpha_n)\in \mathbb{R}^{n\times n}\)</span>, then <span class="math inline">\(\Vert \boldsymbol\alpha\Vert_2=\sigma_{\max}(\boldsymbol\alpha)=\underset{i}{\max}\alpha_i:=\hat\alpha\)</span>,since <span class="math inline">\(\alpha_i\in\mathbb{R}^+,i=1,2,...,n\)</span>. <span class="math inline">\(\sigma(A)\)</span> denotes the singular value of <span class="math inline">\(A\)</span>.</p>
-Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.10)</a> can be written as
+Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.9)</a> can be written as
 <span class="math display" id="eq:ineq1pp">\[\begin{equation}
 
 \Vert\bar x_{k+1}-x^*\Vert_2\leq
 \left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}+\frac{\alpha^{\prime} L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}}+\frac{\hat{\alpha}\|u\|_{2}}{n}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}
-\tag{3.11}
+\tag{3.10}
 \end{equation}\]</span>
 <p>Where the first and second parts come from lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>, which adds constraints on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>. The second part also uses lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming different norms, as well as the last part. Additionally, the last part uses lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> when separating <span class="math inline">\(u,\boldsymbol\alpha\)</span> out of norm, which can be seen as a further result of consistency of norms.</p>
 
@@ -336,7 +328,7 @@ For <span class="math inline">\(\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R\)<
 &amp;\leq \sigma_R\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
 \hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+
 \hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
-\tag{3.12}
+\tag{3.11}
 \end{align}\]</span>
 <p>Where the second inquality is derived from lemma <a href="the-push-pull-method.html#lem:lem33">3.7</a> in transforming <span class="math inline">\(\Vert\boldsymbol\alpha\Vert_R=\Vert\boldsymbol\alpha\Vert_2=\hat\alpha\)</span> since <span class="math inline">\(\boldsymbol\alpha\)</span> is diagonal and lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming <span class="math inline">\(\Vert\cdot\Vert_R\)</span> into <span class="math inline">\(\Vert\cdot\Vert_C\)</span>. Next we use lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> and <a href="the-push-pull-method.html#lem:lem31">3.4</a> to transform <span class="math inline">\(\Vert \bar y_k\Vert_R\)</span> into the two parts. Finally, we choose a proper rescaling of the norm <span class="math inline">\(\Vert\cdot\Vert_R\)</span> to derive <span class="math inline">\(\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_2\leq\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R\)</span>.</p>
 
@@ -362,7 +354,7 @@ For <span class="math inline">\(\Vert X_{k+1}-X_k\Vert_2\)</span>, we have
 \Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&amp;\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
 &amp;c_{0} \delta_{\mathrm{C}, 2} L\left(\|\mathbf{R}-I\|_{2}+\hat{\alpha}\|\mathbf{R}\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
 \hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
-\tag{3.13}
+\tag{3.12}
 \end{align}\]</span>
 </div>
 <div id="spectral-radius-of-a" class="section level3">

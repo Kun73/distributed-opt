@@ -87,9 +87,9 @@ Y_{k+1} &= CY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 
 In the initialization of algorithm \@ref(exm:pp), $y_{i,0}=\nabla f_i(x_{i,0}),i=1,2,...,n$,i.e., $Y_0=\nabla F(X_0)$ is important since
 \begin{align*}
-\mathbf{1}^T Y_{1} &= \mathbf{1}(CY_0+\nabla F(X_1)-\nabla F(X_0))\\
-&= \mathbf{1}\nabla F(X_1)+Y_0-\nabla F(X_0)\\
-&= \mathbf{1}\nabla F(X_1)
+\mathbf{1}^T Y_{1} &= \mathbf{1}^T(CY_0+\nabla F(X_1)-\nabla F(X_0))\\
+&= \mathbf{1}^T\nabla F(X_1)+Y_0-\nabla F(X_0)\\
+&= \mathbf{1}^T\nabla F(X_1)
 \end{align*}
 Then by induction, we can have 
 \begin{equation}
@@ -102,7 +102,7 @@ Then by induction, we can have
 
 ## Analysis of Convergence
 
-we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by linear system of inequalities in terms of their previous values. Then we show $\rho(A)<1$ under appropriate step size based on \@ref(lem:lem37).
+we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by linear system of inequalities in terms of their previous values. Then based on lemma \@ref(lem:lem37), we derive how should we choose the step size $\alpha_i$ so that $\rho(A)<1$.
 
  
 
@@ -117,13 +117,13 @@ In this chapter, we define the matrix norm of $X\in\mathbb R^{n\times p }$ as,
  
 
 ```{definition, normpp}
-Given arbitary vector norm $\Vert\cdot\Vert$ on $\mathbb{R}^n$, \forall X\in\mathbb R^{n\times p }, 
-\Vert X\Vert:= \left\|\left[\left\|\mathbf{x}^{(1)}\right\|,\left\|\mathbf{x}^{(2)}\right\|, \ldots,\left\|\mathbf{x}^{(p)}\right\|\right]\right\|_{2},
+Given an arbitary vector norm $\Vert\cdot\Vert$ on $\mathbb{R}^n$, $\forall X\in\mathbb{R}^{n\times p }, 
+\Vert X\Vert:= \left\|\left[\left\|\mathbf{x}^{(1)}\right\|,\left\|\mathbf{x}^{(2)}\right\|, \ldots,\left\|\mathbf{x}^{(p)}\right\|\right]\right\|_{2}$,
 where $x^{(j)},j=1,2,...,p$ denote the $j$th column of $X$, $\Vert \cdot\Vert_2$ denotes $2-$norm.
 ```
 
+For example, when $\Vert\cdot\Vert$ is the $2-$norm, then the matrix norm under definition \@ref(def:normpp) is the Frobenius norm.
  
-
 While in the chapter of distributed stochastic gradient tracking method, we use Frobenius norm.
 
 ### Relationship between two iteration steps
@@ -135,7 +135,7 @@ We first give definition of $\bar x_k$ and $\bar y_k$.
 (\#eq:barpp)
 \end{equation}
 
-The authors do not define $\bar x_k$ as $\frac{1}{n}\boldsymbol 1^TX_k$ is because the pulling information is subject to the graph $\mathcal{G}_R$, not the whole system.
+The authors do not define $\bar x_k$ as $\frac{1}{n}\boldsymbol 1^TX_k$ is because the pulling information is subject to the graph $\mathcal{G}_R$, which is not connected.
 
 For the pull step, 
 
@@ -196,23 +196,19 @@ Similarly, we can rewrite $Y_{k+1}-v\bar y_{k+1}$ as
 (y_1-\frac{1}{n}v_1\sum_{i=1}^ny_i,...,y_n-\frac{1}{n}v_n\sum_{i=1}^ny_i)^T
 \end{equation}
 
-Where $v=(v_1,...,v_n)^T\in\mathbb{R}^n,y_i\in\mathbb R^p$. It denotes the difference between each agent $i$'s average gradient and the overall mean subjected to its pushed situation with other agents.
+Where $v=(v_1,...,v_n)^T\in\mathbb{R}^n,y_i\in\mathbb R^p$. 
 
 Additionally, recall our goal is to bound those three distance, from \@ref(eq:barxpp), we separate $Y_k$ as $Y_k-v\bar y_k$ and $v\bar y_k$, then 
 
 \begin{align}
 
 \bar x_{k+1} &=\bar x_k -\underbrace{\frac{1}{n}u^T\boldsymbol\alpha v}_{\alpha'}\bar y_k-\frac{1}{n}u^T\boldsymbol \alpha(Y_k-v\bar y_k)\\
-&=\bar x_k-\alpha'(\bar y_k-\underbrace{\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)}_{g_k})-\frac{1}{n}\alpha'\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)-frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)\\
+&=\bar x_k-\alpha'(\bar y_k-\underbrace{\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)}_{g_k})-\frac{1}{n}\alpha'\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)\\
 &=\bar x_k-\alpha'(\bar y_k-g_k)-\alpha'g_k-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)
 (\#eq:xbar2pp)
 \end{align}
 
-The auther introduce $g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)$ is because we can prove
-\begin{equation}
-\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)
-(\#eq:baryknabla)
-\end{equation}
+The auther introduce $g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)$ is because $\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)$, i.e, equation \@ref(eq:avgy). It is the gradient of the obejective function at $\bar x_k$.
 
 ### Linear system of inequalities
 
@@ -221,7 +217,7 @@ we then bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{
  
 
 ```{lemma, eapp}
-Under some conditions, $\exists A\in \mathbb R^{3\times 3}, s.t.$
+Let the assumption \@ref(exr:muL), \@ref(exr:mrc), and \@ref(exr:adigraph) hold and $\alpha'\leq \frac{2}{\mu+L}$, then $\exists A\in \mathbb R^{3\times 3}, s.t.$
 \begin{equation}
 \left(
 \begin{array}{c}
@@ -242,7 +238,7 @@ Under some conditions, $\exists A\in \mathbb R^{3\times 3}, s.t.$
 \end{equation}
 ```
 
- 
+In general, assumption \@ref(exr:mrc) and \@ref(exr:adigraph) is used to derive the relationships in \@ref(eq:pp1bar), \@ref(eq:ppvbar), and \@ref(eq:xbar2pp). Assumption \@ref(exr:muL) is needed for lemma \@ref(lem:lem31).
 
 Next we derive the elements of $A$. We add supported lemmas in derivation.
 
@@ -259,7 +255,7 @@ On the right hand side, $\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2$ i
  
 
 ```{lemma, lem31}
-Given $f_i, i=1,2,...,n$ are $\mu$-strongly convex and $L$ Lipschitz continuous, 
+Let assumption \@ref(exr:muL) hold, 
 $$
 \left\|\bar{y}_{k}-g_{k}\right\|_{2} \leq \frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}, \quad\left\|g_{k}\right\|_{2} \leq L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 $$
