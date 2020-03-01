@@ -81,7 +81,9 @@
 <li class="chapter" data-level="4.2.3" data-path="dsgt.html"><a href="dsgt.html#spectral-radius-of-a-1"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of Push-Pull and DSGT</a></li>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -105,7 +107,25 @@
 <h1><span class="header-section-number">Chapter 4</span> Distributed Stochastic Gradient Tracking(DSGT) Method</h1>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>The idea is similar to that in the Push-Pull method. However, since <span class="math inline">\(Y_k\in\mathbb{R}^{n\times p}\)</span> is used to track the average stochastic gradients in the <span class="math inline">\(k\)</span>th iteration, i.e. <span class="math inline">\(\bar y_k = \frac{1}{n}\mathbf{1}^T Y_k=\frac{1}{n}\sum\limits_{i=1}^ng_i(x_{i,k},\xi_{i,k})\)</span> provided <span class="math inline">\(y_{i,0}=g(x_{i,0},\xi_{i,0})\)</span>, which is random. Hence we now bound <span class="math inline">\(E\left[\left\|\bar{x}_{k+1}-x^{*}\right\|^{2}\right]\)</span>, <span class="math inline">\(E\left[\left\|X_{k+1}-1 \bar{x}_{k+1}\right\|^{2}\right]\)</span>, and <span class="math inline">\(E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]\)</span>, which can be seen as variances of <span class="math inline">\(\bar x_k, X_k\)</span>, and <span class="math inline">\(Y_k\)</span>. Thus we need to assume <span class="math inline">\(g_i(x,\xi_i),i\in\mathcal{N}\)</span> have the finite variances and also assume they are good estimates of <span class="math inline">\(\nabla f_i(x), i\in\mathcal{N}\)</span>.</p>
+<p>The idea is similar to that in the Push-Pull method. However, since <span class="math inline">\(Y_k\in\mathbb{R}^{n\times p}\)</span> is used to track the average stochastic gradients in the <span class="math inline">\(k\)</span>th iteration, i.e. <span class="math inline">\(\bar y_k = \frac{1}{n}\mathbf{1}^T Y_k=\frac{1}{n}\sum\limits_{i=1}^ng_i(x_{i,k},\xi_{i,k})\)</span> provided <span class="math inline">\(y_{i,0}=g(x_{i,0},\xi_{i,0})\)</span>, which is random. Hence we now bound <span class="math inline">\(E\left[\left\|\bar{x}_{k+1}-x^{*}\right\|^{2}\right]\)</span>, <span class="math inline">\(E\left[\left\|X_{k+1}-1 \bar{x}_{k+1}\right\|^{2}\right]\)</span>, and <span class="math inline">\(E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]\)</span>, which can be seen as variances of <span class="math inline">\(\bar x_k, X_k\)</span>, and <span class="math inline">\(Y_k\)</span>. Thus we need to assume <span class="math inline">\(g_i(x,\xi_i),i\in\mathcal{N}\)</span> have the finite variances and also assume they are good estimates of <span class="math inline">\(\nabla f_i(x), i\in\mathcal{N}\)</span>,i.e. assumption <a href="dsgt.html#exr:estg">4.1</a>.</p>
+
+<div class="example">
+<p><span id="exm:dsgt" class="example"><strong>Algorithm4.1  (DSGT)  </strong></span> Each agent <span class="math inline">\(i\)</span> choose the same step size <span class="math inline">\(\alpha\)</span> and initilized with an arbitary <span class="math inline">\(x_{i,0}\in\mathbb{R}^p, y_{i,0}=g_i(x_{i,0},\xi_{i,0})\)</span>.</p>
+<p>For k = 0, 1, …,</p>
+<ul>
+<li><p>For <span class="math inline">\(i\in\mathcal{N}\)</span>,</p>
+<ul>
+<li><p><span class="math inline">\(x_{i, k+1} = \sum\limits_{j=1}^nw_{ij}(x_{j, k}-\alpha_j y_{j, k})\)</span></p></li>
+<li><span class="math inline">\(y_{i, k+1} = \sum\limits_{j=1}^nw_{ij}y_{j,k}+g_i(x_{i,k+1},\xi_{i,k+1})-g_i(x_{i,k},\xi_{i,k})\)</span></li>
+</ul></li>
+</ul>
+</div>
+ Where <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the coupling matrix of agents.The above algorithm can be written as the matrix form,
+<span class="math display" id="eq:dsgt">\[\begin{align}
+X_{k+1}&amp;=\mathbf{W}\left(X_{k}-\alpha Y_{k}\right)\\
+Y_{k+1}&amp;=\mathbf{W} Y_{k}+G\left(X_{k+1}, \xi_{k+1}\right)-G\left(X_{k}, \xi_{k}\right)
+\tag{4.1}
+\end{align}\]</span>
 <p>Insead of the definition <a href="the-push-pull-method.html#def:normpp">3.1</a> used in the Push-Pull method, we denote <span class="math inline">\(\Vert\cdot\Vert\)</span> as the <span class="math inline">\(\ell_2-\)</span>norm for vectors and as Frobenius norms for matrices. Hence they are consistent.</p>
 </div>
 <div id="analysis-of-convergence-1" class="section level2">
@@ -116,14 +136,14 @@
 <span class="math display" id="eq:auef">\[\begin{align}
 E[g_i(x,\xi_i)|x]&amp;=\nabla f_i(x)\\
 E[\Vert g_i(x,\xi_i)-\nabla f_i(x)\Vert^2 |x]&amp;\leq \sigma, \exists \sigma
-\tag{4.1}
+\tag{4.2}
 \end{align}\]</span>
 </div>
 
 <p>Denote <span class="math inline">\(\mathcal{F}_k\)</span> as the <span class="math inline">\(\sigma-\)</span>algebra generated by <span class="math inline">\(\{\xi_0,...,\xi_{k-1}\}\)</span>. We first reveal some properties of the introduced auxiliary variable <span class="math inline">\(\bar y_k=\frac{1}{n}g_i(x_{i,k},\xi_{i,k})\)</span> provided <span class="math inline">\(y_{i,0}=g(x_{i,0},\xi_{i,0})\)</span>.</p>
 
 <div class="lemma">
-<span id="lem:lem2" class="lemma"><strong>Lemma 4.1  </strong></span>Under Assumption <a href="dsgt.html#eq:auef">(4.1)</a>, <span class="math inline">\(h(X)=\frac{1}{n}\mathbf{1}^T\nabla F(X), X\in\mathbb{R}^{n\times p},\forall k\geq0\)</span>, we have
+<span id="lem:lem2" class="lemma"><strong>Lemma 4.1  </strong></span>Under Assumption <a href="dsgt.html#eq:auef">(4.2)</a>, <span class="math inline">\(h(X)=\frac{1}{n}\mathbf{1}^T\nabla F(X), X\in\mathbb{R}^{n\times p},\forall k\geq0\)</span>, we have
 <span class="math display">\[\begin{align}
 E\left[ \bar y_k - h(X_k)|\mathcal{F}_k\right]&amp;=0\\
 E\left[\left\|\bar{y}_{k}-h(X_k)\right\|^{2} | \mathcal{F}_{k}\right] &amp;\leq \frac{\sigma^{2}}{n}
@@ -136,13 +156,13 @@ E\left[\left\|\bar{y}_{k}-h(X_k)\right\|^{2} | \mathcal{F}_{k}\right] &amp;\leq 
 <p>From <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we make <span class="math inline">\(\alpha&#39;=\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha\mathbf{1}=\alpha,\boldsymbol\alpha=\text{diag}(\alpha,\alpha,...,\alpha)\)</span> and <span class="math inline">\(g_k=\nabla f(\bar x_k)=\frac{1}{n}\sum\limits_{i=1}^n\nabla f_i(\bar x_k)=\frac{1}{n}\mathbf{1}^T\nabla F(\mathbf{1}\bar x_k)\)</span>, we have,</p>
 <span class="math display" id="eq:xbar1dsgt">\[\begin{equation}
 \bar x_{k+1}-x^* = \bar x_k - \alpha(h(X_k)-\nabla f(\bar x_k))-\alpha \nabla f(\bar x_k)-\alpha (\bar y_k-h(X_k))-x^*
-\tag{4.2}
+\tag{4.3}
 \end{equation}\]</span>
 <p>Take norm at both sides, we have</p>
 <span class="math display" id="eq:xbar1normdsgt">\[\begin{align}
 \Vert \bar x_{k+1}-x^*\Vert^2&amp;=\Vert (\bar x_k-\alpha \nabla f(\bar x_k)-x^*)-\alpha(h(X_k)-\nabla f(\bar x_k))-\alpha(\bar y_k-h(X_k))\Vert^2\\
 &amp;=\Vert \bar x_k-\alpha \nabla f(\bar x_k)-x^*\Vert^2 + \alpha^2\Vert h(X_k)-\nabla f(\bar x_k)\Vert ^2 + \alpha^2\Vert \bar y_k-h(X_k)\Vert^2\\ &amp;+ 2\alpha\left\langle\bar x_k-\alpha \nabla f(\bar x_k)-x^*, \nabla f(\bar x_k)-h(X_k)\right\rangle\\&amp;-2\alpha\left\langle\bar x_k-\alpha \nabla f(\bar x_k)-x^*, \bar y_k-h(X_k)\right\rangle\\ &amp;+ 2\alpha^2\left\langle h(X_k)-\nabla f(\bar x_k), \bar y_k-h(X_k)\right\rangle
-\tag{4.3}
+\tag{4.4}
 \end{align}\]</span>
 Where <span class="math inline">\(\left\langle\cdot\right\rangle\)</span> denotes the Frobinus inner product. At both sides, take conditional expectation given <span class="math inline">\(\mathcal{F}_k\)</span>, use lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> and lemma <a href="dsgt.html#lem:lem2">4.1</a>, we have
 <span class="math display" id="eq:ineq1dsgt">\[\begin{align}
@@ -153,13 +173,13 @@ E\left[\Vert \bar x_{k+1}-x^*\Vert^2|\mathcal{F}_k\right]&amp;\leq
 &amp;=(1-\alpha\mu)(1-(\alpha\mu)^2)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 + \frac{\alpha^2\sigma^2}{n}\\
 &amp;\leq 
 (1-\alpha\mu)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 + \frac{\alpha^2\sigma^2}{n}
-\tag{4.4}
+\tag{4.5}
 \end{align}\]</span>
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> \</p>
 <ul>
-<li>When each agent <span class="math inline">\(i\)</span> takes different step size <span class="math inline">\(\alpha_i,i\in\mathcal{N}\)</span>, <span class="math inline">\(\alpha(\bar y_k-h(\bar x_k))\)</span> in <a href="dsgt.html#eq:xbar1dsgt">(4.2)</a> becomes <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))\)</span>, then we may use the following to continuou the steps in <a href="dsgt.html#eq:ineq1dsgt">(4.4)</a>.<br />
+<li>When each agent <span class="math inline">\(i\)</span> takes different step size <span class="math inline">\(\alpha_i,i\in\mathcal{N}\)</span>, <span class="math inline">\(\alpha(\bar y_k-h(\bar x_k))\)</span> in <a href="dsgt.html#eq:xbar1dsgt">(4.3)</a> becomes <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))\)</span>, then we may use the following to continuou the steps in <a href="dsgt.html#eq:ineq1dsgt">(4.5)</a>.<br />
 
 <span class="math display">\[\begin{align}
 \frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))&amp;=\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha\left[(Y_k-\mathbf{1}\bar y_k)+\mathbf{1}(\bar y_k-h(\bar x_k))\right]
@@ -185,7 +205,7 @@ Then
 &amp;\leq \rho_{w}^{2}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\alpha \rho_{w}^{2}\left[\frac{\left(1-\rho_{w}^{2}\right)}{2 \alpha \rho_{w}^{2}}\left\|\mathrm{x}_{k}-1 \bar{x}_{k}\right\|^{2}+\frac{2 \alpha \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\right]+\alpha^{2} \rho_{w}^{2}\left\|\mathrm{y}_{k}-1 \bar{y}_{k}\right\|^{2}\\
 &amp;=
 \frac{\left(1+\rho_{w}^{2}\right)}{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}+\alpha^{2} \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|Y_{k}-1 \bar{y}_{k}\right\|^{2}
-\tag{4.5}
+\tag{4.6}
 \end{align}\]</span>
 
 <div class="remark">
@@ -207,7 +227,7 @@ Then
 \Vert WY_k -  \mathbf{1}\bar y_k\Vert^2 + 
 \Vert G_{k+1} - G_k\Vert^2 - n\Vert \bar y_k-\bar y_{k+1}\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle \\
 &amp;\leq \rho^2_w\Vert Y_k-\mathbf{1}\bar y_k\Vert^2+\Vert G_{k+1} - G_k\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
-\tag{4.6}
+\tag{4.7}
 \end{align}\]</span>
 <p><strong>Todo: <span class="math inline">\(\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2\)</span> </strong></p>
 </div>
@@ -233,38 +253,38 @@ where <span class="math inline">\(\beta=\frac{1-\rho_{w}^{2}}{2 \rho_{w}^{2}}-4 
 <p>Next, we derive the conditions on <span class="math inline">\(\alpha\)</span> so that <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span> by computing <span class="math inline">\(det(I-A_{dsgt})\)</span> and make it greater than 0. We expand <span class="math inline">\(det(I-A_{dsgt})\)</span> according to the first column,</p>
 <span class="math display" id="eq:detdsgt">\[\begin{align}
 det(I-A_{dsgt}) &amp;= (1-a_{11})[(1-a_{22})(1-a_{33})-a_{32}a_{23}]-a_{12}a_{23}a_{31}
-\tag{4.7}
+\tag{4.8}
 \end{align}\]</span>
-<p>Notice that in lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>, it requires <span class="math inline">\(\lambda-a_{ii}&gt;0, i=1,2,3\)</span> and in <a href="dsgt.html#eq:detdsgt">(4.7)</a>, we already have <span class="math inline">\((1-a_{11})(1-a_{22})(1-a_{33})-C\)</span>. Hence we may expect <span class="math inline">\(C\)</span> to be bounded by the term of <span class="math inline">\(c_0(1-a_{11})(1-a_{22})(1-a_{33})\)</span>, where <span class="math inline">\(c_0&lt;1\)</span> is a positive number. So when we make</p>
+<p>Notice that in lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>, it requires <span class="math inline">\(\lambda-a_{ii}&gt;0, i=1,2,3\)</span> and in <a href="dsgt.html#eq:detdsgt">(4.8)</a>, we already have <span class="math inline">\((1-a_{11})(1-a_{22})(1-a_{33})-C\)</span>. Hence we may expect <span class="math inline">\(C\)</span> to be bounded by the term of <span class="math inline">\(c_0(1-a_{11})(1-a_{22})(1-a_{33})\)</span>, where <span class="math inline">\(c_0&lt;1\)</span> is a positive number. So when we make</p>
 <span class="math display" id="eq:gamma1">\[\begin{align}
 a_{23}a_{32}&amp;\leq \frac{1}{\Gamma}(1-a_{22})(1-a_{33})=\frac{1}{\Gamma}(\frac{1-\rho_w^2}{2})^2,\\
-\tag{4.8}
+\tag{4.9}
 \end{align}\]</span>
 <span class="math display" id="eq:gamma2">\[\begin{align}
 a_{12}a_{23}a_{31}&amp;\leq \frac{1}{\Gamma+1}(1-a_{11})[(1-a_{22})(1-a_{33})-a_{32}a_{23}]
-\tag{4.9}
+\tag{4.10}
 \end{align}\]</span>
 <p>we have</p>
 <span class="math display">\[\begin{equation}
 det(I-A_{dsgt}) \geq \frac{\Gamma-1}{\Gamma+1}(1-a_{11})(1-a_{22})(1-a_{33})&gt;0
 \end{equation}\]</span>
-Next, we derive what exactly conditions <span class="math inline">\(\alpha\)</span> should satisfy to make the inequalities <a href="dsgt.html#eq:gamma1">(4.8)</a> and <a href="dsgt.html#eq:gamma2">(4.9)</a> hold. Additionally, in the proof of building linear inequality system of <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\)</span>, the author uses
+Next, we derive what exactly conditions <span class="math inline">\(\alpha\)</span> should satisfy to make the inequalities <a href="dsgt.html#eq:gamma1">(4.9)</a> and <a href="dsgt.html#eq:gamma2">(4.10)</a> hold. Additionally, in the proof of building linear inequality system of <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\)</span>, the author uses
 <span class="math display">\[\begin{align}
-2\|\mathbf{W}-\mathbf{I}\| L \rho_{w}\left\|\mathbf{y}_{k}-\mathbf{1} \bar{y}_{k}\right\|\left\|\mathbf{x}_{k}-1 \bar{x}_{k}\right\|\leq
-\beta \rho_{w}^{2} \left\|\mathbf{y}_{k}-1 \bar{y}_{k}\right\|^{2} | \mathcal{F}_{k}+\frac{1}{\beta}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}\left\|\mathbf{x}_{k}-1 \bar{x}_{k}\right\|^{2}
+2\|\mathbf{W}-\mathbf{I}\| L \rho_{w}\left\|Y_{k}-\mathbf{1} \bar{y}_{k}\right\|\left\|X_{k}-1 \bar{x}_{k}\right\|\leq
+\beta \rho_{w}^{2} \left\|Y_{k}-1 \bar{y}_{k}\right\|^{2} | \mathcal{F}_{k}+\frac{1}{\beta}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}
 \end{align}\]</span>
 Thus we also need <span class="math inline">\(\beta&gt;0\)</span>. Since<span class="math inline">\(\beta\)</span> is the quadratic about <span class="math inline">\(\alpha&gt;0\)</span>, so <span class="math inline">\(\beta&gt;0\)</span> when
 <span class="math display" id="eq:dsgtalpha1">\[\begin{equation}
 \alpha &lt; \frac{\sqrt{1+3\rho_w^2}}{2\rho_wL}-\frac{1}{L}
-\tag{4.10}
+\tag{4.11}
 \end{equation}\]</span>
 The author uses <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span> to gurantee <span class="math inline">\(\beta&gt;0\)</span> since <span class="math inline">\(0&lt;\rho_w&lt;1\)</span>.
 <span class="math display" id="eq:dsgtbeta">\[\begin{align}
 \beta \geq \frac{1-\rho_{w}^{2}}{2 \rho_{w}^{2}}-\frac{1-\rho_{w}^{2}}{3 \rho_{w}}-\frac{\left(1-\rho_{w}^{2}\right)^{2}}{72 \rho_{w}^{2}} \geq \frac{11\left(1-\rho_{w}^{2}\right)}{72 \rho_{w}^{2}} \geq \frac{1-\rho_{w}^{2}}{8 \rho_{w}^{2}}&gt;0
-\tag{4.11}
+\tag{4.12}
 \end{align}\]</span>
 <p>The coefficient <span class="math inline">\(C&gt;0\)</span> of <span class="math inline">\(\frac{1-\rho_w^2}{C\rho_w^2L}\)</span> can be chosen from <span class="math inline">\((\frac{2}{\sqrt{5}-2}\approx8.47,+\infty)\)</span>.</p>
-<p>Figure <a href="dsgt.html#fig:f1">4.1</a> plots the function <span class="math inline">\(\frac{\sqrt{1+3\rho_w^2}}{2\rho_w}-1-\frac{1-\rho_w^2}{12\rho_w^2}\)</span>, we see from figure (fig:f1) that the constraint in <a href="dsgt.html#eq:dsgtalpha1">(4.10)</a> is not better than <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span>, especilly when <span class="math inline">\(\rho_w\)</span> is close to <span class="math inline">\(0\)</span>.</p>
+<p>Figure <a href="dsgt.html#fig:f1">4.1</a> plots the function <span class="math inline">\(\frac{\sqrt{1+3\rho_w^2}}{2\rho_w}-1-\frac{1-\rho_w^2}{12\rho_w^2}\)</span>, we see from figure (fig:f1) that the constraint in <a href="dsgt.html#eq:dsgtalpha1">(4.11)</a> is not better than <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span>, especilly when <span class="math inline">\(\rho_w\)</span> is close to <span class="math inline">\(0\)</span>.</p>
 <div class="figure"><span id="fig:f1"></span>
 <img src="DistributedOpt_files/figure-html/f1-1.png" alt="The difference between two constraints" width="50%" />
 <p class="caption">
@@ -272,10 +292,10 @@ Figure 4.1: The difference between two constraints
 </p>
 </div>
 <p>In short, a less strict <span class="math inline">\(\alpha\)</span> can be chosen as <span class="math inline">\(\alpha\leq\frac{1-\rho_w^2}{9\rho_wL}\)</span>.</p>
-For inequality <a href="dsgt.html#eq:gamma1">(4.8)</a>, substitute <span class="math inline">\(\beta\geq\frac{1-\rho_w^2}{C&#39;\rho_w^2}\)</span>, where <span class="math inline">\(C&#39;\)</span> is subject to the chioce of <span class="math inline">\(C\in(\frac{2}{\sqrt{5}-2}\approx8.47,+\infty)\)</span>. We follow the author’s choice here, then the LHS of <a href="dsgt.html#eq:gamma1">(4.8)</a> is less than the following,
+For inequality <a href="dsgt.html#eq:gamma1">(4.9)</a>, substitute <span class="math inline">\(\beta\geq\frac{1-\rho_w^2}{C&#39;\rho_w^2}\)</span>, where <span class="math inline">\(C&#39;\)</span> is subject to the chioce of <span class="math inline">\(C\in(\frac{2}{\sqrt{5}-2}\approx8.47,+\infty)\)</span>. We follow the author’s choice here, then the LHS of <a href="dsgt.html#eq:gamma1">(4.9)</a> is less than the following,
 <span class="math display" id="eq:dsgtalpha21">\[\begin{equation}
 \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\alpha^{2}\left[\frac{\left(2+6 \rho_{w}^{2}\right)}{\left(1-\rho_{w}^{2}\right)}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}+\frac{\left(1-\rho_{w}^{2}\right)}{4 \rho_{w}^{2}} L^{2}\right]\leq RHS=\frac{\left(1-\rho_{w}^{2}\right)^{2}}{4 \Gamma}
-\tag{4.12}
+\tag{4.13}
 \end{equation}\]</span>
 Hence, it suffice to make <span class="math inline">\(\alpha\)</span>,
 <span class="math display">\[\begin{equation}
@@ -284,7 +304,7 @@ Hence, it suffice to make <span class="math inline">\(\alpha\)</span>,
 
 \end{equation}\]</span>
 <p>The latter inequality comes from <span class="math inline">\(\rho_w^2&lt;1&lt;\frac{7}{6}\)</span> and <span class="math inline">\(a+b\leq 2\max(a,b)\)</span>.</p>
-For the inequality <a href="dsgt.html#eq:gamma2">(4.9)</a>, from the inequality <a href="dsgt.html#eq:gamma1">(4.8)</a>, it is sufficient to have
+For the inequality <a href="dsgt.html#eq:gamma2">(4.10)</a>, from the inequality <a href="dsgt.html#eq:gamma1">(4.9)</a>, it is sufficient to have
 <span class="math display">\[\begin{equation}
 
 a_{12} a_{23} a_{31}\leq
@@ -297,7 +317,7 @@ a_{12} a_{23} a_{31}\leq
 Then, when the step size <span class="math inline">\(\alpha\)</span> is chosen such that
 <span class="math display" id="eq:dsgtalpha">\[\begin{equation}
 \alpha \leq \min \left\{\frac{\left(1-\rho_{w}^{2}\right)}{12 \rho_{w} L}, \frac{\left(1-\rho_{w}^{2}\right)^{2}}{2 \sqrt{\Gamma} L \max \left\{6 \rho_{w}\|\mathbf{W}-\mathbf{I}\|, 1-\rho_{w}^{2}\right\}}, \frac{\left(1-\rho_{w}^{2}\right)}{3 \rho_{w}^{2 / 3} L}\left[\frac{\mu^{2}}{L^{2}} \frac{(\Gamma-1)}{\Gamma(\Gamma+1)}\right]^{1 / 3}\right\}
-\tag{4.13}
+\tag{4.14}
 \end{equation}\]</span>
 <p>we have <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span>.</p>
 

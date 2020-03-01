@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Summary of Push-Pull and DSGT | Notes about Distributed Optimization</title>
+  <title>Chapter 5 Summary of PuSh-Pull and DSGT | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Summary of Push-Pull and DSGT | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 5 Summary of PuSh-Pull and DSGT | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Summary of Push-Pull and DSGT | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 5 Summary of PuSh-Pull and DSGT | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -81,7 +81,9 @@
 <li class="chapter" data-level="4.2.3" data-path="dsgt.html"><a href="dsgt.html#spectral-radius-of-a-1"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of Push-Pull and DSGT</a></li>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -102,8 +104,18 @@
 
             <section class="normal" id="section-">
 <div id="summary-of-push-pull-and-dsgt" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Summary of Push-Pull and DSGT</h1>
+<h1><span class="header-section-number">Chapter 5</span> Summary of PuSh-Pull and DSGT</h1>
+In the Push-Pull method, if we set graph <span class="math inline">\(\mathcal{G}\)</span> is connected and undirected, then <span class="math inline">\(\mathcal{G}=\mathcal{G}_R=\mathcal{G}_C\)</span>,i.e.,<span class="math inline">\(R=C:=W\)</span>. The algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a> becomes the form of
+<span class="math display" id="eq:pp">\[\begin{align}
+X_{k+1} &amp;= W(X_{k}-\boldsymbol\alpha Y_k),\\
+Y_{k+1} &amp;= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
+\tag{3.1}
+\end{align}\]</span>
+<p>If we further assume we only have noisy estimates of <span class="math inline">\(\nabla F(X)\)</span>, i.e. <span class="math inline">\(G(X,\boldsymbol\xi)\)</span>, we get DSGT <a href="dsgt.html#exm:dsgt">4.1</a>.</p>
+<div id="questions" class="section level2">
+<h2><span class="header-section-number">5.1</span> Questions</h2>
 
+</div>
 </div>
             </section>
 
