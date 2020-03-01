@@ -1,0 +1,14 @@
+# Summary of PuSh-Pull and DSGT
+
+In the Push-Pull method, if we set graph $\mathcal{G}$ is connected and undirected, then $\mathcal{G}=\mathcal{G}_R=\mathcal{G}_C$,i.e.,$R=C:=W$. The algorithm \@ref(exm:pp) becomes the form of 
+\begin{align}
+X_{k+1} &= W(X_{k}-\boldsymbol\alpha Y_k),\\
+Y_{k+1} &= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
+(\#eq:pp)
+\end{align}
+
+If we further assume we only have noisy estimates of $\nabla F(X)$, i.e. $G(X,\boldsymbol\xi)$, we get DSGT \@ref(exm:dsgt).
+
+## Questions
+
+

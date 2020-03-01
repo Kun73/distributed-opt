@@ -3,8 +3,27 @@
 ## Introduction
 
 The idea is similar to that in the Push-Pull method. However, since $Y_k\in\mathbb{R}^{n\times p}$ is used to track the average stochastic gradients in the $k$th iteration, i.e. $\bar y_k = \frac{1}{n}\mathbf{1}^T Y_k=\frac{1}{n}\sum\limits_{i=1}^ng_i(x_{i,k},\xi_{i,k})$ provided $y_{i,0}=g(x_{i,0},\xi_{i,0})$, which is random. Hence we now bound $E\left[\left\|\bar{x}_{k+1}-x^{*}\right\|^{2}\right]$,
-$E\left[\left\|X_{k+1}-1 \bar{x}_{k+1}\right\|^{2}\right]$, and $E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]$, which can be seen as variances of $\bar x_k, X_k$, and $Y_k$. Thus we need to assume $g_i(x,\xi_i),i\in\mathcal{N}$ have the finite variances and also assume they are good estimates of $\nabla f_i(x), i\in\mathcal{N}$. 
+$E\left[\left\|X_{k+1}-1 \bar{x}_{k+1}\right\|^{2}\right]$, and $E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]$, which can be seen as variances of $\bar x_k, X_k$, and $Y_k$. Thus we need to assume $g_i(x,\xi_i),i\in\mathcal{N}$ have the finite variances and also assume they are good estimates of $\nabla f_i(x), i\in\mathcal{N}$,i.e. assumption \@ref(exr:estg). 
 
+```{example, dsgt, name = "DSGT"}
+
+Each agent $i$ choose the same step size $\alpha$ and initilized with an arbitary $x_{i,0}\in\mathbb{R}^p, y_{i,0}=g_i(x_{i,0},\xi_{i,0})$. 
+
+For k = 0, 1, ...,
+
+  * For $i\in\mathcal{N}$, 
+  
+    * $x_{i, k+1} = \sum\limits_{j=1}^nw_{ij}(x_{j, k}-\alpha_j y_{j, k})$ 
+  
+    * $y_{i, k+1} = \sum\limits_{j=1}^nw_{ij}y_{j,k}+g_i(x_{i,k+1},\xi_{i,k+1})-g_i(x_{i,k},\xi_{i,k})$
+
+```
+Where $W=(w_{ij})\in\mathbb{R}^{n\times n}$ denotes the coupling matrix of agents.The above algorithm can be written as the matrix form, 
+\begin{align}
+X_{k+1}&=\mathbf{W}\left(X_{k}-\alpha Y_{k}\right)\\
+Y_{k+1}&=\mathbf{W} Y_{k}+G\left(X_{k+1}, \xi_{k+1}\right)-G\left(X_{k}, \xi_{k}\right)
+(\#eq:dsgt)
+\end{align}
 Insead of the definition \@ref(def:normpp) used in the Push-Pull method, we denote $\Vert\cdot\Vert$ as the $\ell_2-$norm for vectors and as Frobenius norms for matrices. Hence they are consistent. 
 
 
@@ -167,8 +186,8 @@ det(I-A_{dsgt}) \geq \frac{\Gamma-1}{\Gamma+1}(1-a_{11})(1-a_{22})(1-a_{33})>0
 
 Next, we derive what exactly conditions $\alpha$ should satisfy to make the inequalities \@ref(eq:gamma1) and \@ref(eq:gamma2) hold. Additionally, in the proof of building linear inequality system of $E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]$, the author uses
 \begin{align}
-2\|\mathbf{W}-\mathbf{I}\| L \rho_{w}\left\|\mathbf{y}_{k}-\mathbf{1} \bar{y}_{k}\right\|\left\|\mathbf{x}_{k}-1 \bar{x}_{k}\right\|\leq
-\beta \rho_{w}^{2} \left\|\mathbf{y}_{k}-1 \bar{y}_{k}\right\|^{2} | \mathcal{F}_{k}+\frac{1}{\beta}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}\left\|\mathbf{x}_{k}-1 \bar{x}_{k}\right\|^{2}
+2\|\mathbf{W}-\mathbf{I}\| L \rho_{w}\left\|Y_{k}-\mathbf{1} \bar{y}_{k}\right\|\left\|X_{k}-1 \bar{x}_{k}\right\|\leq
+\beta \rho_{w}^{2} \left\|Y_{k}-1 \bar{y}_{k}\right\|^{2} | \mathcal{F}_{k}+\frac{1}{\beta}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}
 \end{align}
 Thus we also need $\beta>0$. Since$\beta$ is the quadratic about $\alpha>0$, so $\beta>0$ when 
 \begin{equation}
