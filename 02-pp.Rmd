@@ -2,8 +2,11 @@
 
 ## Introduction 
 
-Suppose we have two nonnegative matrices $R,C^T\in\mathbb{R}^{n\times n}$ and two induced digraph $\mathcal{G}_R, \mathcal{G}_{C^T}$. Suppose each agent $i$ can actively and reliably push information out to its neighbor  $l\in\mathcal{N}^{out}_{C,i}\subset\mathcal{N}$ and pull information from its neighbor $j\in\mathcal{N}^{in}_{R,i}\subset\mathcal{N}$. Matrix $R=(r_{ij})\in\mathbb{R}^{n\times n}$ denotes the pulling weights that agent $i$ pulls information from agent $j$. Thus the row sum of $R$ should be $1$, i.e. $R\boldsymbol 1 = \boldsymbol 1$ and $r_{ij}\geq 0$. That is to say, matrix $R$ is  row-stochastic. Similarly, $C = (c_{ij})\in\mathbb{R}^{n\times n}$ denotes the pushing weights that agent $i$ pushes information to agent $j$. In other words, it denotes the pulling weights that agent $j$ pulls information to agent $i$. Hence $C^T\boldsymbol 1=\boldsymbol 1$, i.e. $\boldsymbol 1^T C=\boldsymbol 1^T, c_{ij}\geq 0$. Moreover, for agent $i$, it will have no problem getting information from itself, hence $r_{ii}>0, c_{ii}>0$. As a result, we have assumption \@ref(exr:mrc).
+Suppose we have two nonnegative matrices $R,C^T\in\mathbb{R}^{n\times n}$ and two induced digraph $\mathcal{G}_R, \mathcal{G}_{C^T}$. Suppose each agent $i\in\mathcal{N}$ can actively and reliably push information out to its neighbor  $l\in\mathcal{N}^{out}_{C,i}\subset\mathcal{N}$ and pull information from its neighbor $j\in\mathcal{N}^{in}_{R,i}\subset\mathcal{N}$. Matrix $R=(r_{ij})\in\mathbb{R}^{n\times n}$ denotes the pulling weights that agent $i$ pulls information from agent $j$. Thus the row sum of $R$ should be $1$, i.e. $R\boldsymbol 1 = \boldsymbol 1$ and $r_{ij}\geq 0$. That is to say, matrix $R$ is  row-stochastic. Similarly, $C = (c_{ij})\in\mathbb{R}^{n\times n}$ denotes the pushing weights that agent $i$ pushes information to agent $j$. In other words, it denotes the pulling weights that agent $j$ pulls information from agent $i$. Hence $C^T\boldsymbol 1=\boldsymbol 1$, i.e. $\boldsymbol 1^T C=\boldsymbol 1^T, c_{ji}\geq 0$. Moreover, for agent $i$, it will have no problem getting information from itself, hence $r_{ii}>0, c_{ii}>0$. Assumption \@ref(exr:mrc) will gurantee this.
 
+```{remark}
+In a digraph induced by a nonnegative matrix $M=(m_{ij})\in\mathbb{R}^{n\times n},\exists$ a path from node $j$ to node $i$ iff $m_{ij}>0$. 
+```
  
 
 ```{exercise, mrc}
@@ -19,14 +22,17 @@ The matrix $R\in\mathbb{R}^{n\times n}$ is nonnegative row-stochastic and $C\in\
 The graphs $\mathcal{G}_R$ and $\mathcal{G}_{C^T}$ each contain at least one spaning tree. Moreover, there exists at least one node that is a root of spanning trees for both $\mathcal{G}_{R}$ and $\mathcal{G}_{C^T}$, i.e. $\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}} \neq \emptyset$, where $\mathcal{R}_R$ is the set of roots of all possible spanning trees in the graph $\mathcal{G}_R$. 
 ```
 
- 
+\\ 
 
 Assumption \@ref(exr:adigraph) is to say that at least one agent is connected to all other agents in this system(thus they should be both "pulled" and "pushed"), which is weaker to assume that the system is connected. Hence these agents are significant and we must assume at least one of them contribute to the update, i.e. assumption \@ref(exr:palpha).
 
- 
+Figure \@ref(fig:m-w)^[from @nedic2018network] shows the master-workers architecture in distributed optimization, which fits the assumption \@ref(exr:adigraph) when $\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}=\{\text{master node}\}$. 
+```{r,m-w, fig.cap="Master-Workers Architecture"}
+knitr::include_graphics("fig/m-w.png")
+```
 
 ```{exercise, palpha}
-$\exists i\in \mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}$ whose step size $\alpha_i>0$
+$\exists i\in \mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}$ whose step size $\alpha_i>0$.
   
 ```
 
@@ -54,7 +60,7 @@ Moreover, $u^T$ (resp., $v$) is nonzero only on the entries associated with agen
 
 
 
-The idea of Push-Pull Gradient Methods is that, at each iteration step $k$, agent $i$ updates its local copy of decision variable $x_{i,k+1}\in\mathbb R^p$ according to the information it pulls from its nearby agents based on the corresponding pulling weights. Then it will also update the information stored in an auxiliary variable $y_{i, k+1}\in\mathbb{R}^p$ 
+The idea of Push-Pull Gradient Methods is that, at each iteration step $k$, agent $i$ updates its local copy of decision variable $x_{i,k+1}\in\mathbb R^p$ according to the information it pulls from its nearby agents based on the corresponding pulling weights $(r_{i1},r_{i2},...,r_{in})$. Then it will also update the information stored in an auxiliary variable $y_{i, k+1}\in\mathbb{R}^p$ 
 
  
 
@@ -96,13 +102,14 @@ Then by induction, we can have
 \frac{1}{n} \mathbf{1}^{\top} Y_{k}=\frac{1}{n} \mathbf{1}^{\top} \nabla F\left(X_{k}\right), \quad \forall k
 (\#eq:avgy)
 \end{equation}
+which says the auxiliary variable $Y_{k}$ is to track the average gradient.
 ```
 
  
 
 ## Analysis of Convergence
 
-we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by linear system of inequalities in terms of their previous values. Then based on lemma \@ref(lem:lem37), we derive how should we choose the step size $\alpha_i$ so that $\rho(A)<1$.
+we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by a linear system of inequalities in terms of their previous values. Then based on lemma \@ref(lem:lem37), we derive how should we choose the step sizes $\alpha_i,i=1,2,...,n$ so that $\rho(A)<1$.
 
  
 
@@ -112,7 +119,7 @@ Given a nonnegative, irreducible matrix $M=(m_{ij})\in \mathbb{R}^{n\times n}$ w
 ```
 
  
-In this chapter, we define the matrix norm of $X\in\mathbb R^{n\times p }$ as,
+In this chapter, we define the matrix norm of $X\in\mathbb R^{n\times p }$ using definition \@ref(der:normpp).
 
  
 
@@ -122,9 +129,10 @@ Given an arbitary vector norm $\Vert\cdot\Vert$ on $\mathbb{R}^n$, $\forall X\in
 where $x^{(j)},j=1,2,...,p$ denote the $j$th column of $X$, $\Vert \cdot\Vert_2$ denotes $2-$norm.
 ```
 
+
 For example, when $\Vert\cdot\Vert$ is the $2-$norm, then the matrix norm under definition \@ref(def:normpp) is the Frobenius norm.
  
-While in the chapter of distributed stochastic gradient tracking method, we use Frobenius norm.
+While in the chapter of distributed stochastic gradient tracking method, we use Frobenius norm as matrix norm.
 
 ### Relationship between two iteration steps
 
@@ -135,7 +143,7 @@ We first give definition of $\bar x_k$ and $\bar y_k$.
 (\#eq:barpp)
 \end{equation}
 
-The authors do not define $\bar x_k$ as $\frac{1}{n}\boldsymbol 1^TX_k$ is because the pulling information is subject to the graph $\mathcal{G}_R$, which is not connected.
+The authors do not define $\bar x_k$ as $\frac{1}{n}\boldsymbol 1^TX_k$ is because the pulling information is subject to the graph $\mathcal{G}_R$, which may not be strongly connected. Thus agent $i$ could never use information from agent $j\not\in N^{in}_{R,i}$.
 
 For the pull step, 
 
@@ -175,9 +183,11 @@ The interpretation of $R-\frac{\boldsymbol 1 u^T}{n}$?
 For the push step, 
 
 \begin{align}
-Y_{k+1}-v\bar y_{k+1}&\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\nabla F(X_k)-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
+Y_{k+1}-v\bar y_{k+1}&\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\\
+&\nabla F(X_k)-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
 &=CY_k-v\bar y_k+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
-&=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))+Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
+&=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))+\\
+&Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k\\
 &=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))
 (\#eq:ppvbar)
 \end{align}
@@ -189,7 +199,7 @@ $$
 $$
 Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k=v\bar y_k+v\bar y_k-v\bar y_k-v\bar y_k=0
 $$
-This is because the column-stochastic of $C$ and lemma \@ref(lem:eigvrc).
+This is because the column-stochastic of $C$, i.e. $\mathbf{1}^TC=\mathbf{1}^T$ and lemma \@ref(lem:eigvrc).
 
 Similarly, we can rewrite $Y_{k+1}-v\bar y_{k+1}$ as 
 \begin{equation}
@@ -250,7 +260,7 @@ First, for $\Vert\bar x_{k+1}-x^*\Vert_2$, substitute $\bar x_{k+1}$ using \@ref
 (\#eq:ineq11)
 \end{align}
 
-On the right hand side, $\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2$ is the distance between the optimal and iterated value, $\vert \bar{y}_{k}-g_{k}\Vert_2$ is the distance between average gradient and gradient of iterated value. Lemma \@ref(lem:lem31) connects them with $\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2$ and $\Vert\bar x_{k+1}-x^*\Vert_2$ and add conditions on $f_i$ and $\alpha'$.
+On the right hand side, $\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2$ is the distance between the optimal and the next iterated value, $\vert \bar{y}_{k}-g_{k}\Vert_2$ is the distance between average gradient and gradient of iterated value. Lemma \@ref(lem:lem31) connects them with $\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2$ and $\Vert\bar x_{k+1}-x^*\Vert_2$ and add conditions on $f_i$ and $\alpha'$.
 
  
 
@@ -284,12 +294,13 @@ On the other hand,
 $\boldsymbol\alpha=\text{diag}(\alpha_1,...,\alpha_n)\in \mathbb{R}^{n\times n}$, then $\Vert \boldsymbol\alpha\Vert_2=\sigma_{\max}(\boldsymbol\alpha)=\underset{i}{\max}\alpha_i:=\hat\alpha$,since $\alpha_i\in\mathbb{R}^+,i=1,2,...,n$. $\sigma(A)$ denotes the singular value of $A$.
 
 Finally, \@ref(eq:ineq11) can be written as 
-\begin{equation}
+\begin{align}
 
-\Vert\bar x_{k+1}-x^*\Vert_2\leq
-\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}+\frac{\alpha^{\prime} L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}}+\frac{\hat{\alpha}\|u\|_{2}}{n}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}
+\Vert\bar x_{k+1}-x^*\Vert_2&\leq
+\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}+\frac{\alpha^{\prime} L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}}+\\
+&\frac{\hat{\alpha}\|u\|_{2}}{n}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}
 (\#eq:ineq1pp)
-\end{equation}
+\end{align}
 Where the first and second parts come from lemma \@ref(lem:lem31), which adds constraints on $f_i$ and $\alpha'$. The second part also uses lemma \@ref(lem:lem35) in transforming different norms, as well as the last part. Additionally, the last part uses lemma \@ref(lem:lem34) when separating $u,\boldsymbol\alpha$ out of norm, which can be seen as a further result of consistency of norms.
 
  
@@ -299,32 +310,38 @@ Where the first and second parts come from lemma \@ref(lem:lem31), which adds co
 Given an arbitrary norm $\Vert\cdot\Vert$, $\forall W\in\mathbb{R}^{n\times n}$ and $X\in\mathbb{R}^{n\times p}$, we have $\Vert WX\Vert\leq\Vert W\vert\Vert X\Vert$. $\forall w\in\mathbb{R}^{n\times 1},x\in\mathbb{R}^{1\times p},\Vert wx\Vert = \Vert w\Vert \Vert x\Vert_2$
 ```
 
- 
+\\
 
 
 For $\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R$, from \@ref(eq:pp1bar), we have 
 \begin{align}
 \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R&\leq 
-\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k)\Vert_R\\
+\underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k\Vert_R\\
 &\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
 \sigma_R\Vert \boldsymbol\alpha\Vert_2(\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R\cdot \Vert \bar y_k\Vert_2)\\
 &\leq \sigma_R\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R + 
-\sigma_R\Vert \alpha'\Vert_2[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
+\sigma_R\hat\alpha[\delta_{R,C}\Vert Y_{k}-v\bar y_k\Vert_C + \\
+&\Vert v\Vert_R (\frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}+L\left\|\bar{x}_{k}-x^{*}\right\|_{2})]\\
 &\leq \sigma_R\left(1+\hat{\alpha}\|v\|_{\mathrm{R}} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+
-\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+\hat{\alpha} \sigma_{\mathrm{R}} \delta_{\mathrm{R}, \mathrm{C}}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}+\\
+
+&\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 (\#eq:ineq2pp)
 \end{align}
 
 Where the second inquality is derived from lemma \@ref(lem:lem33) in transforming $\Vert\boldsymbol\alpha\Vert_R=\Vert\boldsymbol\alpha\Vert_2=\hat\alpha$ since $\boldsymbol\alpha$ is diagonal and lemma \@ref(lem:lem35) in transforming $\Vert\cdot\Vert_R$ into $\Vert\cdot\Vert_C$. Next we use lemma \@ref(lem:lem34) and \@ref(lem:lem31) to transform $\Vert \bar y_k\Vert_R$ into the two parts. Finally, we choose a proper rescaling of the norm $\Vert\cdot\Vert_R$ to derive $\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_2\leq\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R$.   
 
- 
+```{lemma, lem32}
+Let assumptions \@ref(exr:mrc) and \@ref(exr:adigraph) hold. Then the spectral radii of $(R-\frac{\mathbf{1}u^T}{n})$ and $(C-\frac{v\mathbf{1}^T}{n})$, denoted as $\rho_R$ and $\rho_C$ respectively are both less than 1.
+```
+
+\\
 
 ```{lemma, lem33}
 There exist matrix norms $\Vert\cdot\Vert_R$ and $\Vert\cdot\Vert_C$ such that $\sigma_R:=\Vert R-\frac{\mathbf1u^T}{n}\Vert_R<1,\sigma_{\mathrm{C}}:=\left\|\mathbf{C}-\frac{v \mathbf{1}^{\mathrm{T}}}{n}\right\|_{\mathrm{C}}<1$, and $\sigma_R$ and $\sigma_C$ are arbitrarily close to $\rho_R$ and $\rho_C$, respectively. In addition, given any diagnal matrix $W\in\mathbb{R}^{n\times n}$, we have $\|W\|_{\mathrm{R}}=\|W\|_{\mathrm{C}}=\|W\|_{2}$.
 ```
 
- 
+\\ 
 
 
 For $\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C$, denote $\sigma_{\mathrm{C}}:=\left\|\mathbf{C}-\frac{v \mathbf{1}^{\mathrm{T}}}{n}\right\|_{\mathrm{C}}$ and $c_0 :=\Vert I-\frac{v\boldsymbol1^T}{n}\Vert_C$, from \@ref(eq:ppvbar), we have 
@@ -343,12 +360,13 @@ For $\Vert X_{k+1}-X_k\Vert_2$, we have
 \Vert R\Vert_2\hat\alpha(\Vert Y_k-v\bar y_k+v\bar y_k\Vert_2)\\
 \end{align}
 
-The inequality is based on lemma \@ref(lem:lem35) by choosing a proper rescaling of $\Vert \cdot\Vert_R$. Then by lemma \@ref(lem:lem31) and unite like terms, we have 
+The inequality is based on lemma \@ref(lem:lem35) by choosing a proper rescaling of $\Vert \cdot\Vert_R$. Then by lemma \@ref(lem:lem31) and combine like terms, we have 
 
 \begin{align}
 \Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
-&c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} + 
-\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
+&c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} +\\
+
+&\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 (\#eq:ineq3pp)
 \end{align}
 
@@ -372,12 +390,13 @@ c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-\mathbf{I}\|_{2}+\hat{\alpha}\|R\|_{2}\|
 
 ### Spectral radius of A
 
-Lemma \@ref(lem:lem37) lead us to give conditions on $A$ so that $\rho(A_{pp})<1$. Hence we need to make $a_{ii}<1,i=1,2,3$ and $\det(I-A_{pp})<1$. 
+Lemma \@ref(lem:lem37) lead us to give conditions on $A$ so that $\rho(A_{pp})<1$. Hence we need to make $a_{ii}<1,i=1,2,3$ and $\det(I-A_{pp})>0$. 
 
 From \@ref(lem:lem33), $\sigma_R<1$, so it is sufficient to have $a_{22}\leq\frac{1+\sigma_R}{2}$ so that $a_{22}<1$. Similar for $a_{33}<1$, we let $a_{33}\leq\frac{1+\sigma_C}{2}$. This may explain why the authors let $1-a_{22}\geq \frac{1-\sigma_R}{2}$ and $1-a_{33}\geq\frac{1-\sigma_C}{2}$. For $a_{11}<1$, i.e. $\alpha'\mu>0$, we have 
 \begin{equation}
 \alpha' = \frac{1}{n}u^T\boldsymbol{\alpha}v
 =\frac{1}{n}\sum_{i=1}^n\alpha_iu_iv_i>0
+(\#eq:ag0)
 \end{equation}
 Which can be seen from lemma \@ref(lem:eigvrc) that $u,v\in\mathbb{R}^{n}$ are nonnegative vectors and $\alpha_i\geq0$.
 
@@ -385,7 +404,7 @@ Which can be seen from lemma \@ref(lem:eigvrc) that $u,v\in\mathbb{R}^{n}$ are n
 Lemma \@ref(lem:lem37) also requires nonnegative matrix, so we also need $a_{11}=1-\alpha'\mu\geq 0$, which is satisfied according to lemma \@ref(lem:lem31) by requring $\alpha'\leq \frac{2}{\mu+L}$.
 ```
 
-Next we deive the sufficient conditions on $\hat\alpha:=\underset{i}{\max}\alpha_i$ so that $\det{I-A_{pp}}>0$. Additionally, since $\alpha'=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i$ and $\hat\alpha=\underset{i}{\max}\alpha_i$, then $\exists M,s.t.\alpha'=M\hat\alpha$. $M$ is determined once we know the graphs $\mathcal{G}_R$ and $\mathcal{G}_C$ and choose the step sizes for each agent. Then $\det(I-A)$ becomes a function of $\hat\alpha$, thus we can derive the requirement for the step sizes $\alpha_i$ by letting $\det(I-A)=f(\hat\alpha)>0$. 
+Next we deive the sufficient conditions on $\hat\alpha:=\underset{i}{\max}\alpha_i$ so that $\det{(I-A_{pp})}>0$. Additionally, since $\alpha'=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i$ and $\hat\alpha=\underset{i}{\max}\alpha_i$, then $\exists M,s.t.\alpha'=M\hat\alpha$. $M$ is determined once we know the graphs $\mathcal{G}_R$ and $\mathcal{G}_C$ and choose the step sizes for each agent. Then $\det(I-A)$ becomes a function of $\hat\alpha$, thus we can derive the requirement for the step sizes $\alpha_i$ by letting $\det(I-A)=f(\hat\alpha)>0$. 
 
 \begin{align}
 \det(I-A) &= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}\\
@@ -418,9 +437,9 @@ $\rho(A_{pp})<1$.
 __Todo: $\min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right\}\stackrel{?}=\frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}$ __
 
 ```{remark}
-\\
+\
 
-- If we do not use the inequality in \@ref(eq:detppo), we can still have $b_3-b_2\hat\alpha-b_1\hat\alpha^2>0$. However, it is not easy to determine the sign of $b_i,i=1,2,3$ now. 
+- If we do not use the inequality in \@ref(eq:detppo), we can still have $b_3-b_2\hat\alpha-b_1\hat\alpha^2>0$. However, it is not easy to determine the sign of $b_i,i=1,2,3$ for this situation. 
 
 ```
 
