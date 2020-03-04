@@ -83,7 +83,6 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
-<li class="chapter" data-level="5.2" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#todo"><i class="fa fa-check"></i><b>5.2</b> Todo</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -113,28 +112,25 @@ Y_{k+1} &amp;= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 \tag{3.1}
 \end{align}\]</span>
 <p>If we further assume we only have noisy estimates of <span class="math inline">\(\nabla F(X)\)</span>, i.e. <span class="math inline">\(G(X,\boldsymbol\xi)\)</span>, we get DSGT <a href="dsgt.html#exm:dsgt">4.1</a>.</p>
-<p>In the proof of <span class="math inline">\(\rho(A_{pp})&lt;1\)</span>, the spectral radius of <span class="math inline">\(A\)</span> of the linear system of inequalities in the Push-Pull method, the authors use <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span> to build a sufficient condition for <span class="math inline">\(\hat\alpha\)</span>, which avoid discussing the sign of <span class="math inline">\(c_i,i=1,2,3\)</span> of <span class="math inline">\(c_{3}-c_{2} \hat{\alpha}-c_{1} \hat{\alpha}^{2}\)</span>.</p>
+<p>In the proof of <span class="math inline">\(\rho(A_{pp})&lt;1\)</span>, the spectral radius of <span class="math inline">\(A\)</span> of the linear system of inequalities in the Push-Pull method, the authors use <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span> to build a sufficient condition for <span class="math inline">\(\hat\alpha\)</span>, which avoid discussing the sign of <span class="math inline">\(c_i,i=1,2,3\)</span> in <span class="math inline">\(c_{3}-c_{2} \hat{\alpha}-c_{1} \hat{\alpha}^{2}\)</span>.</p>
+<div id="questions" class="section level2">
+<h2><span class="header-section-number">5.1</span> Questions</h2>
 <ul>
-<li>In two methods, the matrices <span class="math inline">\(R-\frac{\mathbf{1}u^T}{n}, C-\frac{v\mathbf{1^T}}{n}\)</span>, and <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span> and their spectral radii(or approximation) seem important. How to interpretate them? Is it because the following relationships?</li>
+<li>In two methods, the matrices <span class="math inline">\(R-\frac{\mathbf{1}u^T}{n}, C-\frac{v\mathbf{1^T}}{n}\)</span>, and <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span> and their (approximated) spectral radii seem important. How to interpretate them? Is it because the following relationships?</li>
 </ul>
 <p><span class="math display">\[
 \lim _{k \rightarrow \infty} \mathbf{R}^{k}=\frac{1 u^{\top}}{n}, \lim _{k \rightarrow \infty} C^{k}=\frac{v 1^{\top}}{n}
 \]</span></p>
-<div id="questions" class="section level2">
-<h2><span class="header-section-number">5.1</span> Questions</h2>
 <ul>
 <li><p>In <a href="dsgt.html#eq:dsgt31">(4.7)</a>, <span class="math inline">\(\left\langle Y_{k+1}-\mathbf{1}\bar y_{k+1},\mathbf{1}(\bar y_k-\bar y_{k+1})\right\rangle\stackrel{?}{=}0\)</span></p></li>
-<li><span class="math display">\[\begin{align}
+<li>In the following inequality, <span class="math inline">\(2n\sigma^2\)</span> seems come from <a href="dsgt.html#exr:estg">4.1</a>, the others?
+<span class="math display">\[\begin{align}
 2 \mathbb{E}\left[\left\langle\nabla_{k+1}-\nabla_{k}, G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]&amp;+\\
 &amp;\mathbb{E}\left[\left\|G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\|^{2} | \mathcal{F}_{k}\right]\\
-&amp;leq 2 \mathbb{E}\left[\left\langle\nabla_{k+1},-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]+2 n \sigma^{2}
+&amp;\leq 2 \mathbb{E}\left[\left\langle\nabla_{k+1},-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]+2 n \sigma^{2}
 \end{align}\]</span></li>
 </ul>
-<p><span class="math inline">\(2n\sigma^2\)</span> seems come from <a href="dsgt.html#exr:estg">4.1</a>, the others?</p>
-</div>
-<div id="todo" class="section level2">
-<h2><span class="header-section-number">5.2</span> Todo</h2>
-<p><strong>Todo: E</strong></p>
+<p><strong>Todo: <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\leq?\)</span></strong></p>
 <p><strong>Todo: <span class="math inline">\(\rho(A_{pp})\approx1-\alpha&#39;\mu\)</span>,when <span class="math inline">\(\hat\alpha\)</span> is sufficiently small</strong></p>
 
 </div>
