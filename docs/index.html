@@ -110,6 +110,7 @@
 </div>
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p>These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself.</p>
 <p>We summarize some distributed gradient based algorithms solving the problem <a href="index.html#eq:obj">(1.1)</a>, namely <em>Push-Pull Gradient Method</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <span class="citation">(Pu et al. <a href="#ref-pu2018push">2018</a>)</span>, and <em>Distributed Stochastic Gradient Tracking Methods(DSGT)</em> <span class="citation">(Pu and Nedić <a href="#ref-pu2018distributed">2018</a>)</span>.</p>
 <span class="math display" id="eq:obj">\[\begin{equation}
 \underset{x\in\mathbb{R}^p}{\min} f(x):=\frac{1}{n}\sum_{i=1}^n f_i(x)

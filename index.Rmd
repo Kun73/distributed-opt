@@ -21,6 +21,12 @@ biblio-style: apalike
 
 # Introduction{#intro}
 
+These are some notes about distributed optimization, including some algorithms,
+their analysis of convergence, and some understandings of my own. Although the authors
+of those literature already provide proofs, I complement some details and try to
+figure out why should we prove in such a way. Hence they could be more easy to understand,
+especially for myself.
+
 We summarize some distributed gradient based algorithms solving the problem \@ref(eq:obj), namely *Push-Pull Gradient Method*^[In the original paper, the author considers minimizing the sum of $f_i$, known by agent i only] [@pu2018push], and *Distributed Stochastic Gradient Tracking Methods(DSGT)* [@pu2018distributed].
 
 \begin{equation}
