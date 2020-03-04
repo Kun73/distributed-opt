@@ -27,7 +27,7 @@ The graphs $\mathcal{G}_R$ and $\mathcal{G}_{C^T}$ each contain at least one spa
 Assumption \@ref(exr:adigraph) is to say that at least one agent is connected to all other agents in this system(thus they should be both "pulled" and "pushed"), which is weaker to assume that the system is connected. Hence these agents are significant and we must assume at least one of them contribute to the update, i.e. assumption \@ref(exr:palpha).
 
 Figure \@ref(fig:m-w)^[from @nedic2018network] shows the master-workers architecture in distributed optimization, which fits the assumption \@ref(exr:adigraph) when $\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}=\{\text{master node}\}$. 
-```{r,m-w, fig.cap="Master-Workers Architecture"}
+```{r,m-w, fig.cap="Master-Workers Architecture", echo=FALSE, fig.align='center'}
 knitr::include_graphics("fig/m-w.png")
 ```
 
@@ -109,7 +109,7 @@ which says the auxiliary variable $Y_{k}$ is to track the average gradient.
 
 ## Analysis of Convergence
 
-we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by a linear system of inequalities in terms of their previous values. Then based on lemma \@ref(lem:lem37), we derive how should we choose the step sizes $\alpha_i,i=1,2,...,n$ so that $\rho(A)<1$.
+we first bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by a linear combination in terms of their previous values. Then based on lemma \@ref(lem:lem37), we derive how should we choose the step sizes $\alpha_i,i=1,2,...,n$ so that $\rho(A)<1$.
 
  
 
@@ -220,9 +220,9 @@ Additionally, recall our goal is to bound those three distance, from \@ref(eq:ba
 
 The auther introduce $g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)$ is because $\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)$, i.e, equation \@ref(eq:avgy). It is the gradient of the obejective function at $\bar x_k$.
 
-### Linear system of inequalities
+### Inequalities
 
-we then bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$ by linear system of inequalities. 
+we then bound $(\Vert\bar x_{k+1}-x^*\Vert_2, \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R,\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C)^T$. 
 
  
 
