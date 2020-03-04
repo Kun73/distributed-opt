@@ -119,7 +119,7 @@ Given a nonnegative, irreducible matrix $M=(m_{ij})\in \mathbb{R}^{n\times n}$ w
 ```
 
  
-In this chapter, we define the matrix norm of $X\in\mathbb R^{n\times p }$ using definition \@ref(der:normpp).
+In this chapter, we define the matrix norm of $X\in\mathbb R^{n\times p }$ using definition \@ref(exr:normpp).
 
  
 
