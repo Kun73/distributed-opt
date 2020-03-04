@@ -47,7 +47,7 @@ Y_k &= \left(y_{1,k},y_{2,k},...,y_{n,k}\right)^T\in\mathbb{R}^{n\times p}\\
 
 $x_{i,k}\in\mathbb{R}^p$ denotes the decision variable of agent $i$ of the $k$th iteration, $y_{i,k}$ represents the auxiliary variable of agent $i$ of the $k$th iteration.
 
-Under assumption \@ref(exr:muL) , there exists an unique solution to \@ref(eq:obj) $x^*\in\mathbb{R}^{1\times p}$. To prove the convergence of those methods, the idea is to bound three quantities, namely $\bar x_{k+1}-x^*$, $X_{k+1}-\mathbf{1}\bar x_{k+1}$, and $Y_{k+1}-\mathbf{1}\bar y_{k+1}$ by the linear combination of their previous values under corresponding measurements. This will introduce a matrix $A$.  In order to make it converge, we need to make $\rho(A)<1$, i.e. the spectral radius of $A$ to be less than $1$(similar idea with contraction mapping), which will derive constraints to the stepsize $\alpha$. By doing so, the authors prove the convergence of those three methods and derive their convergence rate. 
+Under assumption \@ref(exr:muL) , there exists an unique solution to \@ref(eq:obj) $x^*\in\mathbb{R}^{1\times p}$. To prove the convergence of those methods, the idea is to bound three quantities, namely $\bar x_{k+1}-x^*$, $X_{k+1}-\mathbf{1}\bar x_{k+1}$, and $Y_{k+1}-\mathbf{1}\bar y_{k+1}$ by the linear combination of their previous values under corresponding measurements. This will introduce a matrix $A$.  In order to make it converge, we need to make $\rho(A)<1$, i.e. the spectral radius of $A$ to be less than $1$(similar idea with contraction mapping), which will derive constraints to the stepsize $\alpha$. By doing so, the authors prove the convergence and derive their convergence rate. 
 
 ```{exercise, muL}
 Each $f_i$ is $\mu$-strongly convex and its gradient is $L-$Lipschitz continuous, i.e. $\forall x,x'\in\mathbb{R}^{p}$
@@ -69,4 +69,4 @@ F(X) = \sum_{i=1}^n f_i(x_i), X\in\mathbb{R}^{n\times p}
 \nabla F(X) = \left(\nabla f_1(x_1), ..., \nabla f_n(x_n)\right)^T\in\mathbb{R}^{n\times p}
 \end{equation*}
 
-If not stated otherwise, we use the capital letter to denote a matrix, and use column vector.
+If not stated otherwise, we use the capital letter to denote a matrix, and use column vectors.
