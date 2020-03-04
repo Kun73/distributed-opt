@@ -11,16 +11,7 @@ If we further assume we only have noisy estimates of $\nabla F(X)$, i.e. $G(X,\b
 
 In the proof of $\rho(A_{pp})<1$, the spectral radius of $A$ of the linear system of inequalities in the Push-Pull method, the authors use $1>(1-a_{22})\geq\frac{1-\sigma_R}{2}$,and $1>(1-a_{33})\geq\frac{1-\sigma_C}{2}$ to build a sufficient condition for $\hat\alpha$, which avoid discussing the sign of $c_i,i=1,2,3$ of $c_{3}-c_{2} \hat{\alpha}-c_{1} \hat{\alpha}^{2}$.
 
-The idea of proving $\rho(A_{dsgt})<1$ may also be adopted here. 
 
-\begin{align}
-
-\det(I-A) &= (1-a_{11})\left[(1-a_{22})(1-a_{33})-a_{32}a_{23}\right] -\\
-& a_{21}\left[a_{12}(1-a_{33})-a_{32}a_{13}\right] + \\
-& a_{31}\left[a_{12}a_{23}-(1-a_{22})a_{13}\right]\\
-\end{align}
-
-## Questions
 
 - In two methods, the matrices $R-\frac{\mathbf{1}u^T}{n}, C-\frac{v\mathbf{1^T}}{n}$, and $W-\frac{\mathbf{1}\mathbf{1}^T}{n}$ and their spectral radii(or approximation) seem important. How to interpretate them? Is it because the following relationships?
 
@@ -28,5 +19,23 @@ $$
 \lim _{k \rightarrow \infty} \mathbf{R}^{k}=\frac{1 u^{\top}}{n}, \lim _{k \rightarrow \infty} C^{k}=\frac{v 1^{\top}}{n}
 $$
 
+## Questions
+
+- In \@ref(eq:dsgt31), $\left\langle Y_{k+1}-\mathbf{1}\bar y_{k+1},\mathbf{1}(\bar y_k-\bar y_{k+1})\right\rangle\stackrel{?}{=}0$
 
 - 
+\begin{align}
+2 \mathbb{E}\left[\left\langle\nabla_{k+1}-\nabla_{k}, G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]&+\\
+&\mathbb{E}\left[\left\|G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\|^{2} | \mathcal{F}_{k}\right]\\
+&leq 2 \mathbb{E}\left[\left\langle\nabla_{k+1},-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]+2 n \sigma^{2}
+\end{align}
+
+$2n\sigma^2$ seems come from \@ref(exr:estg), the others?
+
+
+
+## Todo
+
+__Todo: E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]__
+
+__Todo: $\rho(A_{pp})\approx1-\alpha'\mu$,when $\hat\alpha$ is sufficiently small__
