@@ -36,13 +36,18 @@ For k = 0, 1, ...,
     * $y_{i, k+1} = \sum\limits_{j=1}^nw_{ij}y_{j,k}+g_i(x_{i,k+1},\xi_{i,k+1})-g_i(x_{i,k},\xi_{i,k})$
 
 ```
-Where $W=(w_{ij})\in\mathbb{R}^{n\times n}$ denotes the coupling matrix of agents.The above algorithm can be written as the matrix form, 
+Where $W=(w_{ij})\in\mathbb{R}^{n\times n}$ denotes the coupling matrix of agents,satisfying assumption \@ref(exr:dsw).The above algorithm can be written as the matrix form, 
 \begin{align}
 X_{k+1}&=\mathbf{W}\left(X_{k}-\alpha Y_{k}\right)\\
 Y_{k+1}&=\mathbf{W} Y_{k}+G\left(X_{k+1}, \xi_{k+1}\right)-G\left(X_{k}, \xi_{k}\right)
 (\#eq:dsgt)
 \end{align}
 Where $G(X_k,\boldsymbol\xi_k)=(g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k}))^T\in\mathbb{R}^{n\times p}$.
+
+```{exercise, dsw}
+$W=(w_{ij})\in\mathbb{R}^{n\times n}$ is nonnegative and doubly stochastic,i.e. $W\mathbf{1}=\mathbf{1}$ and $\mathbf{1}^TW=\mathbf{1}^T$. In addition, $w_{ii}>0$ for some $i\in\mathcal{N}$.
+```
+
 
 Insead of the definition \@ref(def:normpp) used in the Push-Pull method, we denote $\Vert\cdot\Vert$ as the $2-$norm for vectors and as Frobenius norms for matrices. Hence they are consistent, the lemma \@ref(lem:lem34) and \@ref(lem:lem35) are satisfied accordingly. 
 
