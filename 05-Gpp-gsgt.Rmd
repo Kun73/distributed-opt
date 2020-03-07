@@ -1,0 +1,10 @@
+# Gossip-like Push-Pull and DSGT
+
+__Todo:gossip algorithms__
+
+Instead of iterating all the agents, at each time slot $k=0,1,...$, a batch of agents may wake up randomly, and communicate with a subset of their nearby agents. 
+
+## G-Push-Pull
+
+
+
