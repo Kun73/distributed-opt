@@ -73,12 +73,12 @@
 <li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="dsgt.html"><a href="dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
-<li class="chapter" data-level="4.1" data-path="dsgt.html"><a href="dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="dsgt.html"><a href="dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="dsgt.html"><a href="dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
-<li class="chapter" data-level="4.2.2" data-path="dsgt.html"><a href="dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
-<li class="chapter" data-level="4.2.3" data-path="dsgt.html"><a href="dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
+<li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
+<li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
@@ -121,7 +121,7 @@
 <p><span class="math inline">\(p(\mathcal{G})=\mathcal{O}(1)\)</span> is a desirable setting, which means a decentralized algorithm converge to the optimal at a comparable rate to a centralized algorithm with the same computational power<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Fortunately, it is possible for the iteration time <span class="math inline">\(k\)</span> to be large enough for some distributed stochastic optimization, which is the <strong>asymptotic network independence</strong> property: it is as if the network is not even there.</p>
 <div id="sgd-and-dsgd" class="section level2">
 <h2><span class="header-section-number">7.1</span> SGD and DSGD</h2>
-<p>We consider a distributed stochastic gradient descent(DSGD) method, see algorithm under assumptions <a href="index.html#exr:muL">1.1</a>, <a href="dsgt.html#exr:estg">4.1</a>,<a href="dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="dsgt.html#exr:dsw">4.3</a> plus symmetric<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, the similar settings as we discuss in chapter <a href="#sec:dsgt"><strong>??</strong></a>. By assumption <a href="index.html#exr:muL">1.1</a>, there exist a unique solution <span class="math inline">\(x^*\in\mathbb{R}^p\)</span> to the problem <a href="index.html#eq:obj">(1.1)</a>.</p>
+<p>We consider a distributed stochastic gradient descent(DSGD) method, see algorithm under assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>,<a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus symmetric<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, the similar settings as we discuss in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>. By assumption <a href="index.html#exr:muL">1.1</a>, there exist a unique solution <span class="math inline">\(x^*\in\mathbb{R}^p\)</span> to the problem <a href="index.html#eq:obj">(1.1)</a>.</p>
 
 <div class="example">
 <p><span id="exm:dsgd" class="example"><strong>Algorithm7.1  (DSGD)  </strong></span>Each agent <span class="math inline">\(i\)</span> choose the same step size <span class="math inline">\(\alpha_k\)</span> at the <span class="math inline">\(k\)</span>th iteration and initilized with an arbitary <span class="math inline">\(x_i(0)\in\mathbb{R}^p\)</span></p>
@@ -131,7 +131,7 @@
 <ul>
 <li><span class="math inline">\(x_i(k+1) = \sum\limits_{j=1}^nw_{ij}(x_j(k+1)-\alpha_k g_j(x_i(k),\xi_i(k)))\)</span>
 </div>
- <span class="math inline">\(\{\alpha_k\}\)</span> are a sequence of nonnegative non-increasing stepsizes. In the long run, <span class="math inline">\(x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}\)</span>, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions <a href="dsgt.html#exr:dsgtgraph">4.2</a> and <a href="dsgt.html#exr:dsw">4.3</a> plus symmetric.</li>
+ <span class="math inline">\(\{\alpha_k\}\)</span> are a sequence of nonnegative non-increasing stepsizes. In the long run, <span class="math inline">\(x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}\)</span>, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a> and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus symmetric.</li>
 </ul></li>
 </ul>
 <p><strong>Todo:<span class="math inline">\(x_{i,k}\stackrel{?}=x_{j,k},\forall i,j\in\mathcal{N}\)</span></strong></p>
@@ -148,7 +148,7 @@
 <p>where <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))\)</span>, which is to make the gradient comparable to that in DSGD, i.e., <span class="math inline">\(\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))\)</span>.</p>
 Choose <span class="math inline">\(2-\)</span>norm as the loss function, the risk at the <span class="math inline">\(k\)</span>th step is
 <span class="math display" id="eq:risksgd">\[\begin{equation}
-R(k)=\E\left[\Vert x(k)-x^*\Vert^2\right]=\frac{1}{n}\sum\limits_{i=1}^n\E\left[\Vert x(k)-x^*\Vert^2\right]
+R(k)=E  \left[\Vert x(k)-x^*\Vert^2\right]=\frac{1}{n}\sum\limits_{i=1}^nE  \left[\Vert x(k)-x^*\Vert^2\right]
 \tag{7.1}
 \end{equation}\]</span>
 which hints us to evaluate the performance of DSGD by
@@ -156,10 +156,10 @@ which hints us to evaluate the performance of DSGD by
 R&#39;(k)=\frac{1}{n}\sum\limits_{i=1}^n E\left[\Vert x_i(k)-x^*\Vert^2\right]
 \tag{7.2}
 \end{equation}\]</span>
-Additonnally, <a href="#riskdsgd"><strong>??</strong></a> can be divided into two sources, one from the optimization error, and one from the consensus error, i.e.,
+Additonnally, <a href="asymptotic-network-independence.html#eq:riskdsgd">(7.2)</a> can be divided into two sources, one from the optimization error, and one from the consensus error, i.e.,
 <span class="math display" id="eq:drdsgd">\[\begin{equation}
-R&#39;(K)=\underbrace{\E\left[\Vert \bar x(k)-x^*\Vert^2\right]}_{\text{expected optimization error}} + 
-\underbrace{\frac{1}{n}\sum_{i=1}^n\E\left[\Vert  x_i(k)-\bar x(k)^*\Vert^2\right]}_{\text{expected consensus error}}
+R&#39;(K)=\underbrace{E  \left[\Vert \bar x(k)-x^*\Vert^2\right]}_{\text{expected optimization error}} + 
+\underbrace{\frac{1}{n}\sum_{i=1}^nE  \left[\Vert  x_i(k)-\bar x(k)^*\Vert^2\right]}_{\text{expected consensus error}}
 \tag{7.3}
 \end{equation}\]</span>
 </div>
@@ -168,12 +168,12 @@ R&#39;(K)=\underbrace{\E\left[\Vert \bar x(k)-x^*\Vert^2\right]}_{\text{expected
 <p>We next compare SGD and DSGD by analyzing their error bounds.</p>
 
 <div class="lemma">
-<span id="lem:risksgd" class="lemma"><strong>Lemma 7.1  </strong></span>Let assumptions <a href="index.html#exr:muL">1.1</a>, <a href="dsgt.html#exr:estg">4.1</a>, <a href="dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric hold, for SGD <a href="asymptotic-network-independence.html#exm:sgd">7.2</a>, we have <span class="math display">\[
+<span id="lem:risksgd" class="lemma"><strong>Lemma 7.1  </strong></span>Let assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>, <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric hold, for SGD <a href="asymptotic-network-independence.html#exm:sgd">7.2</a>, we have <span class="math display">\[
 R(k+1) \leq\left(1-\alpha_{k} \mu\right)^{2} R(k)+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
 \]</span>
 </div>
 
-<p>Denote <span class="math inline">\(U(k)={\mathbb{E}}\left[\Vert \bar x(k)-x^*\Vert^2\right]\)</span> and <span class="math inline">\(V(k)=\sum\limits_{i=1}^n{\mathbb{E}}\left[\Vert x_i(k)-\bar x(k)\right]\)</span>, we have</p>
+<p>Denote <span class="math inline">\(U(k)=E \left[\Vert \bar x(k)-x^*\Vert^2\right]\)</span> and <span class="math inline">\(V(k)=\sum\limits_{i=1}^nE \left[\Vert x_i(k)-\bar x(k)\right]\)</span>, we have</p>
 
 <div class="lemma">
 <span id="lem:riskdsgd" class="lemma"><strong>Lemma 7.2  </strong></span>Let the same assumptions in <a href="asymptotic-network-independence.html#lem:risksgd">7.1</a> hold, <span class="math display">\[
@@ -200,6 +200,7 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
 <li><p>Redcing the transient time;</p></li>
 </ul>
 <p>Additionnally, an unsolving question is can distributed methods compete with the centralized ones when the exact gradient is available?</p>
+<p><strong>Todo: related reference</strong></p>
 
 </div>
 </div>
