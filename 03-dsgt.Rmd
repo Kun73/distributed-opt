@@ -1,4 +1,4 @@
-# Distributed Stochastic Gradient Tracking(DSGT) Method {#dsgt}
+# Distributed Stochastic Gradient Tracking(DSGT) Method {#sec:dsgt}
 
 ## Introduction
 
