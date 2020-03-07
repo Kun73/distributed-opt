@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notes about Distributed Optimization</title>
+  <title>Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="orgnization-of-the-notes.html"/>
+<link rel="prev" href="summary-of-push-pull-and-dsgt.html"/>
+<link rel="next" href="asymptotic-network-independence.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -111,76 +111,22 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notes about Distributed Optimization</h1>
-<p class="author"><em>Kun Huang</em></p>
-<p class="date"><em>2020-03-06</em></p>
-</div>
-<div id="intro" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself.</p>
-<p>We summarize some distributed gradient based algorithms solving the problem <a href="index.html#eq:obj">(1.1)</a>, namely <em>Push-Pull Gradient Method</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> <span class="citation">(Pu et al. <a href="#ref-pu2018push">2018</a>)</span>, and <em>Distributed Stochastic Gradient Tracking Methods(DSGT)</em> <span class="citation">(Pu and Nedić <a href="#ref-pu2018distributed">2018</a>)</span>.</p>
-<span class="math display" id="eq:obj">\[\begin{equation}
-\underset{x\in\mathbb{R}^p}{\min} f(x):=\frac{1}{n}\sum_{i=1}^n f_i(x)
-\tag{1.1}
-\end{equation}\]</span>
-<p>Where <span class="math inline">\(f_i:\mathbb{R}^p\to \mathbb{R}\)</span> is known by agent <span class="math inline">\(i\)</span> only, and all the agents communicate and exchange information over a network.</p>
-<p>In general, these two methods use a decision variable <span class="math inline">\(x\in \mathbb{R}^p\)</span> and an auxiliary variable <span class="math inline">\(y\in\mathbb{R}^p\)</span> and have a form of <a href="index.html#eq:unif">(1.2)</a> for the <span class="math inline">\((k+1)\)</span>th iteration.</p>
-<span class="math display" id="eq:unif">\[\begin{align}
-X_{k+1} &amp;= S_1(X_k-\boldsymbol\alpha Y_k)\\
-Y_{k+1} &amp;= S_2Y_k + T(X_{k+1}) - T(X_k)
-\tag{1.2}
-\end{align}\]</span>
-<p>Where <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> are the matrices inducing the graphs, <span class="math inline">\(T(\cdot)\)</span> is the estimate of gradient, and <span class="math inline">\(\boldsymbol\alpha = \text{diag}(\alpha_1,...,\alpha_n)\in\mathbb{R}^{n\times n}\)</span>, <span class="math inline">\(\alpha_i\)</span> is the step size initialized for agent <span class="math inline">\(i\)</span>.</p>
-<span class="math display">\[\begin{align*}
-X_k &amp;= \left(x_{1,k},x_{2,k},...,x_{n,k}\right)^T\in\mathbb{R}^{n\times p}\\
-
-Y_k &amp;= \left(y_{1,k},y_{2,k},...,y_{n,k}\right)^T\in\mathbb{R}^{n\times p}\\
-\end{align*}\]</span>
-<p><span class="math inline">\(x_{i,k}\in\mathbb{R}^p\)</span> denotes the decision variable of agent <span class="math inline">\(i\)</span> of the <span class="math inline">\(k\)</span>th iteration, <span class="math inline">\(y_{i,k}\)</span> represents the auxiliary variable of agent <span class="math inline">\(i\)</span> of the <span class="math inline">\(k\)</span>th iteration.</p>
-<p>Under assumption <a href="index.html#exr:muL">1.1</a> , there exists an unique solution to <a href="index.html#eq:obj">(1.1)</a> <span class="math inline">\(x^*\in\mathbb{R}^{1\times p}\)</span>. To prove the convergence of those methods, the idea is to bound three quantities, namely <span class="math inline">\(\bar x_{k+1}-x^*\)</span>, <span class="math inline">\(X_{k+1}-\mathbf{1}\bar x_{k+1}\)</span>, and <span class="math inline">\(Y_{k+1}-\mathbf{1}\bar y_{k+1}\)</span> by the linear combination of their previous values under corresponding measurements. This will introduce a matrix <span class="math inline">\(A\)</span>. In order to make it converge, we need to make <span class="math inline">\(\rho(A)&lt;1\)</span>, i.e. the spectral radius of <span class="math inline">\(A\)</span> to be less than <span class="math inline">\(1\)</span>(similar idea with contraction mapping), which will derive constraints to the stepsize <span class="math inline">\(\alpha\)</span>. By doing so, the authors prove the convergence and derive their convergence rate.</p>
-
-<div class="exercise">
-<p><span id="exr:muL" class="exercise"><strong>Assumption1.1  </strong></span>Each <span class="math inline">\(f_i\)</span> is <span class="math inline">\(\mu\)</span>-strongly convex and its gradient is <span class="math inline">\(L-\)</span>Lipschitz continuous, i.e. <span class="math inline">\(\forall x,x&#39;\in\mathbb{R}^{p}\)</span> <span class="math display">\[
-  \left\langle\nabla f_{i}(x)-\nabla f_{i}\left(x^{\prime}\right), x-x^{\prime}\right\rangle \geq \mu\left\|x-x^{\prime}\right\|_{2}^{2}
-\]</span></p>
-<span class="math display">\[
-  \left\|\nabla f_{i}(x)-\nabla f_{i}\left(x^{\prime}\right)\right\|_{2} \leq L\left\|x-x^{\prime}\right\|_{2}
-\]</span>
-</div>
-
-We also use the following notation,
-<span class="math display">\[\begin{equation*}
-F(X) = \sum_{i=1}^n f_i(x_i), X\in\mathbb{R}^{n\times p}
-\end{equation*}\]</span>
-<span class="math display">\[\begin{equation*}
-\nabla F(X) = \left(\nabla f_1(x_1), ..., \nabla f_n(x_n)\right)^T\in\mathbb{R}^{n\times p}
-\end{equation*}\]</span>
-<p>If not stated otherwise, we use the capital letter to denote a matrix, and use column vectors.</p>
+<div id="gossip-like-push-pull-and-dsgt" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Gossip-like Push-Pull and DSGT</h1>
+<p><strong>Todo:gossip algorithms</strong></p>
+<p>Instead of iterating all the agents, at each time slot <span class="math inline">\(k=0,1,...\)</span>, a batch of agents may wake up randomly, and communicate with a subset of their nearby agents.</p>
+<div id="g-push-pull" class="section level2">
+<h2><span class="header-section-number">6.1</span> G-Push-Pull</h2>
 
 </div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-pu2018distributed">
-<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.”</p>
-</div>
-<div id="ref-pu2018push">
-<p>Pu, Shi, Wei Shi, Jinming Xu, and Angelia Nedić. 2018. “A Push-Pull Gradient Method for Distributed Optimization in Networks.” In <em>2018 Ieee Conference on Decision and Control (Cdc)</em>, 3385–90. IEEE.</p>
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>In the original paper, the author considers minimizing the sum of <span class="math inline">\(f_i\)</span>, known by agent i only<a href="index.html#fnref1">↩</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="orgnization-of-the-notes.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="summary-of-push-pull-and-dsgt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="asymptotic-network-independence.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

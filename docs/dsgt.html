@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-03" />
+<meta name="date" content="2020-03-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -84,7 +84,15 @@
 <li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
+<li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="asymptotic-network-independence.html"><a href="asymptotic-network-independence.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
+<li class="chapter" data-level="7.1" data-path="asymptotic-network-independence.html"><a href="asymptotic-network-independence.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
+<li class="chapter" data-level="7.2" data-path="asymptotic-network-independence.html"><a href="asymptotic-network-independence.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
+<li class="chapter" data-level="7.3" data-path="asymptotic-network-independence.html"><a href="asymptotic-network-independence.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>8</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -137,13 +145,18 @@ E[\Vert g_i(x,\xi_i)-\nabla f_i(x)\Vert^2 |x]&amp;\leq \sigma, \exists \sigma
 </ul></li>
 </ul>
 </div>
- Where <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the coupling matrix of agents.The above algorithm can be written as the matrix form,
+ Where <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the coupling matrix of agents,satisfying assumption <a href="dsgt.html#exr:dsw">4.3</a>.The above algorithm can be written as the matrix form,
 <span class="math display" id="eq:dsgt">\[\begin{align}
 X_{k+1}&amp;=\mathbf{W}\left(X_{k}-\alpha Y_{k}\right)\\
 Y_{k+1}&amp;=\mathbf{W} Y_{k}+G\left(X_{k+1}, \xi_{k+1}\right)-G\left(X_{k}, \xi_{k}\right)
 \tag{4.2}
 \end{align}\]</span>
 <p>Where <span class="math inline">\(G(X_k,\boldsymbol\xi_k)=(g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k}))^T\in\mathbb{R}^{n\times p}\)</span>.</p>
+
+<div class="exercise">
+<span id="exr:dsw" class="exercise"><strong>Assumption4.3  </strong></span><span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> is nonnegative and doubly stochastic,i.e. <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span> and <span class="math inline">\(\mathbf{1}^TW=\mathbf{1}^T\)</span>. In addition, <span class="math inline">\(w_{ii}&gt;0\)</span> for some <span class="math inline">\(i\in\mathcal{N}\)</span>.
+</div>
+
 <p>Insead of the definition <a href="the-push-pull-method.html#def:normpp">3.1</a> used in the Push-Pull method, we denote <span class="math inline">\(\Vert\cdot\Vert\)</span> as the <span class="math inline">\(2-\)</span>norm for vectors and as Frobenius norms for matrices. Hence they are consistent, the lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> and <a href="the-push-pull-method.html#lem:lem35">3.5</a> are satisfied accordingly.</p>
 </div>
 <div id="analysis-of-convergence-1" class="section level2">
