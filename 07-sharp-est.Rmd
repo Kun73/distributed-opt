@@ -1,0 +1,39 @@
+# A sharp estimate of the transient time of DSGD
+
+In this chapter, we derive an estimate of transient time $K_T$ of DSGD and then show it is sharp. During this, we will prove lemma \@ref(lem:riskdsgd) in chapter \@ref(sec:asynt). 
+
+Still, we set $f_i, i\in\mathcal{N}$ are $\mu-$strongly convex with $L-$Lipschitz continuous gradients, the graph $\mathcal{G}=(\mathcal{N},\mathcal{E})$ is connected and undirected, and we are able to obtain "good" gradient estimates $g_i(x_i(k),\xi_i(k))$, i.e. the assumptions \@ref(exr:muL), \@ref(exr:estg), \@ref(exr:dsgtgraph),and \@ref(exr:dsw) hold. 
+
+We first derive the recursion of $R'(k),U(k),$ and $V(k)$ defined in chapter \@ref(sec:asynt).
+
+## $U(k)$ and $V(k)$
+
+To keep the consistency in notation, we still use $h(X)=\frac{1}{n}\mathbf{1}^T\nabla F(X)$, which the authors denote as $\bar\nabla F(X)$. Let $\bar g(k)=\frac{1}{n}\mathbf{1}^TG(X(k),\boldsymbol\xi(k))$^[In chapter \@ref(sec:asynt), $\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))$ ]. The idea is the same as that in \@ref(eq:xbar1dsgt), we have 
+\begin{align}
+\bar x(k+1)-x^*&=\bar x(k)-\alpha_k\left[\bar g(k)-\frac{1}{n}\mathbf{1}^T\nabla F(X(k))\right]-\\
+&\alpha_k\left[\frac{1}{n}\mathbf{1}^T\nabla F(X(k))-\nabla f(\bar x(k))\right]-\alpha_k\nabla f(\bar x(k))-x^*\\
+&:=(\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*)-\alpha_k(\bar g(k)-h(X(k)))-\\
+&\alpha_k(h(X(k))-\nabla f(\bar x(k)))
+(#eq:dsgdxbar1)
+\end{align}
+
+Then we can use lemma \@ref(lem:lem31) and \@ref(lem:2), and assumption \@ref(exr:estg). However, we use lemma \@ref(lem:contraction2L) instead of lemma \@ref(lem:lem31) here.
+
+```{lemma, contraction2L}
+Let assumption \@ref(exr:muL) holds, $\forall x\in\mathbb{R}^p$ and $\alpha\in(0,2/L)$, we have, 
+$$
+  \left\|x-\alpha \nabla f(x)-x^{*}\right\| \leq \lambda\left\|x-x^{*}\right\|
+$$
+where $\lambda=\max (|1-\alpha \mu|,|1-\alpha L|)$
+```
+
+Moreover, we use $|<a,b>|\leq \Vert a\Vert \cdot\Vert b\Vert$ to deal with $<\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*,\nabla f(\bar x(k))-h(X(k))>$. Then take expectation conditioned on $X(k)$, we have lemma \@ref(lem:condxbardsgd). 
+
+```{lemma, condxbardsgd}
+For algorithm \@ref(exm:dsgd), $\forall k\geq0$, we have, 
+\begin{align}
+&E\left[\left\|\bar{x}(k+1)-x^{*}\right\|^{2} | \mathbf{x}(k)\right] \leq\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|^{2}\\
+&+\frac{2 \alpha_{k} L}{\sqrt{n}}\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|\|\mathbf{x}(k)-1 \bar{x}(k)\|+\frac{\alpha_{k}^{2} L^{2}}{n}\|\mathbf{x}(k)-1 \bar{x}(k)\|^{2}+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
+\end{align}
+```
+
