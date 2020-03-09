@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Notes about Distributed Optimization</title>
+  <title>Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
-
+<link rel="prev" href="sec-asynt.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -125,42 +125,55 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1">
-<h1>References</h1>
+<div id="a-sharp-estimate-of-the-transient-time-of-dsgd" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> A sharp estimate of the transient time of DSGD</h1>
+<p>In this chapter, we derive an estimate of transient time <span class="math inline">\(K_T\)</span> of DSGD and then show it is sharp. During this, we will prove lemma <a href="sec-asynt.html#lem:riskdsgd">7.2</a> in chapter <a href="sec-asynt.html#sec:asynt">7</a>.</p>
+<p>Still, we set <span class="math inline">\(f_i, i\in\mathcal{N}\)</span> are <span class="math inline">\(\mu-\)</span>strongly convex with <span class="math inline">\(L-\)</span>Lipschitz continuous gradients, the graph <span class="math inline">\(\mathcal{G}=(\mathcal{N},\mathcal{E})\)</span> is connected and undirected, and we are able to obtain “good” gradient estimates <span class="math inline">\(g_i(x_i(k),\xi_i(k))\)</span>, i.e. the assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>, <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> hold.</p>
+<p>We first derive the recursion of <span class="math inline">\(R&#39;(k),U(k),\)</span> and <span class="math inline">\(V(k)\)</span> defined in chapter <a href="sec-asynt.html#sec:asynt">7</a>.</p>
+<div id="uk-and-vk" class="section level2">
+<h2><span class="header-section-number">8.1</span> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></h2>
+<p>To keep the consistency in notation, we still use <span class="math inline">\(h(X)=\frac{1}{n}\mathbf{1}^T\nabla F(X)\)</span>, which the authors denote as <span class="math inline">\(\bar\nabla F(X)\)</span>. Let <span class="math inline">\(\bar g(k)=\frac{1}{n}\mathbf{1}^TG(X(k),\boldsymbol\xi(k))\)</span><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>. The idea is the same as that in <a href="sec-dsgt.html#eq:xbar1dsgt">(4.3)</a>, we have
+<span class="math display" id="eq:dsgdxbar1">\[\begin{align}
+\bar x(k+1)-x^*&amp;=\bar x(k)-\alpha_k\left[\bar g(k)-\frac{1}{n}\mathbf{1}^T\nabla F(X(k))\right]-\\
+&amp;\alpha_k\left[\frac{1}{n}\mathbf{1}^T\nabla F(X(k))-\nabla f(\bar x(k))\right]-\alpha_k\nabla f(\bar x(k))-x^*\\
+&amp;:=(\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*)-\alpha_k(\bar g(k)-h(X(k)))-\\
+&amp;\alpha_k(h(X(k))-\nabla f(\bar x(k)))
+\tag{8.1}
+\end{align}\]</span></p>
+<p>Then we can use lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> and <a href="#lem:2"><strong>??</strong></a>, and assumption <a href="sec-dsgt.html#exr:estg">4.1</a>. However, we use lemma <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#lem:contraction2L">8.1</a> instead of lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> here.</p>
 
-<div id="refs" class="references hanging-indent">
-<div>
-<p>Nedić, Angelia, Alex Olshevsky, and Michael G Rabbat. 2018. “Network Topology and Communication-Computation Tradeoffs in Decentralized Optimization.” <em>Proceedings of the IEEE</em> 106 (5): 953–76.</p>
+<div class="lemma">
+<span id="lem:contraction2L" class="lemma"><strong>Lemma 8.1  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> holds, <span class="math inline">\(\forall x\in\mathbb{R}^p\)</span> and <span class="math inline">\(\alpha\in(0,2/L)\)</span>, we have,
+<span class="math display">\[
+  \left\|x-\alpha \nabla f(x)-x^{*}\right\| \leq \lambda\left\|x-x^{*}\right\|
+\]</span>
+where <span class="math inline">\(\lambda=\max (|1-\alpha \mu|,|1-\alpha L|)\)</span>
 </div>
-<div>
-<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.” <a href="http://arxiv.org/abs/1805.11454">http://arxiv.org/abs/1805.11454</a>.</p>
-</div>
-<div>
-<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.” <a href="http://arxiv.org/abs/1906.12345">http://arxiv.org/abs/1906.12345</a>.</p>
-</div>
-<div>
-<p>Pu, Shi, Wei Shi, Jinming Xu, and Angelia Nedić. 2018. “A Push-Pull Gradient Method for Distributed Optimization in Networks.” In <em>2018 Ieee Conference on Decision and Control (Cdc)</em>, 3385–90. IEEE.</p>
-</div>
-</div>
+<p>Moreover, we use <span class="math inline">\(|&lt;a,b&gt;|\leq \Vert a\Vert \cdot\Vert b\Vert\)</span> to deal with <span class="math inline">\(&lt;\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*,\nabla f(\bar x(k))-h(X(k))&gt;\)</span>. Then take expectation conditioned on <span class="math inline">\(X(k)\)</span>, we have lemma <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#lem:condxbardsgd">8.2</a>.</p>
+
+<div class="lemma">
+<span id="lem:condxbardsgd" class="lemma"><strong>Lemma 8.2  </strong></span>For algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>, we have,
+<span class="math display">\[\begin{align}
+&amp;E\left[\left\|\bar{x}(k+1)-x^{*}\right\|^{2} | \mathbf{x}(k)\right] \leq\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|^{2}\\
+&amp;+\frac{2 \alpha_{k} L}{\sqrt{n}}\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|\|\mathbf{x}(k)-1 \bar{x}(k)\|+\frac{\alpha_{k}^{2} L^{2}}{n}\|\mathbf{x}(k)-1 \bar{x}(k)\|^{2}+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
+\end{align}\]</span>
 </div>
 
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="6">
+<li id="fn6"><p>In chapter <a href="sec-asynt.html#sec:asynt">7</a>, <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))\)</span> <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="sec-asynt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
