@@ -10,7 +10,7 @@ $E\left[\left\|X_{k+1}-\mathbf1 \bar{x}_{k+1}\right\|^{2}\right]$, and $E\left[\
 $\forall i\in\mathcal{N},x\in\mathbb{R}^p$, eahc random vector $\xi_i\in\mathbb{R}^m$ is independent, and 
 \begin{align}
 E[g_i(x,\xi_i)|x]&=\nabla f_i(x)\\
-E[\Vert g_i(x,\xi_i)-\nabla f_i(x)\Vert^2 |x]&\leq \sigma, \exists \sigma
+E[\Vert g_i(x,\xi_i)-\nabla f_i(x)\Vert^2 |x]&\leq \sigma^2, \exists \sigma
 (\#eq:auef)
 \end{align}
 ```

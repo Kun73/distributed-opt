@@ -1,4 +1,4 @@
-# Asymptotic network independence
+# Asymptotic network independence{#sec:asynt}
 
 An undesirable property of distributed optimization method is that the increasing number of nodes may result in a large increase in the time to reach the same $\varepsilon$ accuracy(error $<\varepsilon$) under the centralized version. @pu2019asymptotic discuss this phenomenon under the following scenario
 
@@ -26,10 +26,16 @@ For k = 0, 1, ...,
 
   * For $i\in\mathcal{N}$, 
   
-    * $x_i(k+1) = \sum\limits_{j=1}^nw_{ij}(x_j(k+1)-\alpha_k g_j(x_i(k),\xi_i(k)))$ 
+    * $x_i(k+1) = \sum\limits_{j=1}^nw_{ij}(x_j(k+1)-\alpha_k g_j(x_j(k),\xi_j(k)))$ 
   
 ```
-$\{\alpha_k\}$ are a sequence of nonnegative non-increasing stepsizes. In the long run, $x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}$, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions \@ref(exr:dsgtgraph) and \@ref(exr:dsw) plus symmetric.
+$\{\alpha_k\}$ are a sequence of nonnegative non-increasing stepsizes. In the long run, $x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}$, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions \@ref(exr:dsgtgraph) and \@ref(exr:dsw) plus $W$ is symmetric. 
+
+Let $X(k)=(x_1(k),...,x_n(k))^T\in\mathbb{R^{n\times p}}, G(k)=(g_1(x_1(k),\xi_1(k)),...,g_n(x_n(k),\xi_n(k)))^T\in\mathbb{R}^{n\times p}$, and $W=(w_{ij})\in\mathbb{R}^{n\times n}$, then we can rewrite \@ref(exm:dsgd) as 
+\begin{equation}
+X(k+1)=W(X(k)-\alpha_kG(k))
+(\#eq:dsgdc)
+\end{equation}
 
 __Todo:$x_{i,k}\stackrel{?}=x_{j,k},\forall i,j\in\mathcal{N}$__ 
 
@@ -84,7 +90,7 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
 $$
 ```
 
-__Todo:$R'(k)\stackrel{?}\leq \frac{\sigma^2}{n\mu^2 k}+\mathcal{O}(f(k))+h(U(k),V(k))$__
+__Todo:$R'(k)\stackrel{?}\leq \frac{\sigma^2}{n\mu^2 k}+\mathcal{O}(f(U(k)))+h(U(k),V(k))$__
 
 ```{remark}
 \\
@@ -107,3 +113,4 @@ __Todo:$R'(k)\stackrel{?}\leq \frac{\sigma^2}{n\mu^2 k}+\mathcal{O}(f(k))+h(U(k)
 Additionnally, an unsolving question is can distributed methods compete with the centralized ones when the exact gradient is available?
 
 __Todo: related reference__
+
