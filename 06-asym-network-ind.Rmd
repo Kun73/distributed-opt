@@ -50,7 +50,7 @@ For k=0,1,...,
   
 ```
 
-where $\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))$, which is to make the gradient comparable to that in DSGD, i.e., $\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))$. 
+where $\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k)),\alpha_k=\frac{1}{\mu k}$, which is to make the gradient comparable to that in DSGD, i.e., $\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))$. 
 
 Choose $2-$norm as the loss function, the risk at the $k$th step is 
 \begin{equation}
