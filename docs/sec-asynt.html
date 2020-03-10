@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-08" />
+<meta name="date" content="2020-03-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -127,7 +127,7 @@
             <section class="normal" id="section-">
 <div id="sec:asynt" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Asymptotic network independence</h1>
-<p>An undesirable property of distributed optimization method is that the increasing number of nodes may result in a large increase in the time to reach the same <span class="math inline">\(\varepsilon\)</span> accuracy(error <span class="math inline">\(&lt;\varepsilon\)</span>) under the centralized version. <span class="citation">Pu, Olshevsky, and Paschalidis (<a href="#ref-pu2019asymptotic" role="doc-biblioref">2019</a>)</span> discuss this phenomenon under the following scenario</p>
+<p>An undesirable property of distributed optimization method is that the increasing number of nodes may result in a large increase in the time to reach the same <span class="math inline">\(\varepsilon\)</span> accuracy(error <span class="math inline">\(&lt;\varepsilon\)</span>) under the centralized version. <span class="citation">Pu, Olshevsky, and Paschalidis (<a href="#ref-pu2019asymptotic" role="doc-biblioref">2019</a><a href="#ref-pu2019asymptotic" role="doc-biblioref">b</a>)</span> discuss this phenomenon under the following scenario</p>
 <p><span class="math display">\[
 \text { Time }_{n, \varepsilon} \text { (decentralized) } \leq p(\mathcal{G}) \text { Time }_{n, \varepsilon} \text { (centralized) }
 \]</span></p>
@@ -164,7 +164,7 @@ X(k+1)=W(X(k)-\alpha_kG(k))
 <li><span class="math inline">\(x(k+1)=x(k)-\alpha_k\bar g(k)\)</span>
 </div></li>
 </ul>
-<p>where <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))\)</span>, which is to make the gradient comparable to that in DSGD, i.e., <span class="math inline">\(\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))\)</span>.</p>
+<p>where <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k)),\alpha_k=\frac{1}{\mu k}\)</span>, which is to make the gradient comparable to that in DSGD, i.e., <span class="math inline">\(\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))\)</span>.</p>
 <p>Choose <span class="math inline">\(2-\)</span>norm as the loss function, the risk at the <span class="math inline">\(k\)</span>th step is
 <span class="math display" id="eq:risksgd">\[\begin{equation}
 R(k)=E  \left[\Vert x(k)-x^*\Vert^2\right]=\frac{1}{n}\sum\limits_{i=1}^nE  \left[\Vert x(k)-x^*\Vert^2\right]
@@ -225,7 +225,7 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-pu2019asymptotic">
-<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.” <a href="http://arxiv.org/abs/1906.12345">http://arxiv.org/abs/1906.12345</a>.</p>
+<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. 2019b. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.” <a href="http://arxiv.org/abs/1906.12345">http://arxiv.org/abs/1906.12345</a>.</p>
 </div>
 </div>
 <div class="footnotes">
