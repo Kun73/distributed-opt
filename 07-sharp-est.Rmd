@@ -136,10 +136,10 @@ V(k+1)&\leq \rho_{w}^{2}\left(\frac{3-\rho_{w}^{2}}{2}+2 \alpha_{k} \rho_{w}^{2}
 
 In this section, we first show for algorithm \@ref(exm:dsgd), $U(k)=\mathcal O(\frac{1}{k})$ and $V(k)=\mathcal O(\frac{1}{k^2})$, i.e. algorithm \@ref(exm:dsgd) enjoys the sublinear convergence rate. More specifically, we show that $\exists N, s.t. k>N,$
 \begin{equation}
-U(k)\leq \frac{\hat W(1-\rho_w^2)}{\tilde k},\quad V(k)\leq \frac{\hat V(1-\rho_w^2,\hat W)}{\tilde k^2}
+U(k)\leq \frac{\hat W(1-\rho_w^2)}{\tilde k},\quad V(k)\leq \frac{\hat V((1-\rho_w^2,\hat W))}{\tilde k^2}
 (\#eq:introsldsgd)
 \end{equation}
-where $\tilde k$ is some shift of $k$. The goal is to show that asymptotically, $\frac{1}{n}\sum\limits_{i=1}^nE\left[\Vert x_i(k)-x^*\Vert^2\right]=R'(k)=U(k)+\frac{1}{n}V(k)$ has the same convergence rate with $R(k)$ in SGD. Notice $V(k)$ can be shown to decay faster than $U(k)$, so if we can bound $\hat W(1-\rho_w^2)$ by another quantity $C$ which does not depende on $\rho_w^2$, i.e. does not depende on the network, then we can have 
+where $\tilde k$ is some shift of $k$, $\hat W(\cdot)$ and $\hat V(\cdot)$ are functions. The goal is to show that asymptotically, $\frac{1}{n}\sum\limits_{i=1}^nE\left[\Vert x_i(k)-x^*\Vert^2\right]=R'(k)=U(k)+\frac{1}{n}V(k)$ has the same convergence rate with $R(k)$ in SGD. Notice $V(k)$ can be shown to decay faster than $U(k)$, so if we can bound $\hat W(1-\rho_w^2)$ by another quantity $C$ which does not depende on $\rho_w^2$, i.e. does not depende on the network, then we can have 
 \begin{equation}
 R'(k)\leq\frac{C}{\tilde k}+\frac{1}{n} \frac{V(1-\rho_w^2)}{\tilde k^2}
 (\#eq:gdsgd)
