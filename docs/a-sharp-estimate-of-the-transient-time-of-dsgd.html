@@ -213,12 +213,12 @@ E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
 <p>Next, we bound <span class="math inline">\(\vert \nabla F(X(k))\Vert^2\)</span>. Recall <span class="math inline">\(\nabla f\)</span> is <span class="math inline">\(L-\)</span>Lipschitz continuous, and we need <span class="math inline">\(X(k)-\mathbf{1}\bar x(k)\)</span> as well as <span class="math inline">\(\bar x(k)-x^*\)</span>, so we have,</p>
 <p><span class="math display" id="eq:xbar1dsgdl2">\[\begin{align}
 &amp;\Vert \nabla F(X(k))\Vert^2\\
-&amp;= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nablf F(\mathbf{1}x^*)+\nablf F(\mathbf{1}x^*)\Vert^2\\
+&amp;= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nabla F(\mathbf{1}x^*)+\nabla F(\mathbf{1}x^*)\Vert^2\\
 &amp;\leq\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)^{2}\\
 &amp;\stackrel{?}\leq 2 L^{2}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
 \tag{8.6}
 \end{align}\]</span></p>
-<p>Use the two inequalities <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl1">(8.5)</a> and <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl2">(8.6)</a> in <a href="#eq:xbardsgd">(<strong>??</strong>)</a>, and let <span class="math inline">\(c=\frac{1-\rho_w^2}{2}\)</span>(the choice of <span class="math inline">\(c\)</span> in <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a> in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>), we have</p>
+<p>Use the two inequalities <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl1">(8.5)</a> and <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl2">(8.6)</a> in <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgd">(8.4)</a>, and let <span class="math inline">\(c=\frac{1-\rho_w^2}{2}\)</span> (the same choice of <span class="math inline">\(c\)</span> in <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a> of chapter <a href="sec-dsgt.html#sec:dsgt">4</a>), we have</p>
 
 <div class="lemma">
 <span id="lem:Vk1" class="lemma"><strong>Lemma 8.3  </strong></span>Under algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>,

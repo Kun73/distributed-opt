@@ -102,13 +102,13 @@ Next, we bound $\vert \nabla F(X(k))\Vert^2$. Recall $\nabla f$ is $L-$Lipschitz
 
 \begin{align}
 &\Vert \nabla F(X(k))\Vert^2\\
-&= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nablf F(\mathbf{1}x^*)+\nablf F(\mathbf{1}x^*)\Vert^2\\
+&= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nabla F(\mathbf{1}x^*)+\nabla F(\mathbf{1}x^*)\Vert^2\\
 &\leq\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)^{2}\\
 &\stackrel{?}\leq 2 L^{2}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
 (#eq:xbar1dsgdl2)
 \end{align}
 
-Use the two inequalities \@ref(eq:xbar1dsgdl1) and \@ref(eq:xbar1dsgdl2) in \@ref(eq:xbardsgd), and let $c=\frac{1-\rho_w^2}{2}$(the choice of $c$ in \@ref(eq:ineq2dsgt) in chapter \@ref(sec:dsgt)), we have 
+Use the two inequalities \@ref(eq:xbar1dsgdl1) and \@ref(eq:xbar1dsgdl2) in \@ref(eq:xbar1dsgd), and let $c=\frac{1-\rho_w^2}{2}$ (the same choice of $c$ in \@ref(eq:ineq2dsgt) of chapter \@ref(sec:dsgt)), we have 
 
 ```{lemma, Vk1}
 Under algorithm \@ref(exm:dsgd), $\forall k\geq0$, 
