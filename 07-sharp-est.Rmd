@@ -73,16 +73,38 @@ For $V(k+1)$, similar to \@ref(eq:ineq2dsgt), we denote $G(k):=G(X(k),\boldsymbo
 Next, we show 
 \begin{align}
 E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
-&\leq\|\nabla F(\mathbf{x}(k))-\mathbf{1} h(X(k))\|^{2}+n \sigma^{2}\\
-
-\|\nabla F(\mathbf{x}(k))-\mathbf{1} h(X(k))\|^{2}&\leq \Vert \nabla F(X(k))\Vert^2
+&\leq\|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}+n \sigma^{2}\\
+\|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}&\leq \Vert \nabla F(X(k))\Vert^2
 (\#eq:xbar1dsgdl1)
 \end{align}
-and
+
+This is because, 
 \begin{align}
-\Vert \nabla F(X(k))\Vert^2&\leq
-\left(L\|\mathbf{x}(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)^{2}\\
-&\leq 2 L^{2}\|\mathbf{x}(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
+&E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]\\
+&=E\left[\Vert (G(k)-\nabla F(X(k)))-\mathbf{1}(\bar g(k)-h(X(k)))+(\nabla F(X(k))-\mathbf{1}h(X(k)))\Vert^2|X(k)\right]\\
+&\leq E\left[\Vert G(k)-\nabla F(X(k)\Vert^2|X(k)\right]-nE\left[\Vert \bar g(k)-h(X(k)) \Vert^2|X(k)\right] + \\
+&\quad\Vert \nabla F(X(k))-\mathbf{1}h(X(k))\Vert^2\\
+&\leq n \sigma^{2}+ \|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}\\
+&\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 \\
+&\quad-2\langle\vert\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
+&\leq n\sigma^2 + \Vert \nabla F(X(k))\Vert^2 
+\end{align}
+
+The last inequality is from $\langle\mathbf{A}, \mathbf{B}\rangle:=\sum_{i=1}^{n}\left\langle A_{i}, B_{i}\right\rangle$,i.e. 
+\begin{align}
+\langle\nabla F(X(k)),\mathbf{1}h(X(k))\rangle&=\sum_{i=1}^n\langle\nabla f_i(x_i(k)),\frac{1}{n}\sum_{j=1}^n\nabla f_j(x_j(k))\rangle\\
+&=n\langle \frac{1}{n}\sum_{i=1}^n \nabla f_i(x_i(k)),\frac{1}{n}\sum_{j=1}^n\nabla f_j(x_j(k))\rangle\\
+&=n\Vert h(X(k))\Vert^2
+\end{align}
+
+
+Next, we bound $\vert \nabla F(X(k))\Vert^2$. Recall $\nabla f$ is $L-$Lipschitz continuous, and we need $X(k)-\mathbf{1}\bar x(k)$ as well as $\bar x(k)-x^*$, so we have,
+
+\begin{align}
+&\Vert \nabla F(X(k))\Vert^2\\
+&= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nablf F(\mathbf{1}x^*)+\nablf F(\mathbf{1}x^*)\Vert^2\\
+&\leq\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)^{2}\\
+&\stackrel{?}\leq 2 L^{2}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
 (#eq:xbar1dsgdl2)
 \end{align}
 
@@ -95,3 +117,4 @@ V(k+1)&\leq \rho_{w}^{2}\left(\frac{3-\rho_{w}^{2}}{2}+2 \alpha_{k} \rho_{w}^{2}
 & \rho_{w}^{2} \alpha_{k}^{2}\left[\frac{8 n L^{2}}{\left(1-\rho_{w}^{2}\right)} U(k)+\frac{8\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}\right]
 \end{align}
 ```
+
