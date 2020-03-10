@@ -59,14 +59,14 @@ U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac
 (\#eq:Uk1)
 \end{align}
 
-For $V(k+1)$, similar to \@ref(eq:ineq2dsgt), we denote $G(k):=G(X(k),\boldsymbol\xi(k))$ here, then for $\forall c>0$, 
+For $V(k+1)$, similar to \@ref(eq:ineq2dsgt), we denote $G(k):=G(X(k),\boldsymbol\xi(k))$ here, then 
 \begin{align}
-\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2&=
-\Vert WX(k)-\alpha_kWG(k)-\mathbf{1}(\bar x(k)-\alpha_k\bar g(k))\Vert^2\\
-&\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2 -\\
-&2\alpha_k\langle WX(k)-\mathbf{1}\bar x(k),G(k)-\mathbf{1}\bar g(k)\rangle\\
-&\leq \rho_w^2 \Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2 \Vert G(k)-\mathbf{1}\bar g(k)\Vert^2+\\
-&\rho_w^2\left[c\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\frac{1}{c}\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2\right]
+&E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]\\
+&=E\left[\Vert WX(k)-\alpha_kWG(k)-\mathbf{1}(\bar x(k)-\alpha_k\bar g(k))\Vert^2|X(k)\right]\\
+&\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),G(k)-\mathbf{1}\bar g(k)\rangle|X(k)\right]\\
+&\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),\nabla F(X(k))-\mathbf{1}h(X(k))\rangle|X(k)\right]\\
 (\#eq:xbar1dsgd)
 \end{align}
 
@@ -85,8 +85,7 @@ This is because,
 &\leq E\left[\Vert G(k)-\nabla F(X(k)\Vert^2|X(k)\right]-nE\left[\Vert \bar g(k)-h(X(k)) \Vert^2|X(k)\right] + \\
 &\quad\Vert \nabla F(X(k))-\mathbf{1}h(X(k))\Vert^2\\
 &\leq n \sigma^{2}+ \|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}\\
-&\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 \\
-&\quad-2\langle\vert\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
+&\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 - 2\langle\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
 &\leq n\sigma^2 + \Vert \nabla F(X(k))\Vert^2 
 \end{align}
 
@@ -108,7 +107,22 @@ Next, we bound $\vert \nabla F(X(k))\Vert^2$. Recall $\nabla f$ is $L-$Lipschitz
 (#eq:xbar1dsgdl2)
 \end{align}
 
-Use the two inequalities \@ref(eq:xbar1dsgdl1) and \@ref(eq:xbar1dsgdl2) in \@ref(eq:xbar1dsgd), and let $c=\frac{1-\rho_w^2}{2}$ (the same choice of $c$ in \@ref(eq:ineq2dsgt) of chapter \@ref(sec:dsgt)), we have 
+Use the two inequalities \@ref(eq:xbar1dsgdl1) and \@ref(eq:xbar1dsgdl2) in \@ref(eq:xbar1dsgd), we have 
+
+\begin{align}
+&\frac{1}{\rho_w^2}E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]-\alpha_k^2n\sigma^2\\
+&\leq \Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \alpha_k^2 \Vert \nabla F(X(k))\Vert^2 + 2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+\end{align}
+
+For the last term, from \@ref(eq:xbar1dsgdl2), 
+\begin{align}
+&2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+&\leq2\alpha_k \Vert X(k)-\mathbf{1}\bar x(k)\Vert\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)\\
+&\leq 2\alpha_kL\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \left[c\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\frac{\alpha_k^2}{c}(\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\| \nabla F\left(\mathbf{1} x^{*}\right)^2)\right]\\
+&\leq (2\alpha_kL+c)\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \frac{\alpha_k}{c}\left(2 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+2\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}\right)
+\end{align}
+For $\forall c>0$, the last inequality uses $(a+b)^2\leq 2(a^2+b^2)$. Let $c=\frac{1-\rho_w^2}{2}$, the same as that in \@ref(eq:ineq2dsgt) in chapter \@ref(sec:dsgt), then we have lemma \@ref(lem:Vk1).
+
 
 ```{lemma, Vk1}
 Under algorithm \@ref(exm:dsgd), $\forall k\geq0$, 
@@ -117,4 +131,20 @@ V(k+1)&\leq \rho_{w}^{2}\left(\frac{3-\rho_{w}^{2}}{2}+2 \alpha_{k} \rho_{w}^{2}
 & \rho_{w}^{2} \alpha_{k}^{2}\left[\frac{8 n L^{2}}{\left(1-\rho_{w}^{2}\right)} U(k)+\frac{8\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}\right]
 \end{align}
 ```
+
+## Asymptotic network independence of DSGD 
+
+In this section, we first show for algorithm \@ref(exm:dsgd), $U(k)=\mathcal O(\frac{1}{k})$ and $V(k)=\mathcal O(\frac{1}{k^2})$, i.e. algorithm \@ref(exm:dsgd) enjoys the sublinear convergence rate. More specifically, we show that $\exists N, s.t. k>N,$
+\begin{equation}
+U(k)\leq \frac{\hat W(1-\rho_w^2)}{\tilde k},\quad V(k)\leq \frac{\hat V(1-\rho_w^2,\hat W)}{\tilde k^2}
+(\#eq:introsldsgd)
+\end{equation}
+where $\tilde k$ is some shift of $k$. The goal is to show that asymptotically, $\frac{1}{n}\sum\limits_{i=1}^nE\left[\Vert x_i(k)-x^*\Vert^2\right]=R'(k)=U(k)+\frac{1}{n}V(k)$ has the same convergence rate with $R(k)$ in SGD. Notice $V(k)$ can be shown to decay faster than $U(k)$, so if we can bound $\hat W(1-\rho_w^2)$ by another quantity $C$ which does not depende on $\rho_w^2$, i.e. does not depende on the network, then we can have 
+\begin{equation}
+R'(k)\leq\frac{C}{\tilde k}+\frac{1}{n} \frac{V(1-\rho_w^2)}{\tilde k^2}
+(\#eq:gdsgd)
+\end{equation}
+which shows the asymptotic newwork independence property of DSGD. Then by \@ref(eq:gdsgd), we can obtain the transient time for DSGD to reach the asymptotic convergence rate.
+
+
 
