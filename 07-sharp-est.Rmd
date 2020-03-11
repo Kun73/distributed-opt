@@ -146,5 +146,25 @@ R'(k)\leq\frac{C}{\tilde k}+\frac{1}{n} \frac{V(1-\rho_w^2)}{\tilde k^2}
 \end{equation}
 which shows the asymptotic newwork independence property of DSGD. Then by \@ref(eq:gdsgd), we can obtain the transient time for DSGD to reach the asymptotic convergence rate.
 
+We first give a uniform bound for 
+\begin{align}
+E\left[\Vert X(k)-\mathbf{1}x^*\Vert^2\right]&=E\left[\sum_{i=1}^n\Vert x_i^T(k)-x^*\Vert^2\right]\\
+&=\sum_{i=1}^n E\left[\Vert x_i^T(k)-x^*\right]\\
+&=nR'(k)
+\end{align}
 
+```{lemma, unibounddsgd}
+For algorithm \@ref(exm:dsgd), $\forall k\geq0$, 
+$$
+E\left[\left\|X(k)-1 x^{*}\right\|^{2}\right] \leq \hat{X}:=\max \left\{\left\|X(0)-1 x^{*}\right\|^{2}, \frac{9 \sum_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}}{\mu^{2}}+\frac{n \sigma^{2}}{L^{2}}\right\}
+$$
+```
+
+```{remark}
+\\
+- $X(k)-\mathbf{1}x^*=W^k(X(0)-\mathbf{1}x^*)-\sum\limits_{i+j=k}W^i\alpha_jG(j)\leqW^k(X(0)-\mathbf{1}x^*)$
+  
+- ?The author derive the second part in the $\max\{\cdot\}$ by $E\left[\|X(k)\|^{2}\right] \leq \max \left\{\|X(0)\|^{2}, \sum_{i=1}^{n} R_{i}\right\}$
+
+```
 
