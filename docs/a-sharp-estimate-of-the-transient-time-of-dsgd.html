@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-09" />
+<meta name="date" content="2020-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -105,6 +105,7 @@
 <li class="chapter" data-level="8" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a>
 <ul>
 <li class="chapter" data-level="8.1" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -176,14 +177,14 @@ where <span class="math inline">\(\lambda=\max (|1-\alpha \mu|,|1-\alpha L|)\)</
 U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac{\alpha_k\sigma^2}{n}
 \tag{8.3}
 \end{align}\]</span></p>
-<p>For <span class="math inline">\(V(k+1)\)</span>, similar to <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a>, we denote <span class="math inline">\(G(k):=G(X(k),\boldsymbol\xi(k))\)</span> here, then for <span class="math inline">\(\forall c&gt;0\)</span>,
+<p>For <span class="math inline">\(V(k+1)\)</span>, similar to <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a>, we denote <span class="math inline">\(G(k):=G(X(k),\boldsymbol\xi(k))\)</span> here, then
 <span class="math display" id="eq:xbar1dsgd">\[\begin{align}
-\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2&amp;=
-\Vert WX(k)-\alpha_kWG(k)-\mathbf{1}(\bar x(k)-\alpha_k\bar g(k))\Vert^2\\
-&amp;\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2 -\\
-&amp;2\alpha_k\langle WX(k)-\mathbf{1}\bar x(k),G(k)-\mathbf{1}\bar g(k)\rangle\\
-&amp;\leq \rho_w^2 \Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2 \Vert G(k)-\mathbf{1}\bar g(k)\Vert^2+\\
-&amp;\rho_w^2\left[c\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\frac{1}{c}\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2\right]
+&amp;E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]\\
+&amp;=E\left[\Vert WX(k)-\alpha_kWG(k)-\mathbf{1}(\bar x(k)-\alpha_k\bar g(k))\Vert^2|X(k)\right]\\
+&amp;\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&amp;\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),G(k)-\mathbf{1}\bar g(k)\rangle|X(k)\right]\\
+&amp;\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&amp;\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),\nabla F(X(k))-\mathbf{1}h(X(k))\rangle|X(k)\right]\\
 \tag{8.4}
 \end{align}\]</span></p>
 <p>Next, we show
@@ -200,8 +201,7 @@ E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
 &amp;\leq E\left[\Vert G(k)-\nabla F(X(k)\Vert^2|X(k)\right]-nE\left[\Vert \bar g(k)-h(X(k)) \Vert^2|X(k)\right] + \\
 &amp;\quad\Vert \nabla F(X(k))-\mathbf{1}h(X(k))\Vert^2\\
 &amp;\leq n \sigma^{2}+ \|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}\\
-&amp;\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 \\
-&amp;\quad-2\langle\vert\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
+&amp;\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 - 2\langle\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
 &amp;\leq n\sigma^2 + \Vert \nabla F(X(k))\Vert^2 
 \end{align}\]</span></p>
 <p>The last inequality is from <span class="math inline">\(\langle\mathbf{A}, \mathbf{B}\rangle:=\sum_{i=1}^{n}\left\langle A_{i}, B_{i}\right\rangle\)</span>,i.e. 
@@ -218,7 +218,19 @@ E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
 &amp;\stackrel{?}\leq 2 L^{2}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
 \tag{8.6}
 \end{align}\]</span></p>
-<p>Use the two inequalities <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl1">(8.5)</a> and <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl2">(8.6)</a> in <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgd">(8.4)</a>, and let <span class="math inline">\(c=\frac{1-\rho_w^2}{2}\)</span> (the same choice of <span class="math inline">\(c\)</span> in <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a> of chapter <a href="sec-dsgt.html#sec:dsgt">4</a>), we have</p>
+<p>Use the two inequalities <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl1">(8.5)</a> and <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl2">(8.6)</a> in <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgd">(8.4)</a>, we have</p>
+<p><span class="math display">\[\begin{align}
+&amp;\frac{1}{\rho_w^2}E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]-\alpha_k^2n\sigma^2\\
+&amp;\leq \Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \alpha_k^2 \Vert \nabla F(X(k))\Vert^2 + 2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+\end{align}\]</span></p>
+<p>For the last term, from <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:xbar1dsgdl2">(8.6)</a>,
+<span class="math display">\[\begin{align}
+&amp;2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+&amp;\leq2\alpha_k \Vert X(k)-\mathbf{1}\bar x(k)\Vert\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)\\
+&amp;\leq 2\alpha_kL\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \left[c\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\frac{\alpha_k^2}{c}(\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\| \nabla F\left(\mathbf{1} x^{*}\right)^2)\right]\\
+&amp;\leq (2\alpha_kL+c)\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \frac{\alpha_k}{c}\left(2 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+2\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}\right)
+\end{align}\]</span>
+For <span class="math inline">\(\forall c&gt;0\)</span>, the last inequality uses <span class="math inline">\((a+b)^2\leq 2(a^2+b^2)\)</span>. Let <span class="math inline">\(c=\frac{1-\rho_w^2}{2}\)</span>, the same as that in <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a> in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>, then we have lemma <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#lem:Vk1">8.3</a>.</p>
 
 <div class="lemma">
 <span id="lem:Vk1" class="lemma"><strong>Lemma 8.3  </strong></span>Under algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>,
@@ -226,6 +238,41 @@ E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
 V(k+1)&amp;\leq \rho_{w}^{2}\left(\frac{3-\rho_{w}^{2}}{2}+2 \alpha_{k} \rho_{w}^{2} L+2 \alpha_{k}^{2} \rho_{w}^{2} L^{2}\right) V(k) + \\
 &amp; \rho_{w}^{2} \alpha_{k}^{2}\left[\frac{8 n L^{2}}{\left(1-\rho_{w}^{2}\right)} U(k)+\frac{8\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}\right]
 \end{align}\]</span>
+</div>
+</div>
+<div id="asymptotic-network-independence-of-dsgd" class="section level2">
+<h2><span class="header-section-number">8.2</span> Asymptotic network independence of DSGD</h2>
+<p>In this section, we first show for algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(U(k)=\mathcal O(\frac{1}{k})\)</span> and <span class="math inline">\(V(k)=\mathcal O(\frac{1}{k^2})\)</span>, i.e. algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> enjoys the sublinear convergence rate. More specifically, we show that <span class="math inline">\(\exists N, s.t. k&gt;N,\)</span>
+<span class="math display" id="eq:introsldsgd">\[\begin{equation}
+U(k)\leq \frac{\hat W(1-\rho_w^2)}{\tilde k},\quad V(k)\leq \frac{\hat V((1-\rho_w^2,\hat W))}{\tilde k^2}
+\tag{8.7}
+\end{equation}\]</span>
+where <span class="math inline">\(\tilde k\)</span> is some shift of <span class="math inline">\(k\)</span>, <span class="math inline">\(\hat W(\cdot)\)</span> and <span class="math inline">\(\hat V(\cdot)\)</span> are functions. The goal is to show that asymptotically, <span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^nE\left[\Vert x_i(k)-x^*\Vert^2\right]=R&#39;(k)=U(k)+\frac{1}{n}V(k)\)</span> has the same convergence rate with <span class="math inline">\(R(k)\)</span> in SGD. Notice <span class="math inline">\(V(k)\)</span> can be shown to decay faster than <span class="math inline">\(U(k)\)</span>, so if we can bound <span class="math inline">\(\hat W(1-\rho_w^2)\)</span> by another quantity <span class="math inline">\(C\)</span> which does not depende on <span class="math inline">\(\rho_w^2\)</span>, i.e. does not depende on the network, then we can have
+<span class="math display" id="eq:gdsgd">\[\begin{equation}
+R&#39;(k)\leq\frac{C}{\tilde k}+\frac{1}{n} \frac{V(1-\rho_w^2)}{\tilde k^2}
+\tag{8.8}
+\end{equation}\]</span>
+which shows the asymptotic newwork independence property of DSGD. Then by <a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#eq:gdsgd">(8.8)</a>, we can obtain the transient time for DSGD to reach the asymptotic convergence rate.</p>
+<p>We first give a uniform bound for
+<span class="math display">\[\begin{align}
+E\left[\Vert X(k)-\mathbf{1}x^*\Vert^2\right]&amp;=E\left[\sum_{i=1}^n\Vert x_i^T(k)-x^*\Vert^2\right]\\
+&amp;=\sum_{i=1}^n E\left[\Vert x_i^T(k)-x^*\right]\\
+&amp;=nR&#39;(k)
+\end{align}\]</span></p>
+
+<div class="lemma">
+<span id="lem:unibounddsgd" class="lemma"><strong>Lemma 8.4  </strong></span>For algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>,
+<span class="math display">\[
+E\left[\left\|X(k)-1 x^{*}\right\|^{2}\right] \leq \hat{X}:=\max \left\{\left\|X(0)-1 x^{*}\right\|^{2}, \frac{9 \sum_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}}{\mu^{2}}+\frac{n \sigma^{2}}{L^{2}}\right\}
+\]</span>
+</div>
+
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> \
+- <span class="math inline">\(X(k)-\mathbf{1}x^*=W^k(X(0)-\mathbf{1}x^*)-\sum\limits_{i+j=k}W^i\alpha_jG(j)\leqW^k(X(0)-\mathbf{1}x^*)\)</span></p>
+<ul>
+<li>?The author derive the second part in the <span class="math inline">\(\max\{\cdot\}\)</span> by <span class="math inline">\(E\left[\|X(k)\|^{2}\right] \leq \max \left\{\|X(0)\|^{2}, \sum_{i=1}^{n} R_{i}\right\}\)</span></li>
+</ul>
 </div>
 
 </div>
