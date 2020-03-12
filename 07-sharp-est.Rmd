@@ -243,7 +243,7 @@ $\alpha_k=\frac{\theta}{\mu(k+K)}$. That is, although $R'(k)=U(k)+\frac{1}{n}V(k
 
 From lemma \@ref(lem:Uk1), substitute $\alpha_k=\frac{\theta}{\mu(k+K)}$ and let $k'=k+K$, then 
 \begin{equation}
-\tilde{U}(k'-K) \leq\left(1-\frac{3 \theta}{2 k'}\right) \tilde{U}(k'-K)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k'-K)}{k'}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k'^{2}}, \quad \forall k' \geq K_{1}
+\tilde{U}(k'-K+1) \leq\left(1-\frac{3 \theta}{2 k'}\right) \tilde{U}(k'-K)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k'-K)}{k'}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k'^{2}}, \quad \forall k' \geq K_{1}
 \end{equation}
 
 Then from \@ref(eq:shift), we simplify the above as 
@@ -253,13 +253,32 @@ Then from \@ref(eq:shift), we simplify the above as
 (#eq:Ushift)
 \end{equation}
 
-By induction and lemma \@ref(lem:prodineq), we bound $U(k)$ with the network dependent term decaying faster, i.e. 
+By induction and lemma \@ref(lem:prodineq), we bound $U(k)$ with the network dependent term decaying faster, i.e. theorem \@ref(thm:asymUk). Additionally, from lemma \@ref(lem:sublrdsgd), $\tilde V(k)=V(k-K)\leq \frac{\hat V}{k^2}$, \@ref(eq:Ushift) becomes 
+\begin{align}
+\tilde U(k)\leq \frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\sum_{t=K_{1}}^{k-1} \frac{(t+1)^{1.5 \theta}}{k^{1.5 \theta}}\left(\frac{\theta^{2} \sigma^{2}}{n \mu^{2} t^{2}}+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\hat V}{t^3}\right)
+(\#eq:inductiondsgd)
+\end{align}
+The inequality holds for $1<\frac{3\theta}{2}\leq \frac{K_1}{2}$, where $K_1:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$. To simplify \@ref(eq:inductiondsgd), we bound 
+$$
+\sum_{t=K_1}^{k-1}\frac{(t+1)^{1.5\theta}}{t^2},\quad \sum_{t=K_1}^{k-1}\frac{(t+1)^{1.5\theta}}{t^3}
+$$
+
+
 
 ```{theorem, asymUk}
 Under algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$, let $\theta>2, K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil$, and $K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$, we have
 $$
 U(k) \leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}, \quad \forall k \geq K_{1}-K
 $$
+```
+Where $\hat V=\mathcal{O}(\frac{n}{(1-\rho_w)^2})$ with some constraints on $\Vert X(0)-\mathbf{1}x^*\Vert^2$ and $\Vert \nabla F(\mathbf{1}x^*)\Vert^2$ according to lemma \@ref(lem:hatVdsgd). 
+
+```{lemma, hatVdsgd}
+Suppose $\sum\limits_{i=1}^{n}\left\|x_{i}(0)-x^{*}\right\|^{2}=\mathcal{O}(n) \text { and } \sum\limits_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}=\mathcal{O}(n)$, then 
+$$
+\hat V=\mathcal{O}(\frac{n}{(1-\rho_w)^2})
+$$
+
 ```
 
 
