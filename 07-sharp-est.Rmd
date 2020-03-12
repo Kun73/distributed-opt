@@ -258,12 +258,31 @@ By induction and lemma \@ref(lem:prodineq), we bound $U(k)$ with the network dep
 \tilde U(k)\leq \frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\sum_{t=K_{1}}^{k-1} \frac{(t+1)^{1.5 \theta}}{k^{1.5 \theta}}\left(\frac{\theta^{2} \sigma^{2}}{n \mu^{2} t^{2}}+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\hat V}{t^3}\right)
 (\#eq:inductiondsgd)
 \end{align}
-The inequality holds for $1<\frac{3\theta}{2}\leq \frac{K_1}{2}$, where $K_1:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$. To simplify \@ref(eq:inductiondsgd), we bound 
+The inequality holds for $1<\frac{3\theta}{2}\leq \frac{K_1}{2}$, where $K_1:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$. To simplify \@ref(eq:inductiondsgd), we claim that 
 $$
-\sum_{t=K_1}^{k-1}\frac{(t+1)^{1.5\theta}}{t^2},\quad \sum_{t=K_1}^{k-1}\frac{(t+1)^{1.5\theta}}{t^3}
+\sum_{t=K_1}^{k-1}\frac{(t+1)^{1.5\theta}}{t^2}\leq \frac{b^{1.5 \theta-1}}{1.5 \theta-1}+\frac{3 b^{1.5 \theta-2}}{1.5 \theta-2}+3 b^{1.5 \theta-2}
+$$
+and 
+$$
+\sum_{a}^{b} \frac{(t+1)^{1.5 \theta}}{t^{3}} \leq \int_{a}^{b} t^{1.5 \theta-3} d t \leq \frac{2 b^{1.5 \theta-2}}{1.5 \theta-2}
 $$
 
+Then, 
+\begin{align}
+\tilde{U}(k) &\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} k}+\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}+\frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}\\
+&leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}} + \\
+&\quad \frac{K_1^{1.5\theta \hat X}}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
+(\#eq:asymUkXhat)
+\end{align}
 
+
+
+```{remark}
+\\
+- The last inequality in \@ref(eq:asymUkxhat) holds for $\theta >2$, we also use $\tilde U(K_1)\leq \frac{\hat X}{n}$, i.e. lemma \@ref(lem:sublrdsgd)
+
+- How does it yield theorem \@ref(thm:asymUk)?
+```
 
 ```{theorem, asymUk}
 Under algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$, let $\theta>2, K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil$, and $K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$, we have
@@ -276,9 +295,22 @@ Where $\hat V=\mathcal{O}(\frac{n}{(1-\rho_w)^2})$ with some constraints on $\Ve
 ```{lemma, hatVdsgd}
 Suppose $\sum\limits_{i=1}^{n}\left\|x_{i}(0)-x^{*}\right\|^{2}=\mathcal{O}(n) \text { and } \sum\limits_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}=\mathcal{O}(n)$, then 
 $$
-\hat V=\mathcal{O}(\frac{n}{(1-\rho_w)^2})
+\hat V=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})
 $$
 
 ```
 
+This is because given such conditions on $\Vert X(0)-\mathbf{1}x^*\Vert^2$ and $\Vert \nabla F(\mathbf{1}x^*)\Vert^2$, $\hat X=\mathcal{O}(n)$ and $\hat W=\mathcal{O}(\frac{1}{1-\rho_w^2})$, then $\hat V=\mathcal{O}(\frac{n\rho_w^2}{(1-\rho_w^2)^3})$.
 
+Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, from theorem \@ref(thm:asymUk), lemma \@ref(lem:sublrdsgd), and lemma \@ref(lemma:hatVdsgd), we show 
+\begin{equation}
+R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2}} \frac{1}{\tilde{k}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
+\end{equation}
+
+```{remark}
+$\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right)$ or $\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}\right)^{2}}\right)$?
+```
+
+Next we improve the bound in theorem \@ref(thm:asymUk)
+
+### Improved Bound 
