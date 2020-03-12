@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Distributed Stochastic Gradient Tracking(DSGT) Method | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Distributed Stochastic Gradient Tracking(DSGT) Method | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -65,36 +68,45 @@
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
-<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
+<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="sec-asynt.html"><a href="sec-asynt.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
 <li class="chapter" data-level="7.2" data-path="sec-asynt.html"><a href="sec-asynt.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
 <li class="chapter" data-level="7.3" data-path="sec-asynt.html"><a href="sec-asynt.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a><ul>
+<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
-<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a><ul>
+<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="sec-sharp.html"><a href="sec-sharp.html#sublinear-rate"><i class="fa fa-check"></i><b>8.2.1</b> Sublinear rate</a></li>
 <li class="chapter" data-level="8.2.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence"><i class="fa fa-check"></i><b>8.2.2</b> Asymptotic network independence</a></li>
 </ul></li>
@@ -122,48 +134,48 @@
 <h1><span class="header-section-number">Chapter 4</span> Distributed Stochastic Gradient Tracking(DSGT) Method</h1>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
-<p>The idea is similar to that in the Push-Pull method. However, since <span class="math inline">\(Y_k\in\mathbb{R}^{n\times p}\)</span> is used to track the average stochastic gradients in the <span class="math inline">\(k\)</span>th iteration, i.e. <span class="math inline">\(\bar y_k = \frac{1}{n}\mathbf{1}^T Y_k=\frac{1}{n}\sum\limits_{i=1}^ng_i(x_{i,k},\xi_{i,k})\)</span> provided <span class="math inline">\(y_{i,0}=g(x_{i,0},\xi_{i,0})\)</span>, which is random. Hence we now bound <span class="math inline">\(E\left[\left\|\bar{x}_{k+1}-x^{*}\right\|^{2}\right]\)</span>, <span class="math inline">\(E\left[\left\|X_{k+1}-\mathbf1 \bar{x}_{k+1}\right\|^{2}\right]\)</span>, and <span class="math inline">\(E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]\)</span>, which can be seen as variances of <span class="math inline">\(\bar x_k, X_k\)</span>, and <span class="math inline">\(Y_k\)</span>. Thus we need to assume <span class="math inline">\(g_i(x,\xi_i),i\in\mathcal{N}\)</span> have the finite variances and also assume they are good estimates of <span class="math inline">\(\nabla f_i(x), i\in\mathcal{N}\)</span>,i.e. assumption <a href="sec-dsgt.html#exr:estg">4.1</a>.</p>
+<p>The idea is similar to that in the Push-Pull method. However, since <span class="math inline">\(Y_k\in\mathbb{R}^{n\times p}\)</span> is used to track the average stochastic gradients in the <span class="math inline">\(k\)</span>th iteration, i.e. <span class="math inline">\(\bar y_k = \frac{1}{n}\mathbf{1}^T Y_k=\frac{1}{n}\sum\limits_{i=1}^ng_i(x_{i,k},\xi_{i,k})\)</span> provided <span class="math inline">\(y_{i,0}=g(x_{i,0},\xi_{i,0})\)</span>, which is random. Hence we now bound <span class="math inline">\(E\left[\left\|\bar{x}_{k+1}-x^{*}\right\|^{2}\right]\)</span>,
+<span class="math inline">\(E\left[\left\|X_{k+1}-\mathbf1 \bar{x}_{k+1}\right\|^{2}\right]\)</span>, and <span class="math inline">\(E\left[\left\|Y_{k+1}-\mathbf{1} \bar{y}_{k+1}\right\|^{2}\right]\)</span>, which can be seen as variances of <span class="math inline">\(\bar x_k, X_k\)</span>, and <span class="math inline">\(Y_k\)</span>. Thus we need to assume <span class="math inline">\(g_i(x,\xi_i),i\in\mathcal{N}\)</span> have the finite variances and also assume they are good estimates of <span class="math inline">\(\nabla f_i(x), i\in\mathcal{N}\)</span>,i.e. assumption <a href="sec-dsgt.html#exr:estg">4.1</a>.</p>
 
 <div class="exercise">
-<span id="exr:estg" class="exercise"><strong>Assumption4.1  </strong></span> <span class="math inline">\(\forall i\in\mathcal{N},x\in\mathbb{R}^p\)</span>, eahc random vector <span class="math inline">\(\xi_i\in\mathbb{R}^m\)</span> is independent, and
+<span id="exr:estg" class="exercise"><strong>Assumption4.1  </strong></span>
+<span class="math inline">\(\forall i\in\mathcal{N},x\in\mathbb{R}^p\)</span>, eahc random vector <span class="math inline">\(\xi_i\in\mathbb{R}^m\)</span> is independent, and
 <span class="math display" id="eq:auef">\[\begin{align}
 E[g_i(x,\xi_i)|x]&amp;=\nabla f_i(x)\\
 E[\Vert g_i(x,\xi_i)-\nabla f_i(x)\Vert^2 |x]&amp;\leq \sigma^2, \exists \sigma
 \tag{4.1}
 \end{align}\]</span>
 </div>
-
 <p>Additionnally, we assume the graph in DSGT is undirected and connected, i.e. assumption <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>.</p>
 
 <div class="exercise">
 <span id="exr:dsgtgraph" class="exercise"><strong>Assumption4.2  </strong></span>The graph <span class="math inline">\(\mathcal{G}\)</span> corresponding to the network of agents is undirected and connected.
 </div>
-
 <p>The distributed stochastic gradient tracking method is as follows,</p>
 
 <div class="example">
-<p><span id="exm:dsgt" class="example"><strong>Algorithm4.1  (DSGT)  </strong></span> Each agent <span class="math inline">\(i\)</span> choose the same step size <span class="math inline">\(\alpha\)</span> and initilized with an arbitary <span class="math inline">\(x_{i,0}\in\mathbb{R}^p, y_{i,0}=g_i(x_{i,0},\xi_{i,0})\)</span>.</p>
+<p><span id="exm:dsgt" class="example"><strong>Algorithm4.1  (DSGT)  </strong></span>
+Each agent <span class="math inline">\(i\)</span> choose the same step size <span class="math inline">\(\alpha\)</span> and initilized with an arbitary <span class="math inline">\(x_{i,0}\in\mathbb{R}^p, y_{i,0}=g_i(x_{i,0},\xi_{i,0})\)</span>.</p>
 <p>For k = 0, 1, …,</p>
 <ul>
 <li><p>For <span class="math inline">\(i\in\mathcal{N}\)</span>,</p>
 <ul>
 <li><p><span class="math inline">\(x_{i, k+1} = \sum\limits_{j=1}^nw_{ij}(x_{j, k}-\alpha_j y_{j, k})\)</span></p></li>
-<li><span class="math inline">\(y_{i, k+1} = \sum\limits_{j=1}^nw_{ij}y_{j,k}+g_i(x_{i,k+1},\xi_{i,k+1})-g_i(x_{i,k},\xi_{i,k})\)</span></li>
+<li><p><span class="math inline">\(y_{i, k+1} = \sum\limits_{j=1}^nw_{ij}y_{j,k}+g_i(x_{i,k+1},\xi_{i,k+1})-g_i(x_{i,k},\xi_{i,k})\)</span></p></li>
 </ul></li>
 </ul>
 </div>
- Where <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the coupling matrix of agents,satisfying assumption <a href="sec-dsgt.html#exr:dsw">4.3</a>.The above algorithm can be written as the matrix form,
+<p>Where <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the coupling matrix of agents,satisfying assumption <a href="sec-dsgt.html#exr:dsw">4.3</a>.The above algorithm can be written as the matrix form,
 <span class="math display" id="eq:dsgt">\[\begin{align}
 X_{k+1}&amp;=\mathbf{W}\left(X_{k}-\alpha Y_{k}\right)\\
 Y_{k+1}&amp;=\mathbf{W} Y_{k}+G\left(X_{k+1}, \xi_{k+1}\right)-G\left(X_{k}, \xi_{k}\right)
 \tag{4.2}
 \end{align}\]</span>
-<p>Where <span class="math inline">\(G(X_k,\boldsymbol\xi_k)=(g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k}))^T\in\mathbb{R}^{n\times p}\)</span>.</p>
+Where <span class="math inline">\(G(X_k,\boldsymbol\xi_k)=(g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k}))^T\in\mathbb{R}^{n\times p}\)</span>.</p>
 
 <div class="exercise">
-<span id="exr:dsw" class="exercise"><strong>Assumption4.3  </strong></span><span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> is nonnegative and doubly stochastic,i.e. <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span> and <span class="math inline">\(\mathbf{1}^TW=\mathbf{1}^T\)</span>. In addition, <span class="math inline">\(w_{ii}&gt;0\)</span> for some <span class="math inline">\(i\in\mathcal{N}\)</span>.
+<span id="exr:dsw" class="exercise"><strong>Assumption4.3  </strong></span><span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span> is nonnegative and doubly stochastic,i.e. <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span> and <span class="math inline">\(\mathbf{1}^TW=\mathbf{1}^T\)</span>. In addition, <span class="math inline">\(w_{ii}&gt;0\)</span> for some <span class="math inline">\(i\in\mathcal{N}\)</span>.
 </div>
-
 <p>Insead of the definition <a href="the-push-pull-method.html#def:normpp">3.1</a> used in the Push-Pull method, we denote <span class="math inline">\(\Vert\cdot\Vert\)</span> as the <span class="math inline">\(2-\)</span>norm for vectors and as Frobenius norms for matrices. Hence they are consistent, the lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> and <a href="the-push-pull-method.html#lem:lem35">3.5</a> are satisfied accordingly.</p>
 </div>
 <div id="analysis-of-convergence-1" class="section level2">
@@ -179,17 +191,16 @@ E\left[\left\|\bar{y}_{k}-h(X_k)\right\|^{2} | \mathcal{F}_{k}\right] &amp;\leq 
 
 \end{align}\]</span>
 </div>
-
 <p>Lemma <a href="sec-dsgt.html#lem:lem2">4.1</a> is to say that <span class="math inline">\(\bar y_k\)</span> tracks the average gradient with finite variace and is unbiased.</p>
 <div id="relationship-between-two-iteration-steps-1" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Relationship between two iteration steps</h3>
 <p>From <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we make <span class="math inline">\(\alpha&#39;=\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha\mathbf{1}=\alpha,\boldsymbol\alpha=\text{diag}(\alpha,\alpha,...,\alpha)\)</span> and <span class="math inline">\(g_k=\nabla f(\bar x_k)=\frac{1}{n}\sum\limits_{i=1}^n\nabla f_i(\bar x_k)=\frac{1}{n}\mathbf{1}^T\nabla F(\mathbf{1}\bar x_k)\)</span>, we have,</p>
-<span class="math display" id="eq:xbar1dsgt">\[\begin{equation}
+<p><span class="math display" id="eq:xbar1dsgt">\[\begin{equation}
 \bar x_{k+1}-x^* = \bar x_k - \alpha(h(X_k)-\nabla f(\bar x_k))-\alpha \nabla f(\bar x_k)-\alpha (\bar y_k-h(X_k))-x^*
 \tag{4.3}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>Take norm at both sides, we have</p>
-<span class="math display" id="eq:xbar1normdsgt">\[\begin{align}
+<p><span class="math display" id="eq:xbar1normdsgt">\[\begin{align}
 \Vert \bar x_{k+1}-x^*\Vert^2&amp;=\Vert (\bar x_k-\alpha \nabla f(\bar x_k)-x^*)-\alpha(h(X_k)-\nabla f(\bar x_k))-\alpha(\bar y_k-h(X_k))\Vert^2\\
 &amp;=\Vert \bar x_k-\alpha \nabla f(\bar x_k)-x^*\Vert^2 + \alpha^2\Vert h(X_k)-\nabla f(\bar x_k)\Vert ^2 + \alpha^2\Vert \bar y_k-h(X_k)\Vert^2\\ &amp;+ 2\alpha\left\langle\bar x_k-\alpha \nabla f(\bar x_k)-x^*, \nabla f(\bar x_k)-h(X_k)\right\rangle\\&amp;-2\alpha\left\langle\bar x_k-\alpha \nabla f(\bar x_k)-x^*, \bar y_k-h(X_k)\right\rangle\\ &amp;+ 2\alpha^2\left\langle h(X_k)-\nabla f(\bar x_k), \bar y_k-h(X_k)\right\rangle
 \tag{4.4}
@@ -206,35 +217,32 @@ E\left[\Vert \bar x_{k+1}-x^*\Vert^2|\mathcal{F}_k\right]&amp;\leq
 (1-\alpha\mu)\Vert \bar x_k-x^*\Vert^2+\frac{\alpha L^2}{\mu n}(1+\alpha\mu)\Vert X_k-\mathbf{1}\bar x_k\Vert^2 +\\ &amp;\frac{\alpha^2\sigma^2}{n}
 
 \tag{4.5}
-\end{align}\]</span>
+\end{align}\]</span></p>
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> \</p>
 <ul>
-<li>When each agent <span class="math inline">\(i\)</span> takes different step size <span class="math inline">\(\alpha_i,i\in\mathcal{N}\)</span>, <span class="math inline">\(\alpha(\bar y_k-h(\bar x_k))\)</span> in <a href="sec-dsgt.html#eq:xbar1dsgt">(4.3)</a> becomes <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))\)</span>, then we may use the following to continuou the steps in <a href="sec-dsgt.html#eq:ineq1dsgt">(4.5)</a>.<br />
-
+<li><p>When each agent <span class="math inline">\(i\)</span> takes different step size <span class="math inline">\(\alpha_i,i\in\mathcal{N}\)</span>, <span class="math inline">\(\alpha(\bar y_k-h(\bar x_k))\)</span> in <a href="sec-dsgt.html#eq:xbar1dsgt">(4.3)</a> becomes <span class="math inline">\(\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))\)</span>, then we may use the following to continuou the steps in <a href="sec-dsgt.html#eq:ineq1dsgt">(4.5)</a>.<br />
 <span class="math display">\[\begin{align}
 \frac{1}{n}\mathbf{1}^T\boldsymbol\alpha(Y_k-\mathbf{1}h(\bar x_k))&amp;=\frac{1}{n}\mathbf{1}^T\boldsymbol\alpha\left[(Y_k-\mathbf{1}\bar y_k)+\mathbf{1}(\bar y_k-h(\bar x_k))\right]
-\end{align}\]</span></li>
-<li><span class="math inline">\(0&lt;(1-(\alpha\mu)^2)&lt;1\)</span> will be guranteed by lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>. This also hints us how to separate <span class="math inline">\(\frac{2 \alpha (1-\alpha\mu) L}{\sqrt{n}}\left\|\bar{x}_{k}-x^{*}\right\|\left\|X_{k}-1 \bar{x}_{k}\right\|\)</span></li>
+\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(0&lt;(1-(\alpha\mu)^2)&lt;1\)</span> will be guranteed by lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>. This also hints us how to separate <span class="math inline">\(\frac{2 \alpha (1-\alpha\mu) L}{\sqrt{n}}\left\|\bar{x}_{k}-x^{*}\right\|\left\|X_{k}-1 \bar{x}_{k}\right\|\)</span></p></li>
 </ul>
 </div>
-
 <p>In the Push-Pull method, we see matrices <span class="math inline">\(R-\frac{\mathbf{1}u^T}{n}\)</span> and <span class="math inline">\(C-\frac{v\mathbf{1}^T}{n}\)</span>. Here for <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span>, <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span> also has significant uses. <span class="math inline">\(\mathbf{1}\)</span> can be seen as left and right eigenvalue of <span class="math inline">\(W\)</span>, and from <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span> we have lemma <a href="sec-dsgt.html#lem:lem1">4.2</a>,</p>
 
 <div class="lemma">
-<span id="lem:lem1" class="lemma"><strong>Lemma 4.2  </strong></span>Given the graph <span class="math inline">\(\mathcal{G}\)</span> corresponding to the network of agents is undirected and connected, and <span class="math inline">\(W\)</span> is doubly stochastic and <span class="math inline">\(w_{ii}&gt;0,\exists i\in\mathcal{N}\)</span>, we have the spectral norm <span class="math inline">\(\rho_w\)</span> of <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span>, <span class="math inline">\(\rho_W&lt;1\)</span>, and <span class="math display">\[
+<span id="lem:lem1" class="lemma"><strong>Lemma 4.2  </strong></span>Given the graph <span class="math inline">\(\mathcal{G}\)</span> corresponding to the network of agents is undirected and connected, and <span class="math inline">\(W\)</span> is doubly stochastic and <span class="math inline">\(w_{ii}&gt;0,\exists i\in\mathcal{N}\)</span>, we have the spectral norm <span class="math inline">\(\rho_w\)</span> of <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span>, <span class="math inline">\(\rho_W&lt;1\)</span>, and
+<span class="math display">\[
   \|W \omega-\mathbf{1} \bar{\omega}\| \leq \rho_{w}\|\omega-1 \bar{\omega}\|, \forall \omega\in\mathbb{R}^{n\times p}, \bar\omega = \frac{1}{n}\mathbf{1}\omega
 \]</span>
 </div>
-
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> <br />
 For lemma <a href="sec-dsgt.html#lem:lem1">4.2</a>, a counter example for not assuming connected graph is that a graph <span class="math inline">\(\mathcal{G}\)</span> induced by the identity matrix <span class="math inline">\(I\)</span>, then the spectral norm of <span class="math inline">\(I-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span> is <span class="math inline">\(\rho_w = 1\)</span>.</p>
 </div>
-
-Then,
+<p>Then,
 <span class="math display" id="eq:ineq2dsgt">\[\begin{align}
 
 \Vert X_{k+1}-\mathbf{1}\bar x_{k+1}\Vert^2&amp;\stackrel{\text{iterate}}{=}
@@ -246,9 +254,9 @@ Then,
 \frac{\left(1+\rho_{w}^{2}\right)}{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}+\\
 &amp;\alpha^{2} \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\left\|Y_{k}-1 \bar{y}_{k}\right\|^{2}
 \tag{4.6}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>For <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\)</span>. We write <span class="math inline">\(G(X_k,\xi_k):=G_k,\nabla_k:=\nabla F(X_k)\)</span> for simplicity, then we have,</p>
-<span class="math display" id="eq:dsgt31">\[\begin{align}
+<p><span class="math display" id="eq:dsgt31">\[\begin{align}
 \Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2&amp;=
 
 \Vert WY_k + G_{k+1} - G_k -\mathbf{1}\bar y_k + \mathbf{1}(\bar y_k-\bar y_{k+1})\Vert^2\\
@@ -266,15 +274,14 @@ Then,
 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle \\
 &amp;\leq \rho^2_w\Vert Y_k-\mathbf{1}\bar y_k\Vert^2+\Vert G_{k+1} - G_k\Vert^2 + 2\langle WY_k - \mathbf{1}\bar y_k, G_{k+1}-G_k\rangle
 \tag{4.7}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p><strong>Todo: <span class="math inline">\(\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2\)</span>? </strong></p>
 </div>
 <div id="inequalities-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Inequalities</h3>
 
 <div class="lemma">
-<span id="lem:dsgtA" class="lemma"><strong>Lemma 4.3  </strong></span>
-<span class="math display">\[\begin{equation}
+<span id="lem:dsgtA" class="lemma"><strong>Lemma 4.3  </strong></span><span class="math display">\[\begin{equation}
 A_{dsgt}=\left[\begin{array}{ccc}
 {1-\alpha \mu} &amp; {\frac{\alpha L^{2}}{\mu n}(1+\alpha \mu)} &amp; {0} \\
 {0} &amp; {\frac{1}{2}\left(1+\rho_{w}^{2}\right)} &amp; {\alpha^{2} \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}} \\
@@ -283,51 +290,48 @@ A_{dsgt}=\left[\begin{array}{ccc}
 \end{equation}\]</span>
 where <span class="math inline">\(\beta=\frac{1-\rho_{w}^{2}}{2 \rho_{w}^{2}}-4 \alpha L-2 \alpha^{2} L^{2}\)</span>
 </div>
-
 <p>After getting the element of the matrix <span class="math inline">\(A\)</span> of <span class="math inline">\(A_{dsgt}\)</span>, we again use lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> to build conditions on step size <span class="math inline">\(\alpha\)</span> so that the spectral radius of <span class="math inline">\(A_{dsgt}\)</span>, <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span>.</p>
 </div>
 <div id="spectral-radius-of-a_dsgt" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></h3>
 <p>Next, we derive the conditions on <span class="math inline">\(\alpha\)</span> so that <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span> by computing <span class="math inline">\(det(I-A_{dsgt})\)</span> and make it greater than 0. We expand <span class="math inline">\(det(I-A_{dsgt})\)</span> according to the first column,</p>
-<span class="math display" id="eq:detdsgt">\[\begin{align}
+<p><span class="math display" id="eq:detdsgt">\[\begin{align}
 det(I-A_{dsgt}) &amp;= (1-a_{11})[(1-a_{22})(1-a_{33})-a_{32}a_{23}]-a_{12}a_{23}a_{31}
 \tag{4.8}
-\end{align}\]</span>
+\end{align}\]</span></p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> <br />
 The choice of <span class="math inline">\(\beta\)</span> makes <span class="math inline">\(1-a_{22}=1-a_{33}=(1-\rho_w^2)/2\)</span>. In Push-Pull method, we use <span class="math inline">\(1-a_{22}\geq (1-\sigma_R)/2\)</span> and <span class="math inline">\(1-a_{33}\geq (1-\sigma_C)/2\)</span> to derive a sufficient condition so that <span class="math inline">\(\det(I-A_{pp})&gt;0\)</span>.
 </div>
-
 <p>Notice that in lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a>, it requires <span class="math inline">\(\lambda-a_{ii}&gt;0, i=1,2,3\)</span> and in <a href="sec-dsgt.html#eq:detdsgt">(4.8)</a>, we already have <span class="math inline">\((1-a_{11})(1-a_{22})(1-a_{33})-C\)</span>. Hence we may expect <span class="math inline">\(C\)</span> to be bounded by the term of <span class="math inline">\(c_0(1-a_{11})(1-a_{22})(1-a_{33})\)</span>, where <span class="math inline">\(c_0&lt;1\)</span> is a positive number. So when we make</p>
-<span class="math display" id="eq:gamma1">\[\begin{align}
+<p><span class="math display" id="eq:gamma1">\[\begin{align}
 a_{23}a_{32}&amp;\leq \frac{1}{\Gamma}(1-a_{22})(1-a_{33})=\frac{1}{\Gamma}(\frac{1-\rho_w^2}{2})^2,\\
 \tag{4.9}
-\end{align}\]</span>
-<span class="math display" id="eq:gamma2">\[\begin{align}
+\end{align}\]</span></p>
+<p><span class="math display" id="eq:gamma2">\[\begin{align}
 a_{12}a_{23}a_{31}&amp;\leq \frac{1}{\Gamma+1}(1-a_{11})[(1-a_{22})(1-a_{33})-a_{32}a_{23}]
 \tag{4.10}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>for some <span class="math inline">\(\Gamma &gt;1\)</span>, we have</p>
-<span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{equation}
 det(I-A_{dsgt}) \geq \frac{\Gamma-1}{\Gamma+1}(1-a_{11})(1-a_{22})(1-a_{33})&gt;0
-\end{equation}\]</span>
-Next, we derive what exactly conditions <span class="math inline">\(\alpha\)</span> should satisfy to make the inequalities <a href="sec-dsgt.html#eq:gamma1">(4.9)</a> and <a href="sec-dsgt.html#eq:gamma2">(4.10)</a> hold. Additionally, in the proof of building inequalities of <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\)</span>, the author uses
+\end{equation}\]</span></p>
+<p>Next, we derive what exactly conditions <span class="math inline">\(\alpha\)</span> should satisfy to make the inequalities <a href="sec-dsgt.html#eq:gamma1">(4.9)</a> and <a href="sec-dsgt.html#eq:gamma2">(4.10)</a> hold. Additionally, in the proof of building inequalities of <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\)</span>, the author uses
 <span class="math display">\[\begin{align}
 2\|\mathbf{W}-\mathbf{I}\| L \rho_{w}\left\|Y_{k}-\mathbf{1} \bar{y}_{k}\right\|\left\|X_{k}-1 \bar{x}_{k}\right\|\leq
 \beta \rho_{w}^{2} \left\|Y_{k}-1 \bar{y}_{k}\right\|^{2} | \mathcal{F}_{k}+\frac{1}{\beta}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}\left\|X_{k}-1 \bar{x}_{k}\right\|^{2}
 \end{align}\]</span>
 Thus we also need <span class="math inline">\(\beta&gt;0\)</span>. Since<span class="math inline">\(\beta\)</span> is quadratic about <span class="math inline">\(\alpha&gt;0\)</span>, so a naive idea to ensure <span class="math inline">\(\beta&gt;0\)</span> is<br />
-
 <span class="math display" id="eq:dsgtalpha1">\[\begin{equation}
 0&lt;\alpha &lt; \frac{\sqrt{1+3\rho_w^2}}{2\rho_wL}-\frac{1}{L}
 \tag{4.11}
-\end{equation}\]</span>
-However, the author uses <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span> to gurantee <span class="math inline">\(\beta&gt;0\)</span> since <span class="math inline">\(0&lt;\rho_w&lt;1\)</span>.
+\end{equation}\]</span></p>
+<p>However, the author uses <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span> to gurantee <span class="math inline">\(\beta&gt;0\)</span> since <span class="math inline">\(0&lt;\rho_w&lt;1\)</span>.
 <span class="math display" id="eq:dsgtbeta">\[\begin{align}
 \beta \geq \frac{1-\rho_{w}^{2}}{2 \rho_{w}^{2}}-\frac{1-\rho_{w}^{2}}{3 \rho_{w}}-\frac{\left(1-\rho_{w}^{2}\right)^{2}}{72 \rho_{w}^{2}} \geq \frac{11\left(1-\rho_{w}^{2}\right)}{72 \rho_{w}^{2}} \geq \frac{1-\rho_{w}^{2}}{8 \rho_{w}^{2}}&gt;0
 \tag{4.12}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>Based on this idea, we may derive a more accurate coefficient <span class="math inline">\(C&gt;0\)</span> of <span class="math inline">\(\frac{1-\rho_w^2}{C\rho_w^2L}\)</span> can be chosen from <span class="math inline">\((\frac{2}{\sqrt{5}-2}\approx8.47,+\infty)\)</span>.</p>
 <p>Figure <a href="sec-dsgt.html#fig:f1">4.1</a> plots the function <span class="math inline">\(\frac{\sqrt{1+3\rho_w^2}}{2\rho_w}-1-\frac{1-\rho_w^2}{12\rho_w^2}\)</span>, which compares the above two idea to ensure <span class="math inline">\(\beta&gt;0\)</span>. We see from figure <a href="sec-dsgt.html#fig:f1">4.1</a> that the constraint in <a href="sec-dsgt.html#eq:dsgtbeta">(4.12)</a> is better than <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2}{12\rho_w^2L}\)</span>, especilly when <span class="math inline">\(\rho_w\)</span> is close to <span class="math inline">\(0\)</span>.</p>
 <div class="figure"><span id="fig:f1"></span>
@@ -336,7 +340,7 @@ However, the author uses <span class="math inline">\(\alpha\leq \frac{1-\rho_w^2
 Figure 4.1: The difference between two constraints
 </p>
 </div>
-We follow the author’s choice here, then the LHS of <a href="sec-dsgt.html#eq:gamma1">(4.9)</a> is less than the following,
+<p>We follow the author’s choice here, then the LHS of <a href="sec-dsgt.html#eq:gamma1">(4.9)</a> is less than the following,
 <span class="math display" id="eq:dsgtalpha21">\[\begin{equation}
 \frac{\left(1+\rho_{w}^{2}\right) \rho_{w}^{2}}{\left(1-\rho_{w}^{2}\right)}\alpha^{2}\left[\frac{\left(2+6 \rho_{w}^{2}\right)}{\left(1-\rho_{w}^{2}\right)}\|\mathbf{W}-\mathbf{I}\|^{2} L^{2}+\frac{\left(1-\rho_{w}^{2}\right)}{4 \rho_{w}^{2}} L^{2}\right]\leq RHS=\frac{\left(1-\rho_{w}^{2}\right)^{2}}{4 \Gamma}
 \tag{4.13}
@@ -347,23 +351,23 @@ Hence, it suffice to make <span class="math inline">\(\alpha\)</span>,
 \alpha\leq \frac{\left(1-\rho_{w}^{2}\right)^{2}}{2 \sqrt{\Gamma} L \max \left(6 \rho_{w}\|\mathbf{W}-\mathbf{I}\|, 1-\rho_{w}^{2}\right)}\leq \frac{\left(1-\rho_{w}^{2}\right)^{2}}{L \sqrt{\Gamma\left(1+\rho_{w}^{2}\right)} \sqrt{4 \rho_{w}^{2}\left(2+6 \rho_{w}^{2}\right)\|\mathbf{W}-\mathbf{I}\|^{2}+\left(1-\rho_{w}^{2}\right)^{2}}}
 
 \end{equation}\]</span>
-<p>The latter inequality comes from <span class="math inline">\(\rho_w^2&lt;1&lt;\frac{7}{6}\)</span> and <span class="math inline">\(a+b\leq 2\max(a,b)\)</span>.</p>
-For the inequality <a href="sec-dsgt.html#eq:gamma2">(4.10)</a>, from the inequality <a href="sec-dsgt.html#eq:gamma1">(4.9)</a>, it is sufficient to have
+The latter inequality comes from <span class="math inline">\(\rho_w^2&lt;1&lt;\frac{7}{6}\)</span> and <span class="math inline">\(a+b\leq 2\max(a,b)\)</span>.</p>
+<p>For the inequality <a href="sec-dsgt.html#eq:gamma2">(4.10)</a>, from the inequality <a href="sec-dsgt.html#eq:gamma1">(4.9)</a>, it is sufficient to have
 <span class="math display">\[\begin{equation}
 
 a_{12} a_{23} a_{31}\leq
 \frac{(\Gamma-1)}{\Gamma(\Gamma+1)}\left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>Thus,</p>
-<span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{equation}
 \alpha \leq \frac{\left(1-\rho_{w}^{2}\right)}{3 \rho_{w}^{2 / 3} L}\left[\frac{\mu^{2}}{L^{2}} \frac{(\Gamma-1)}{\Gamma(\Gamma+1)}\right]^{1 / 3}
-\end{equation}\]</span>
-Then, when the step size <span class="math inline">\(\alpha\)</span> is chosen such that
+\end{equation}\]</span></p>
+<p>Then, when the step size <span class="math inline">\(\alpha\)</span> is chosen such that
 <span class="math display" id="eq:dsgtalpha">\[\begin{equation}
 \alpha \leq \min \left\{\frac{\left(1-\rho_{w}^{2}\right)}{12 \rho_{w} L}, \frac{\left(1-\rho_{w}^{2}\right)^{2}}{2 \sqrt{\Gamma} L \max \left\{6 \rho_{w}\|\mathbf{W}-\mathbf{I}\|, 1-\rho_{w}^{2}\right\}}, \frac{\left(1-\rho_{w}^{2}\right)}{3 \rho_{w}^{2 / 3} L}\left[\frac{\mu^{2}}{L^{2}} \frac{(\Gamma-1)}{\Gamma(\Gamma+1)}\right]^{1 / 3}\right\}
 \tag{4.14}
 \end{equation}\]</span>
-<p>we have <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span>.</p>
+we have <span class="math inline">\(\rho(A_{dsgt})&lt;1\)</span>.</p>
 
 </div>
 </div>
@@ -379,11 +383,13 @@ Then, when the step size <span class="math inline">\(\alpha\)</span> is chosen s
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -391,12 +397,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -408,6 +413,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -424,7 +433,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
