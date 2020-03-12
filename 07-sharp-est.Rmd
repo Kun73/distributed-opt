@@ -1,4 +1,4 @@
-# A sharp estimate of the transient time of DSGD
+# A sharp estimate of the transient time of DSGD{#sec:sharp}
 
 In this chapter, we derive an estimate of transient time $K_T$ of DSGD and then show it is sharp[@pu2019sharp]. During this, we will prove lemma \@ref(lem:riskdsgd) in chapter \@ref(sec:asynt). 
 
@@ -58,6 +58,17 @@ From lemma \@ref(lem:condxbardsgd) and \@ref(eq:sepc), take the full expectation
 U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac{\alpha_k\sigma^2}{n}
 (\#eq:Uk1)
 \end{align}
+
+Take $c=\frac{3}{8}\alpha_k\mu$ and let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$ in \@ref(eq:Uk1), we derive lemma \@ref(lem:Uk1). $\alpha_k\leq \frac{1}{L}$ is to make $\lambda = 1-\alpha_k\mu$ in lemma \@ref(lem:contraction2L), $\alpha_k\leq \frac{1}{3\mu}$ is to make $(1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu$.
+
+__Todo:why $1-\frac{3}{2}\alpha_k\mu$__
+
+```{lemma, Uk1}
+Under algorithm \@ref(exm:dsgd), let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$, then 
+$$
+U(k+1) \leq\left(1-\frac{3}{2} \alpha_{k} \mu\right) U(k)+\frac{3 \alpha_{k} L^{2}}{n \mu} V(k)+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
+$$
+```
 
 For $V(k+1)$, similar to \@ref(eq:ineq2dsgt), we denote $G(k):=G(X(k),\boldsymbol\xi(k))$ here, then 
 \begin{align}
@@ -162,9 +173,93 @@ $$
 
 ```{remark}
 \\
-- $X(k)-\mathbf{1}x^*=W^k(X(0)-\mathbf{1}x^*)-\sum\limits_{i+j=k}W^i\alpha_jG(j)\leqW^k(X(0)-\mathbf{1}x^*)$
+
+- $X(k)-\mathbf{1}x^*=W^k(X(0)-\mathbf{1}x^*)-\sum\limits_{i+j=k}W^i\alpha_jG(j)\leq W^k(X(0)-\mathbf{1}x^*)$
   
 - ?The author derive the second part in the $\max\{\cdot\}$ by $E\left[\|X(k)\|^{2}\right] \leq \max \left\{\|X(0)\|^{2}, \sum_{i=1}^{n} R_{i}\right\}$
 
 ```
+
+### Sublinear rate
+
+Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, hence we introduce $W(k)$ as 
+\begin{equation}
+W(k):=U(k)+\omega(k)V(k),\quad \forall k\geq0
+(\#eq:lya)
+\end{equation}
+where $\omega(k)>0$ is to be determined later. \@ref(eq:lya) is called the Lyapunov function.
+
+From lemma \@ref(lem:unibounddsgd), we have a uniform bound for $R'(k)\leq \frac{\hat X}{n}$, we also want such a property on $W(k)$,i.e. $W(k)\leq\frac{\hat X}{n}$. This is how we determine $\omega(k)$. From lemma \@ref(lem:Uk1) and \@ref(lem:Vk1), we further establish a recursion of $W(k)$. By induction, it will have a term of $\prod\limits_{t=a}^{k-1}(1-\frac{\gamma}{t})$. Lemma \@ref(lem:prodineq) leads us to bound such a term. Then $U(k)$ is bounded from $U(k)\leq W(k)$. $V(k)$ is bound from lemma \@ref(lem:Vk1) and the bound for $U(k)$.
+
+```{lemma, prodineq}
+$\forall 1<a<k(a\in\mathbb{N})$ and $1<\gamma<a/2$, 
+$$
+\frac{a^{2 \gamma}}{k^{2 \gamma}} \leq \prod_{t=a}^{k-1}\left(1-\frac{\gamma}{t}\right) \leq \frac{a^{\gamma}}{k^{\gamma}}
+$$  
+```
+
+Lemma \@ref(lem:sublrdsgd) shows the algorithm \@ref(exm:dsgd) with the stepsize policy being 
+$$
+\alpha_k=\frac{\theta}{\mu(k+K)},K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil
+$$
+enjoys sublinear rate. 
+
+```{lemma sublrdsgd, name = "Sublinear rate of DSGD"}
+For algorithm \@ref(exm:dsgd),let
+\begin{equation*}
+  K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil
+\end{equation*}
+$\forall k\geq K_1-K$, we have 
+\begin{equation*}
+  U(k)\leq \frac{\hat W}{\tilde k},\quad V(k)\leq \frac{\hat V}{\tilde k^2}
+\end{equation*}
+where,
+$$
+  \hat{W}:=\frac{K_{1} \hat{X}}{n}+\frac{3}{(4 \theta-3)}\left(\frac{\sigma^{2} \theta^{2}}{n \mu^{2}}+\frac{\sigma^{2} \rho_{w}^{2} \theta^{2}}{2 \mu^{2}}\right)+\frac{12\left\|\nabla F\left(1 x^{*}\right)\right\|^{2} \rho_{w}^{2} \theta^{2}}{(4 \theta-3) n \mu^{2}\left(1-\rho_{w}^{2}\right)}
+$$
+  
+$$
+  \hat{V}:=\max \left\{K_{1}^{2} \hat{X}, \frac{8 \theta^{2} \rho_{w}^{2}}{\mu^{2}\left(1-\rho_{w}^{2}\right)}\left[\frac{4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}+\frac{4 n L^{2} \hat{W}}{\left(1-\rho_{w}^{2}\right) K_{1}}\right]\right\}
+$$
+
+$$
+  \tilde k=k+K
+$$
+
+```
+
+We introduce $\tilde k$ is based on $\alpha_k=\frac{c}{k+K}$. Moreover, we introduce the following shift of $U(k),V(k)$, and $W(k)$ for simplicity.
+\begin{equation}
+\tilde{U}(k):=U(k-K), \quad \tilde{V}(k):=V(k-K), \quad \tilde{W}(k):=W(k-K), \quad \forall k \geq K
+(#eq:shift)
+\end{equation}
+
+The uniform bound of $R'(k)$ (lemma \@ref(lem:unibounddsgd)) gives bound for the above quantities. $\tilde U(k)\leq \frac{\hat X}{n}, \tilde V(k)\leq \hat X$, and $\tilde W(k)\leq\frac{\hat X}{n}$. This can also be seen from the definition in \@ref(eq:shift), which moves $U(k),V(k)$ and $W(k)$ horizontally.
+
+### Asymptotic network independence
+
+In this section, we show that the asymptotic network independence of algorithm \@ref(exm:dsgd) with the stepsize policy being 
+$\alpha_k=\frac{\theta}{\mu(k+K)}$. That is, although $R'(k)=U(k)+\frac{1}{n}V(k)$ depends on the network involving the term of $1-\rho_w^2$, we show that part will decay faster. Then after some iterations ($\exists K_0$, when $k\geq K_0$), $R(k)\leq \frac{C}{\tilde k}, \exists C$.
+
+From lemma \@ref(lem:Uk1), substitute $\alpha_k=\frac{\theta}{\mu(k+K)}$ and let $k'=k+K$, then 
+\begin{equation}
+\tilde{U}(k'-K) \leq\left(1-\frac{3 \theta}{2 k'}\right) \tilde{U}(k'-K)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k'-K)}{k'}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k'^{2}}, \quad \forall k' \geq K_{1}
+\end{equation}
+
+Then from \@ref(eq:shift), we simplify the above as 
+\begin{equation}
+
+\tilde{U}(k+1) \leq\left(1-\frac{3 \theta}{2 k}\right) \tilde{U}(k)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k)}{k}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}, \quad \forall k \geq K_{1}
+(#eq:Ushift)
+\end{equation}
+
+By induction and lemma \@ref(lem:prodineq), we bound $U(k)$ with the network dependent term decaying faster, i.e. 
+
+```{theorem, asymUk}
+Under algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$, let $\theta>2, K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil$, and $K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil$, we have
+$$
+U(k) \leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}, \quad \forall k \geq K_{1}-K
+$$
+```
+
 
