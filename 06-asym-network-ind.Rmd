@@ -90,7 +90,7 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
 $$
 ```
 
-__Todo:$R'(k)\stackrel{?}\leq \frac{\sigma^2}{n\mu^2 k}+\mathcal{O}(f(U(k)))+h(U(k),V(k))$__
+In chapter \@ref(sec:sharp), lemma \@ref(lem:sublrdsgd) shows that $\exists K_0, s.t.$ when $ k>K_0, R'(k)\leq \frac{\hat W}{\tilde k}+\frac{\hat V}{\tilde k^2}$, where $\tilde k$ is some shift of $k$ with a choice of step size $\alpha_k=\frac{\theta}{\mu(k+K)},K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil$.
 
 ```{remark}
 \\
