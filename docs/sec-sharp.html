@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization</title>
+  <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 A sharp estimate of the transient time of DSGD | Notes about Distributed Optimization" />
+  
+  <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
+  
+
+<meta name="author" content="Kun Huang" />
+
+
+<meta name="date" content="2020-03-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sec-asynt.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
+<li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Inequalities</a></li>
+<li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
+<li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
+<li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
+<li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
+<li class="chapter" data-level="7.1" data-path="sec-asynt.html"><a href="sec-asynt.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
+<li class="chapter" data-level="7.2" data-path="sec-asynt.html"><a href="sec-asynt.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
+<li class="chapter" data-level="7.3" data-path="sec-asynt.html"><a href="sec-asynt.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a><ul>
+<li class="chapter" data-level="8.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="sec-sharp.html"><a href="sec-sharp.html#sublinear-rate"><i class="fa fa-check"></i><b>8.2.1</b> Sublinear rate</a></li>
+<li class="chapter" data-level="8.2.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence"><i class="fa fa-check"></i><b>8.2.2</b> Asymptotic network independence</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes about Distributed Optimization</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sec:sharp" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> A sharp estimate of the transient time of DSGD</h1>
+<p>In this chapter, we derive an estimate of transient time <span class="math inline">\(K_T\)</span> of DSGD and then show it is sharp<span class="citation">(Pu, Olshevsky, and Paschalidis <a href="#ref-pu2019sharp">2019</a><a href="#ref-pu2019sharp">a</a>)</span>. During this, we will prove lemma <a href="sec-asynt.html#lem:riskdsgd">7.2</a> in chapter <a href="sec-asynt.html#sec:asynt">7</a>.</p>
+<p>Still, we set <span class="math inline">\(f_i, i\in\mathcal{N}\)</span> are <span class="math inline">\(\mu-\)</span>strongly convex with <span class="math inline">\(L-\)</span>Lipschitz continuous gradients, the graph <span class="math inline">\(\mathcal{G}=(\mathcal{N},\mathcal{E})\)</span> is connected and undirected, and we are able to obtain “good” gradient estimates <span class="math inline">\(g_i(x_i(k),\xi_i(k))\)</span>, i.e. the assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>, <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> hold.</p>
+<p>We first derive the recursion of <span class="math inline">\(R&#39;(k),U(k),\)</span> and <span class="math inline">\(V(k)\)</span> defined in chapter <a href="sec-asynt.html#sec:asynt">7</a>.</p>
+<div id="uk-and-vk" class="section level2">
+<h2><span class="header-section-number">8.1</span> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></h2>
+To keep the consistency in notation, we still use <span class="math inline">\(h(X)=\frac{1}{n}\mathbf{1}^T\nabla F(X)\)</span>, which the authors denote as <span class="math inline">\(\bar\nabla F(X)\)</span>. Let <span class="math inline">\(\bar g(k)=\frac{1}{n}\mathbf{1}^TG(X(k),\boldsymbol\xi(k))\)</span><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. The idea is the same as that in <a href="sec-dsgt.html#eq:xbar1dsgt">(4.3)</a>, we have
+<span class="math display" id="eq:dsgdxbar1">\[\begin{align}
+\bar x(k+1)-x^*&amp;=\bar x(k)-\alpha_k\left[\bar g(k)-\frac{1}{n}\mathbf{1}^T\nabla F(X(k))\right]-\\
+&amp;\alpha_k\left[\frac{1}{n}\mathbf{1}^T\nabla F(X(k))-\nabla f(\bar x(k))\right]-\alpha_k\nabla f(\bar x(k))-x^*\\
+&amp;:=(\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*)-\alpha_k(\bar g(k)-h(X(k)))-\\
+&amp;\alpha_k(h(X(k))-\nabla f(\bar x(k)))
+\tag{8.1}
+\end{align}\]</span>
+<p>Then we can use lemma <a href="sec-dsgt.html#lem:lem2">4.1</a> and assumption <a href="sec-dsgt.html#exr:estg">4.1</a>. Moreover, we use <span class="math inline">\(|\langle a,b\rangle|\leq \Vert a\Vert \cdot\Vert b\Vert\)</span> to deal with <span class="math inline">\(&lt;\bar x(k)-\alpha_k\nabla f(\bar x(k))-x^*,\nabla f(\bar x(k))-h(X(k))&gt;\)</span>. Then take expectation conditioned on <span class="math inline">\(X(k)\)</span>, we have lemma <a href="sec-sharp.html#lem:condxbardsgd">8.1</a>.</p>
+
+<div class="lemma">
+<span id="lem:condxbardsgd" class="lemma"><strong>Lemma 8.1  </strong></span>For algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>, we have,
+<span class="math display">\[\begin{align}
+&amp;E\left[\left\|\bar{x}(k+1)-x^{*}\right\|^{2} | X(k)\right] \leq\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|^{2}\\
+&amp;+\frac{2 \alpha_{k} L}{\sqrt{n}}\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|\|X(k)-\mathbf{1} \bar{x}(k)\|+\frac{\alpha_{k}^{2} L^{2}}{n}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
+\end{align}\]</span>
+</div>
+
+From lemma <a href="sec-sharp.html#lem:condxbardsgd">8.1</a>, let <span class="math inline">\(\alpha_k=\frac{1}{\mu k}&lt;\frac{2}{\mu+L}\)</span>, use lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>, and take full expectation on both sides, we derive lemma <a href="sec-asynt.html#lem:riskdsgd">7.2</a> in chapter <a href="sec-asynt.html#sec:asynt">7</a>.
+<span class="math display">\[\begin{align}
+U(k+1)&amp;\leq (1-\frac{1}{k})^2 U(k)+\frac{2L(1-\frac{1}{k})}{\mu k\sqrt{n}}E\left[\Vert \bar x(k)-x^*\Vert\cdot \Vert x(k)-\mathbf{1}\bar x(k)\Vert\right]+\\
+&amp;\frac{L^2}{\mu^2 k^2n}V(k)+\frac{\sigma^2}{\mu^2k^2n}\\
+&amp;\leq (1-\frac{1}{k})^2 U(k)+\frac{2L}{\mu\sqrt{n}}\frac{\sqrt{U(k)V(k)}}{k}+\frac{L^2}{\mu^2 k^2n}V(k)+\frac{\sigma^2}{\mu^2k^2n}
+\end{align}\]</span>
+<p>Where We use Cauchy-Schwartz inequality in the second inequality.</p>
+We can also separate <span class="math inline">\(\frac{2 \alpha_{k} L}{\sqrt{n}}\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|\|X(k)-\mathbf{1} \bar{x}(k)\|\)</span> by
+<span class="math display" id="eq:sepc">\[\begin{align}
+&amp;\frac{2 \alpha_{k} L}{\sqrt{n}}\left\|\bar{x}(k)-\alpha_{k} \nabla f(\bar{x}(k))-x^{*}\right\|\|X(k)-\mathbf{1} \bar{x}(k)\|\\
+&amp;\leq \lambda^2c\Vert \bar x(k)-x^*\Vert + \frac{L^2}{cn}\Vert X(k)-\mathbf{1}\bar x(k)\Vert
+\tag{8.2}
+\end{align}\]</span>
+<p>for an arbitary <span class="math inline">\(c&gt;0\)</span>(in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>, we let <span class="math inline">\(c=\mu\)</span>). <span class="math inline">\(\lambda\)</span> comes from lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a>. Comparing lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a> with lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>, they only differ with the choice of <span class="math inline">\(\alpha\)</span>.</p>
+
+<div class="lemma">
+<span id="lem:contraction2L" class="lemma"><strong>Lemma 8.2  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> holds, <span class="math inline">\(\forall x\in\mathbb{R}^p\)</span> and <span class="math inline">\(\alpha\in(0,2/L)\)</span>, we have, <span class="math display">\[
+  \left\|x-\alpha \nabla f(x)-x^{*}\right\| \leq \lambda\left\|x-x^{*}\right\|
+\]</span> where <span class="math inline">\(\lambda=\max (|1-\alpha \mu|,|1-\alpha L|)\)</span>
+</div>
+
+<p>From lemma <a href="sec-sharp.html#lem:condxbardsgd">8.1</a> and <a href="sec-sharp.html#eq:sepc">(8.2)</a>, take the full expectation on both sides, we have for <span class="math inline">\(\alpha_k\in(0,2/L)\)</span>,</p>
+<span class="math display" id="eq:Uk1">\[\begin{align}
+U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac{\alpha_k\sigma^2}{n}
+\tag{8.3}
+\end{align}\]</span>
+<p>Take <span class="math inline">\(c=\frac{3}{8}\alpha_k\mu\)</span> and let <span class="math inline">\(\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}\)</span> in <a href="sec-sharp.html#eq:Uk1">(8.3)</a>, we derive lemma <a href="sec-sharp.html#lem:Uk1">8.3</a>. <span class="math inline">\(\alpha_k\leq \frac{1}{L}\)</span> is to make <span class="math inline">\(\lambda = 1-\alpha_k\mu\)</span> in lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a>, <span class="math inline">\(\alpha_k\leq \frac{1}{3\mu}\)</span> is to make <span class="math inline">\((1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu\)</span>.</p>
+<p><strong>Todo:why <span class="math inline">\(1-\frac{3}{2}\alpha_k\mu\)</span></strong></p>
+
+<div class="lemma">
+<span id="lem:Uk1" class="lemma"><strong>Lemma 8.3  </strong></span>Under algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, let <span class="math inline">\(\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}\)</span>, then <span class="math display">\[
+U(k+1) \leq\left(1-\frac{3}{2} \alpha_{k} \mu\right) U(k)+\frac{3 \alpha_{k} L^{2}}{n \mu} V(k)+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
+\]</span>
+</div>
+
+For <span class="math inline">\(V(k+1)\)</span>, similar to <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a>, we denote <span class="math inline">\(G(k):=G(X(k),\boldsymbol\xi(k))\)</span> here, then
+<span class="math display" id="eq:xbar1dsgd">\[\begin{align}
+&amp;E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]\\
+&amp;=E\left[\Vert WX(k)-\alpha_kWG(k)-\mathbf{1}(\bar x(k)-\alpha_k\bar g(k))\Vert^2|X(k)\right]\\
+&amp;\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&amp;\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),G(k)-\mathbf{1}\bar g(k)\rangle|X(k)\right]\\
+&amp;\leq \rho_w^2\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\alpha_k^2\rho_w^2E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right] -\\
+&amp;\quad 2\alpha_k\rho_w^2E\left[\langle X(k)-\mathbf{1}\bar x(k),\nabla F(X(k))-\mathbf{1}h(X(k))\rangle|X(k)\right]\\
+\tag{8.4}
+\end{align}\]</span>
+Next, we show
+<span class="math display" id="eq:xbar1dsgdl1">\[\begin{align}
+E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]
+&amp;\leq\|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}+n \sigma^{2}\\
+\|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}&amp;\leq \Vert \nabla F(X(k))\Vert^2
+\tag{8.5}
+\end{align}\]</span>
+This is because,
+<span class="math display">\[\begin{align}
+&amp;E\left[\Vert G(k)-\mathbf{1}\bar g(k)\Vert^2|X(k)\right]\\
+&amp;=E\left[\Vert (G(k)-\nabla F(X(k)))-\mathbf{1}(\bar g(k)-h(X(k)))+(\nabla F(X(k))-\mathbf{1}h(X(k)))\Vert^2|X(k)\right]\\
+&amp;\leq E\left[\Vert G(k)-\nabla F(X(k)\Vert^2|X(k)\right]-nE\left[\Vert \bar g(k)-h(X(k)) \Vert^2|X(k)\right] + \\
+&amp;\quad\Vert \nabla F(X(k))-\mathbf{1}h(X(k))\Vert^2\\
+&amp;\leq n \sigma^{2}+ \|\nabla F(X(k))-\mathbf{1} h(X(k))\|^{2}\\
+&amp;\leq n\sigma^2 + \vert \nabla F(X(k))\Vert^2 +n\vert h(x)\Vert^2 - 2\langle\nabla F(X(k)),\mathbf{1}h(X(k))\rangle \\
+&amp;\leq n\sigma^2 + \Vert \nabla F(X(k))\Vert^2 
+\end{align}\]</span>
+The last inequality is from <span class="math inline">\(\langle\mathbf{A}, \mathbf{B}\rangle:=\sum_{i=1}^{n}\left\langle A_{i}, B_{i}\right\rangle\)</span>,i.e.
+<span class="math display">\[\begin{align}
+\langle\nabla F(X(k)),\mathbf{1}h(X(k))\rangle&amp;=\sum_{i=1}^n\langle\nabla f_i(x_i(k)),\frac{1}{n}\sum_{j=1}^n\nabla f_j(x_j(k))\rangle\\
+&amp;=n\langle \frac{1}{n}\sum_{i=1}^n \nabla f_i(x_i(k)),\frac{1}{n}\sum_{j=1}^n\nabla f_j(x_j(k))\rangle\\
+&amp;=n\Vert h(X(k))\Vert^2
+\end{align}\]</span>
+<p>Next, we bound <span class="math inline">\(\vert \nabla F(X(k))\Vert^2\)</span>. Recall <span class="math inline">\(\nabla f\)</span> is <span class="math inline">\(L-\)</span>Lipschitz continuous, and we need <span class="math inline">\(X(k)-\mathbf{1}\bar x(k)\)</span> as well as <span class="math inline">\(\bar x(k)-x^*\)</span>, so we have,</p>
+<span class="math display" id="eq:xbar1dsgdl2">\[\begin{align}
+&amp;\Vert \nabla F(X(k))\Vert^2\\
+&amp;= \Vert \nabla F(X(k))-\nabla F(\mathbf{1}\bar x(k))+\nabla F(\mathbf{1}\bar x(k))-\nabla F(\mathbf{1}x^*)+\nabla F(\mathbf{1}x^*)\Vert^2\\
+&amp;\leq\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)^{2}\\
+&amp;\stackrel{?}\leq 2 L^{2}\|X(k)-\mathbf{1} \bar{x}(k)\|^{2}+4 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}
+\tag{8.6}
+\end{align}\]</span>
+<p>Use the two inequalities <a href="sec-sharp.html#eq:xbar1dsgdl1">(8.5)</a> and <a href="sec-sharp.html#eq:xbar1dsgdl2">(8.6)</a> in <a href="sec-sharp.html#eq:xbar1dsgd">(8.4)</a>, we have</p>
+<span class="math display">\[\begin{align}
+&amp;\frac{1}{\rho_w^2}E\left[\Vert X(k+1)-\mathbf{1}\bar x(k+1)\Vert^2|X(k)\right]-\alpha_k^2n\sigma^2\\
+&amp;\leq \Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \alpha_k^2 \Vert \nabla F(X(k))\Vert^2 + 2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+\end{align}\]</span>
+For the last term, from <a href="sec-sharp.html#eq:xbar1dsgdl2">(8.6)</a>,
+<span class="math display">\[\begin{align}
+&amp;2\alpha_k\Vert X(k)-\mathbf{1}\bar x(k)\Vert\cdot \Vert \nabla F(X(k))\Vert\\
+&amp;\leq2\alpha_k \Vert X(k)-\mathbf{1}\bar x(k)\Vert\left(L\|X(k)-\mathbf{1} \bar{x}(k)\|+\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|\right)\\
+&amp;\leq 2\alpha_kL\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \left[c\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2+\frac{\alpha_k^2}{c}(\sqrt{n} L\left\|\bar{x}(k)-x^{*}\right\|+\| \nabla F\left(\mathbf{1} x^{*}\right)^2)\right]\\
+&amp;\leq (2\alpha_kL+c)\Vert X(k)-\mathbf{1}\bar x(k)\Vert^2 + \frac{\alpha_k}{c}\left(2 n L^{2}\left\|\bar{x}(k)-x^{*}\right\|^{2}+2\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}\right)
+\end{align}\]</span>
+<p>For <span class="math inline">\(\forall c&gt;0\)</span>, the last inequality uses <span class="math inline">\((a+b)^2\leq 2(a^2+b^2)\)</span>. Let <span class="math inline">\(c=\frac{1-\rho_w^2}{2}\)</span>, the same as that in <a href="sec-dsgt.html#eq:ineq2dsgt">(4.6)</a> in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>, then we have lemma <a href="sec-sharp.html#lem:Vk1">8.4</a>.</p>
+
+<div class="lemma">
+<span id="lem:Vk1" class="lemma"><strong>Lemma 8.4  </strong></span>Under algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>,
+<span class="math display">\[\begin{align}
+V(k+1)&amp;\leq \rho_{w}^{2}\left(\frac{3-\rho_{w}^{2}}{2}+2 \alpha_{k} \rho_{w}^{2} L+2 \alpha_{k}^{2} \rho_{w}^{2} L^{2}\right) V(k) + \\
+&amp; \rho_{w}^{2} \alpha_{k}^{2}\left[\frac{8 n L^{2}}{\left(1-\rho_{w}^{2}\right)} U(k)+\frac{8\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}\right]
+\end{align}\]</span>
+</div>
+
+</div>
+<div id="asymptotic-network-independence-of-dsgd" class="section level2">
+<h2><span class="header-section-number">8.2</span> Asymptotic network independence of DSGD</h2>
+In this section, we first show for algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(U(k)=\mathcal O(\frac{1}{k})\)</span> and <span class="math inline">\(V(k)=\mathcal O(\frac{1}{k^2})\)</span>, i.e. algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> enjoys the sublinear convergence rate. More specifically, we show that <span class="math inline">\(\exists N, s.t. k&gt;N,\)</span>
+<span class="math display" id="eq:introsldsgd">\[\begin{equation}
+U(k)\leq \frac{\hat W(1-\rho_w^2)}{\tilde k},\quad V(k)\leq \frac{\hat V((1-\rho_w^2,\hat W))}{\tilde k^2}
+\tag{8.7}
+\end{equation}\]</span>
+where <span class="math inline">\(\tilde k\)</span> is some shift of <span class="math inline">\(k\)</span>, <span class="math inline">\(\hat W(\cdot)\)</span> and <span class="math inline">\(\hat V(\cdot)\)</span> are functions. The goal is to show that asymptotically, <span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^nE\left[\Vert x_i(k)-x^*\Vert^2\right]=R&#39;(k)=U(k)+\frac{1}{n}V(k)\)</span> has the same convergence rate with <span class="math inline">\(R(k)\)</span> in SGD. Notice <span class="math inline">\(V(k)\)</span> can be shown to decay faster than <span class="math inline">\(U(k)\)</span>, so if we can bound <span class="math inline">\(\hat W(1-\rho_w^2)\)</span> by another quantity <span class="math inline">\(C\)</span> which does not depende on <span class="math inline">\(\rho_w^2\)</span>, i.e. does not depende on the network, then we can have
+<span class="math display" id="eq:gdsgd">\[\begin{equation}
+R&#39;(k)\leq\frac{C}{\tilde k}+\frac{1}{n} \frac{V(1-\rho_w^2)}{\tilde k^2}
+\tag{8.8}
+\end{equation}\]</span>
+<p>which shows the asymptotic newwork independence property of DSGD. Then by <a href="sec-sharp.html#eq:gdsgd">(8.8)</a>, we can obtain the transient time for DSGD to reach the asymptotic convergence rate.</p>
+We first give a uniform bound for
+<span class="math display">\[\begin{align}
+E\left[\Vert X(k)-\mathbf{1}x^*\Vert^2\right]&amp;=E\left[\sum_{i=1}^n\Vert x_i^T(k)-x^*\Vert^2\right]\\
+&amp;=\sum_{i=1}^n E\left[\Vert x_i^T(k)-x^*\right]\\
+&amp;=nR&#39;(k)
+\end{align}\]</span>
+
+<div class="lemma">
+<span id="lem:unibounddsgd" class="lemma"><strong>Lemma 8.5  </strong></span>For algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>, <span class="math inline">\(\forall k\geq0\)</span>, <span class="math display">\[
+E\left[\left\|X(k)-1 x^{*}\right\|^{2}\right] \leq \hat{X}:=\max \left\{\left\|X(0)-1 x^{*}\right\|^{2}, \frac{9 \sum_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}}{\mu^{2}}+\frac{n \sigma^{2}}{L^{2}}\right\}
+\]</span>
+</div>
+
+
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> \</p>
+<ul>
+<li><p><span class="math inline">\(X(k)-\mathbf{1}x^*=W^k(X(0)-\mathbf{1}x^*)-\sum\limits_{i+j=k}W^i\alpha_jG(j)\leq W^k(X(0)-\mathbf{1}x^*)\)</span></p></li>
+<li>?The author derive the second part in the <span class="math inline">\(\max\{\cdot\}\)</span> by <span class="math inline">\(E\left[\|X(k)\|^{2}\right] \leq \max \left\{\|X(0)\|^{2}, \sum_{i=1}^{n} R_{i}\right\}\)</span></li>
+</ul>
+</div>
+
+<div id="sublinear-rate" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Sublinear rate</h3>
+Recall <span class="math inline">\(R&#39;(k)=U(k)+\frac{1}{n}V(k)\)</span>, hence we introduce <span class="math inline">\(W(k)\)</span> as
+<span class="math display" id="eq:lya">\[\begin{equation}
+W(k):=U(k)+\omega(k)V(k),\quad \forall k\geq0
+\tag{8.9}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\omega(k)&gt;0\)</span> is to be determined later. <a href="sec-sharp.html#eq:lya">(8.9)</a> is called the Lyapunov function.</p>
+<p>From lemma <a href="sec-sharp.html#lem:unibounddsgd">8.5</a>, we have a uniform bound for <span class="math inline">\(R&#39;(k)\leq \frac{\hat X}{n}\)</span>, we also want such a property on <span class="math inline">\(W(k)\)</span>,i.e. <span class="math inline">\(W(k)\leq\frac{\hat X}{n}\)</span>. This is how we determine <span class="math inline">\(\omega(k)\)</span>. From lemma <a href="sec-sharp.html#lem:Uk1">8.3</a> and <a href="sec-sharp.html#lem:Vk1">8.4</a>, we further establish a recursion of <span class="math inline">\(W(k)\)</span>. By induction, it will have a term of <span class="math inline">\(\prod\limits_{t=a}^{k-1}(1-\frac{\gamma}{t})\)</span>. Lemma <a href="sec-sharp.html#lem:prodineq">8.6</a> leads us to bound such a term. Then <span class="math inline">\(U(k)\)</span> is bounded from <span class="math inline">\(U(k)\leq W(k)\)</span>. <span class="math inline">\(V(k)\)</span> is bound from lemma <a href="sec-sharp.html#lem:Vk1">8.4</a> and the bound for <span class="math inline">\(U(k)\)</span>.</p>
+
+<div class="lemma">
+<span id="lem:prodineq" class="lemma"><strong>Lemma 8.6  </strong></span><span class="math inline">\(\forall 1&lt;a&lt;k(a\in\mathbb{N})\)</span> and <span class="math inline">\(1&lt;\gamma&lt;a/2\)</span>, <span class="math display">\[
+\frac{a^{2 \gamma}}{k^{2 \gamma}} \leq \prod_{t=a}^{k-1}\left(1-\frac{\gamma}{t}\right) \leq \frac{a^{\gamma}}{k^{\gamma}}
+\]</span>
+</div>
+
+<p>Lemma <a href="sec-sharp.html#lem:sublrdsgd">8.7</a> shows the algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> with the stepsize policy being <span class="math display">\[
+\alpha_k=\frac{\theta}{\mu(k+K)},K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil
+\]</span> enjoys sublinear rate.</p>
+
+<div class="lemma">
+<span id="lem:sublrdsgd" class="lemma"><strong>Lemma 8.7  (Sublinear rate of DSGD)  </strong></span>For algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a>,let
+<span class="math display">\[\begin{equation*}
+  K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil
+\end{equation*}\]</span>
+<span class="math inline">\(\forall k\geq K_1-K\)</span>, we have
+<span class="math display">\[\begin{equation*}
+  U(k)\leq \frac{\hat W}{\tilde k},\quad V(k)\leq \frac{\hat V}{\tilde k^2}
+\end{equation*}\]</span>
+<p>where, <span class="math display">\[
+  \hat{W}:=\frac{K_{1} \hat{X}}{n}+\frac{3}{(4 \theta-3)}\left(\frac{\sigma^{2} \theta^{2}}{n \mu^{2}}+\frac{\sigma^{2} \rho_{w}^{2} \theta^{2}}{2 \mu^{2}}\right)+\frac{12\left\|\nabla F\left(1 x^{*}\right)\right\|^{2} \rho_{w}^{2} \theta^{2}}{(4 \theta-3) n \mu^{2}\left(1-\rho_{w}^{2}\right)}
+\]</span></p>
+<p><span class="math display">\[
+  \hat{V}:=\max \left\{K_{1}^{2} \hat{X}, \frac{8 \theta^{2} \rho_{w}^{2}}{\mu^{2}\left(1-\rho_{w}^{2}\right)}\left[\frac{4\left\|\nabla F\left(\mathbf{1} x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}+\frac{4 n L^{2} \hat{W}}{\left(1-\rho_{w}^{2}\right) K_{1}}\right]\right\}
+\]</span></p>
+<p><span class="math display">\[
+  \tilde k=k+K
+\]</span></p>
+</div>
+
+We introduce <span class="math inline">\(\tilde k\)</span> is based on <span class="math inline">\(\alpha_k=\frac{c}{k+K}\)</span>. Moreover, we introduce the following shift of <span class="math inline">\(U(k),V(k)\)</span>, and <span class="math inline">\(W(k)\)</span> for simplicity.
+<span class="math display" id="eq:shift">\[\begin{equation}
+\tilde{U}(k):=U(k-K), \quad \tilde{V}(k):=V(k-K), \quad \tilde{W}(k):=W(k-K), \quad \forall k \geq K
+\tag{8.10}
+\end{equation}\]</span>
+<p>The uniform bound of <span class="math inline">\(R&#39;(k)\)</span> (lemma <a href="sec-sharp.html#lem:unibounddsgd">8.5</a>) gives bound for the above quantities. <span class="math inline">\(\tilde U(k)\leq \frac{\hat X}{n}, \tilde V(k)\leq \hat X\)</span>, and <span class="math inline">\(\tilde W(k)\leq\frac{\hat X}{n}\)</span>. This can also be seen from the definition in <a href="sec-sharp.html#eq:shift">(8.10)</a>, which moves <span class="math inline">\(U(k),V(k)\)</span> and <span class="math inline">\(W(k)\)</span> horizontally.</p>
+</div>
+<div id="asymptotic-network-independence" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Asymptotic network independence</h3>
+<p>In this section, we show that the asymptotic network independence of algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> with the stepsize policy being <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)}\)</span>. That is, although <span class="math inline">\(R&#39;(k)=U(k)+\frac{1}{n}V(k)\)</span> depends on the network involving the term of <span class="math inline">\(1-\rho_w^2\)</span>, we show that part will decay faster. Then after some iterations (<span class="math inline">\(\exists K_0\)</span>, when <span class="math inline">\(k\geq K_0\)</span>), <span class="math inline">\(R(k)\leq \frac{C}{\tilde k}, \exists C\)</span>.</p>
+From lemma <a href="sec-sharp.html#lem:Uk1">8.3</a>, substitute <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)}\)</span> and let <span class="math inline">\(k&#39;=k+K\)</span>, then
+<span class="math display">\[\begin{equation}
+\tilde{U}(k&#39;-K) \leq\left(1-\frac{3 \theta}{2 k&#39;}\right) \tilde{U}(k&#39;-K)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k&#39;-K)}{k&#39;}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k&#39;^{2}}, \quad \forall k&#39; \geq K_{1}
+\end{equation}\]</span>
+Then from <a href="sec-sharp.html#eq:shift">(8.10)</a>, we simplify the above as
+<span class="math display" id="eq:Ushift">\[\begin{equation}
+
+\tilde{U}(k+1) \leq\left(1-\frac{3 \theta}{2 k}\right) \tilde{U}(k)+\frac{3 \theta L^{2}}{n \mu^{2}} \frac{\tilde{V}(k)}{k}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}, \quad \forall k \geq K_{1}
+\tag{8.11}
+\end{equation}\]</span>
+<p>By induction and lemma <a href="sec-sharp.html#lem:prodineq">8.6</a>, we bound <span class="math inline">\(U(k)\)</span> with the network dependent term decaying faster, i.e.</p>
+
+<div class="theorem">
+<span id="thm:asymUk" class="theorem"><strong>Theorem 8.1  </strong></span>Under algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> with <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)}\)</span>, let <span class="math inline">\(\theta&gt;2, K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil\)</span>, and <span class="math inline">\(K_{1}:=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil\)</span>, we have <span class="math display">\[
+U(k) \leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}, \quad \forall k \geq K_{1}-K
+\]</span>
+</div>
+
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-pu2019sharp">
+<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019a. “A Sharp Estimate on the Transient Time of Distributed Stochastic Gradient Descent.”</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="6">
+<li id="fn6"><p>In chapter <a href="sec-asynt.html#sec:asynt">7</a>, <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k))\)</span><a href="sec-sharp.html#fnref6">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sec-asynt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["DistributedOpt.pdf", "DistributedOpt.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

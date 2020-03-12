@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Summary of PuSh-Pull and DSGT | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Summary of PuSh-Pull and DSGT | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-10" />
+<meta name="date" content="2020-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,9 +40,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
 
 
 
@@ -68,44 +65,39 @@
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
-<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a>
-<ul>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
 <li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a>
-<ul>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
 <li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a>
-<ul>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a>
-<ul>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a>
-<ul>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
 <li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a>
-<ul>
+<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
 <li class="chapter" data-level="7.1" data-path="sec-asynt.html"><a href="sec-asynt.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
 <li class="chapter" data-level="7.2" data-path="sec-asynt.html"><a href="sec-asynt.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
 <li class="chapter" data-level="7.3" data-path="sec-asynt.html"><a href="sec-asynt.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
-<li class="chapter" data-level="8.2" data-path="a-sharp-estimate-of-the-transient-time-of-dsgd.html"><a href="a-sharp-estimate-of-the-transient-time-of-dsgd.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a></li>
+<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a><ul>
+<li class="chapter" data-level="8.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="sec-sharp.html"><a href="sec-sharp.html#sublinear-rate"><i class="fa fa-check"></i><b>8.2.1</b> Sublinear rate</a></li>
+<li class="chapter" data-level="8.2.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence"><i class="fa fa-check"></i><b>8.2.2</b> Asymptotic network independence</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -128,13 +120,13 @@
             <section class="normal" id="section-">
 <div id="summary-of-push-pull-and-dsgt" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Summary of PuSh-Pull and DSGT</h1>
-<p>In the Push-Pull method, if we set graph <span class="math inline">\(\mathcal{G}\)</span> is connected and undirected, then <span class="math inline">\(\mathcal{G}=\mathcal{G}_R=\mathcal{G}_C\)</span>,i.e.,<span class="math inline">\(R=C:=W\)</span>. The algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a> becomes the form of
+In the Push-Pull method, if we set graph <span class="math inline">\(\mathcal{G}\)</span> is connected and undirected, then <span class="math inline">\(\mathcal{G}=\mathcal{G}_R=\mathcal{G}_C\)</span>,i.e.,<span class="math inline">\(R=C:=W\)</span>. The algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a> becomes the form of
 <span class="math display" id="eq:pp">\[\begin{align}
 X_{k+1} &amp;= W(X_{k}-\boldsymbol\alpha Y_k),\\
 Y_{k+1} &amp;= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 \tag{3.1}
-\end{align}\]</span></p>
-<p>If we further assume we only have noisy estimates of <span class="math inline">\(\nabla F(X)\)</span>, i.e. <span class="math inline">\(G(X,\boldsymbol\xi)\)</span>, we get DSGT <a href="sec-dsgt.html#exm:dsgt">4.1</a>.</p>
+\end{align}\]</span>
+<p>If we further assume we only have noisy estimates of <span class="math inline">\(\nabla F(X)\)</span>, i.e. <span class="math inline">\(G(X,\boldsymbol\xi)\)</span>, we get DSGT <a href="sec-dsgt.html#exm:dsgt">4.1</a>.</p>
 <p>In the proof of <span class="math inline">\(\rho(A_{pp})&lt;1\)</span>, the spectral radius of <span class="math inline">\(A\)</span> of the linear system of inequalities in the Push-Pull method, the authors use <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span> to build a sufficient condition for <span class="math inline">\(\hat\alpha\)</span>, which avoid discussing the sign of <span class="math inline">\(c_i,i=1,2,3\)</span> in <span class="math inline">\(c_{3}-c_{2} \hat{\alpha}-c_{1} \hat{\alpha}^{2}\)</span>.</p>
 <div id="questions" class="section level2">
 <h2><span class="header-section-number">5.1</span> Questions</h2>
@@ -146,12 +138,12 @@ Y_{k+1} &amp;= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 \]</span></p>
 <ul>
 <li><p>In <a href="sec-dsgt.html#eq:dsgt31">(4.7)</a>, <span class="math inline">\(\left\langle Y_{k+1}-\mathbf{1}\bar y_{k+1},\mathbf{1}(\bar y_k-\bar y_{k+1})\right\rangle\stackrel{?}{=}0\)</span></p></li>
-<li><p>In the following inequality, <span class="math inline">\(2n\sigma^2\)</span> seems come from <a href="sec-dsgt.html#exr:estg">4.1</a>, the others?
+<li>In the following inequality, <span class="math inline">\(2n\sigma^2\)</span> seems come from <a href="sec-dsgt.html#exr:estg">4.1</a>, the others?
 <span class="math display">\[\begin{align}
 2 \mathbb{E}\left[\left\langle\nabla_{k+1}-\nabla_{k}, G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]&amp;+\\
 &amp;\mathbb{E}\left[\left\|G_{k+1}-\nabla_{k+1}-G_{k}+\nabla_{k}\right\|^{2} | \mathcal{F}_{k}\right]\\
 &amp;\leq 2 \mathbb{E}\left[\left\langle\nabla_{k+1},-G_{k}+\nabla_{k}\right\rangle | \mathcal{F}_{k}\right]+2 n \sigma^{2}
-\end{align}\]</span></p></li>
+\end{align}\]</span></li>
 </ul>
 <p><strong>Todo: <span class="math inline">\(E\left[\Vert Y_{k+1}-\mathbf{1}\bar y_{k+1}\Vert^2|\mathcal{F}_k\right]\leq?\)</span></strong></p>
 <p><strong>Todo: <span class="math inline">\(\rho(A_{pp})\approx1-\alpha&#39;\mu\)</span>,when <span class="math inline">\(\hat\alpha\)</span> is sufficiently small</strong></p>
@@ -169,13 +161,11 @@ Y_{k+1} &amp;= WY_k+\nabla F(X_{k+1})-\nabla F(X_k)
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -183,11 +173,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
+"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -199,10 +190,6 @@ gitbook.start({
 "text": null
 },
 "history": {
-"link": null,
-"text": null
-},
-"view": {
 "link": null,
 "text": null
 },
@@ -219,7 +206,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
