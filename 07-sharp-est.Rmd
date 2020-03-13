@@ -320,7 +320,7 @@ For $\hat V$, noticing $K_1=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{
 &=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})
 \end{align}
 
-Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, from theorem \@ref(thm:asymUk), lemma \@ref(lem:sublrdsgd), and lemma \@ref(lemma:hatVdsgd), we show 
+Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, from theorem \@ref(thm:asymUk), lemma \@ref(lem:sublrdsgd), and lemma \@ref(lem:hatVdsgd), we show 
 \begin{equation}
 R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2}} \frac{1}{\tilde{k}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
 \end{equation}
