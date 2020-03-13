@@ -187,7 +187,7 @@ Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, hence we introduce $W(k)$ as
 W(k):=U(k)+\omega(k)V(k),\quad \forall k\geq0
 (\#eq:lya)
 \end{equation}
-where $\omega(k)>0$ is to be determined later. \@ref(eq:lya) is called the Lyapunov function.
+where $\omega(k)>0$ is to be determined later. \@ref(eq:lya) is called the Lyapunov function. 
 
 From lemma \@ref(lem:unibounddsgd), we have a uniform bound for $R'(k)\leq \frac{\hat X}{n}$, we also want such a property on $W(k)$,i.e. $W(k)\leq\frac{\hat X}{n}$. This is how we determine $\omega(k)$. From lemma \@ref(lem:Uk1) and \@ref(lem:Vk1), we further establish a recursion of $W(k)$. By induction, it will have a term of $\prod\limits_{t=a}^{k-1}(1-\frac{\gamma}{t})$. Lemma \@ref(lem:prodineq) leads us to bound such a term. Then $U(k)$ is bounded from $U(k)\leq W(k)$. $V(k)$ is bound from lemma \@ref(lem:Vk1) and the bound for $U(k)$.
 
@@ -226,6 +226,17 @@ $$
   \tilde k=k+K
 $$
 
+```
+
+```{remark}
+\
+
+$\omega(k)=\frac{12 \alpha_{k} L^{2}}{n \mu\left(1-\rho_{w}^{2}\right)}=\frac{f(a_k)}{n(1-\rho_w^2)}\leq \frac{1}{n}$ so that $W(k)\leq \frac{\hat X}{n}$. This requires $f(a_k)=\frac{12\alpha_kL^2}{\mu}\leq 1-\rho_w^2$, which is satisfied for the choice of $K_1=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil\geq \frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}$, i.e.,
+
+\begin{align}
+  f(a_k)&=\frac{12\alpha_kL^2}{\mu}\stackrel{k\geq K_1-K}\leq \frac{12L^2}{\mu}\frac{\theta}{\mu K_1}\\
+  &\stackrel{K_1\geq \frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}}\leq \frac{1-\rho_w^2}{2}
+\end{align}
 ```
 
 We introduce $\tilde k$ is based on $\alpha_k=\frac{c}{k+K}$. Moreover, we introduce the following shift of $U(k),V(k)$, and $W(k)$ for simplicity.
@@ -270,8 +281,8 @@ $$
 Then, 
 \begin{align}
 \tilde{U}(k) &\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} k}+\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}+\frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}\\
-&leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}} + \\
-&\quad \frac{K_1^{1.5\theta \hat X}}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
+&\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}  \\
+&\quad +\frac{K_1^{1.5\theta \hat X}}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
 (\#eq:asymUkXhat)
 \end{align}
 
@@ -300,17 +311,28 @@ $$
 
 ```
 
-This is because given such conditions on $\Vert X(0)-\mathbf{1}x^*\Vert^2$ and $\Vert \nabla F(\mathbf{1}x^*)\Vert^2$, $\hat X=\mathcal{O}(n)$ and $\hat W=\mathcal{O}(\frac{1}{1-\rho_w^2})$, then $\hat V=\mathcal{O}(\frac{n\rho_w^2}{(1-\rho_w^2)^3})$.
+This is because given such conditions on $\Vert X(0)-\mathbf{1}x^*\Vert^2$ and $\Vert \nabla F(\mathbf{1}x^*)\Vert^2$, $\hat X=\mathcal{O}(n)$ and from lemma \@ref(lem:sublrdsgd), $\hat W=\mathcal{O}(\frac{1}{1-\rho_w^2})$.
+
+For $\hat V$, noticing $K_1=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}\right\rceil\leq \frac{24 L^{2} \theta}{\left(1-\rho_{w}^{2}\right) \mu^{2}}+1$, then
+\begin{align}
+\hat V&=\max \left\{K_{1}^{2} \hat{X}, \frac{8 \theta^{2} \rho_{w}^{2}}{\mu^{2}\left(1-\rho_{w}^{2}\right)}\left[\frac{4\left\|\nabla F\left(1 x^{*}\right)\right\|^{2}}{\left(1-\rho_{w}^{2}\right)}+n \sigma^{2}+\frac{4 n L^{2} \hat{W}}{\left(1-\rho_{w}^{2}\right) K_{1}}\right]\right\}\\
+&=\max\left\{C_1\frac{n}{(1-\rho_w^2)^2}, C_2\frac{n\rho_w^2}{(1-\rho_w^2)^2}+C_2\frac{n}{1-\rho_w^2}+C_3\frac{n\rho_w^2}{(1-\rho_w^2)^2}\right\}\\
+&=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})
+\end{align}
 
 Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, from theorem \@ref(thm:asymUk), lemma \@ref(lem:sublrdsgd), and lemma \@ref(lemma:hatVdsgd), we show 
 \begin{equation}
 R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2}} \frac{1}{\tilde{k}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
 \end{equation}
 
-```{remark}
-$\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right)$ or $\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}\right)^{2}}\right)$?
-```
 
 Next we improve the bound in theorem \@ref(thm:asymUk)
 
 ### Improved Bound 
+
+## Comparison with centralized implementation
+
+
+
+
+
