@@ -282,7 +282,7 @@ Then,
 \begin{align}
 \tilde{U}(k) &\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} k}+\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}+\frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}\\
 &\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}  \\
-&\quad +\frac{K_1^{1.5\theta \hat X}}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
+&\quad +\frac{K_1^{1.5\theta}\hat X}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
 (\#eq:asymUkXhat)
 \end{align}
 
@@ -290,6 +290,7 @@ Then,
 
 ```{remark}
 \
+
 
 - The last inequality in \@ref(eq:asymUkXhat) holds for $\theta >2$, we also use $\tilde U(K_1)\leq \frac{\hat X}{n}$, i.e. lemma \@ref(lem:sublrdsgd)
 
@@ -324,6 +325,7 @@ For $\hat V$, noticing $K_1=\left\lceil\frac{24 L^{2} \theta}{\left(1-\rho_{w}^{
 Recall $R'(k)=U(k)+\frac{1}{n}V(k)$, from theorem \@ref(thm:asymUk), lemma \@ref(lem:sublrdsgd), and lemma \@ref(lem:hatVdsgd), we show 
 \begin{equation}
 R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2}} \frac{1}{\tilde{k}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
+(\#eq:nimpRp)
 \end{equation}
 
 
@@ -346,6 +348,30 @@ R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} \tilde{k}}+\mathca
 
 ## Transient time
 
+First we derive the convergence rate of centralized gradient descent \@ref(exm:sgd). Similarly, we use lemma \@ref(lem:contraction2L) and assumption \@ref(exr:estg), then 
+\begin{align}
+&E\left[Vert x(k+1)-x^*\Vert^2|x(k) \right]\\
+&\quad=E\left[Vert x(k)-\alpha_k\nabla f(x(k))-x^*-\alpha_k (\tilde g(k)-\alpha_k\nabla f(x(k)))\Vert^2-|x(k) \right]\\
+&\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2}{n^2}\sum_{i=1}^nE\left[\Vert \nabla f_i(x(k))-g_i(k)\Vert^2|X(k)\right]\\
+&\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2\sigma^2}{n}
+(\#eq:Rksgd)
+\end{align}
+
+Take the full expetation on both sides in \@ref(eq:Rksgd), we prove lemma \@ref(lem:risksgd) in chapter \@ref(sec:asynt). Substitute $\alpha=\frac{1}{\mu k}$ in \@ref(eq:Rksgd) and take full expetation on both sides, we have, 
+\begin{equation}
+R(k+1) = \left(1-\frac{2 \theta}{k}\right)\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2}}{k^{2}}\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}
+\end{equation}
+
+First we show $\exists c=\mathcal{O}(\frac{1}{n}),s.t. E\left[\Vert x(k)-x^*\Vert^2\right]\leq \frac{c_3}{k},\forall k\geq K_2:=\left\lceil\frac{\theta L}{\mu}\right\rceil$. Then by induction, lemma \@ref(lem:prodineq) and bound for the sums, we have the convergence rate for algorithm \@ref(exm:sgd).
+
+```{theorem, sublrsgd}
+Under algorithm \@ref(ex:sgd), suppose $k\geq K_2$, we have 
+$$
+\mathbb{E}\left[\left\|x(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} k}+\mathcal{O}\left(\frac{1}{n}\right) \frac{1}{k^{2}}
+$$
+```
+
+Compare theorem \@ref(thm:sublrsgd) and theorem \@ref(thm:impRp)(or formula \@ref(eq:nimpRp)), we derive the transient time $K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})$ for algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$ to reach the aymptotic rate of convergence of algorithm \@ref(exm:sgd).
 
 
 
