@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-12" />
+<meta name="date" content="2020-03-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -100,6 +100,8 @@
 <li class="chapter" data-level="8.2.3" data-path="sec-sharp.html"><a href="sec-sharp.html#improved-bound"><i class="fa fa-check"></i><b>8.2.3</b> Improved Bound</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="sec-sharp.html"><a href="sec-sharp.html#transient-time"><i class="fa fa-check"></i><b>8.3</b> Transient time</a></li>
+<li class="chapter" data-level="8.4" data-path="sec-sharp.html"><a href="sec-sharp.html#sharpness"><i class="fa fa-check"></i><b>8.4</b> Sharpness</a></li>
+<li class="chapter" data-level="8.5" data-path="sec-sharp.html"><a href="sec-sharp.html#summary"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>9</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -171,7 +173,7 @@ We can also separate <span class="math inline">\(\frac{2 \alpha_{k} L}{\sqrt{n}}
 U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac{\alpha_k\sigma^2}{n}
 \tag{8.3}
 \end{align}\]</span>
-<p>Take <span class="math inline">\(c=\frac{3}{8}\alpha_k\mu\)</span> and let <span class="math inline">\(\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}\)</span> in <a href="sec-sharp.html#eq:Uk1">(8.3)</a>, we derive lemma <a href="sec-sharp.html#lem:Uk1">8.3</a>. <span class="math inline">\(\alpha_k\leq \frac{1}{L}\)</span> is to make <span class="math inline">\(\lambda = 1-\alpha_k\mu\)</span> in lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a>, <span class="math inline">\(\alpha_k\leq \frac{1}{3\mu}\)</span> is to make <span class="math inline">\((1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu\)</span>. Thus we derive lemma <a href="#Uk1"><strong>??</strong></a>.</p>
+<p>Take <span class="math inline">\(c=\frac{3}{8}\alpha_k\mu\)</span> and let <span class="math inline">\(\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}\)</span> in <a href="sec-sharp.html#eq:Uk1">(8.3)</a>, we derive lemma <a href="sec-sharp.html#lem:Uk1">8.3</a>. <span class="math inline">\(\alpha_k\leq \frac{1}{L}\)</span> is to make <span class="math inline">\(\lambda = 1-\alpha_k\mu\)</span> in lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a>, <span class="math inline">\(\alpha_k\leq \frac{1}{3\mu}\)</span> is to make <span class="math inline">\((1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu\)</span>. Thus we derive lemma <a href="sec-sharp.html#lem:Uk1">8.3</a>.</p>
 <p><strong>Todo:why <span class="math inline">\(1-\frac{3}{2}\alpha_k\mu\)</span></strong></p>
 
 <div class="lemma">
@@ -363,14 +365,15 @@ Then,
 <span class="math display" id="eq:asymUkXhat">\[\begin{align}
 \tilde{U}(k) &amp;\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} k}+\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}+\frac{K_{1}^{1.5 \theta}}{k^{1.5 \theta}} \tilde{U}\left(K_{1}\right)+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}} \frac{1}{k^{2}}\\
 &amp;\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2} \tilde{k}}+\left[\frac{3 \theta^{2}(1.5 \theta-1) \sigma^{2}}{(1.5 \theta-2) n \mu^{2}}+\frac{6 \theta L^{2} \hat{V}}{(1.5 \theta-2) n \mu^{2}}\right] \frac{1}{\tilde{k}^{2}}  \\
-&amp;\quad +\frac{K_1^{1.5\theta \hat X}}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
+&amp;\quad +\frac{K_1^{1.5\theta}\hat X}{n}\frac{1}{\tilde k^3},\forall k\geq K_1-K
 \tag{8.13}
 \end{align}\]</span>
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> <br />
-- The last inequality in <a href="sec-sharp.html#eq:asymUkXhat">(8.13)</a> holds for <span class="math inline">\(\theta &gt;2\)</span>, we also use <span class="math inline">\(\tilde U(K_1)\leq \frac{\hat X}{n}\)</span>, i.e. lemma <a href="sec-sharp.html#lem:sublrdsgd">8.7</a></p>
+</p>
 <ul>
+<li><p>The last inequality in <a href="sec-sharp.html#eq:asymUkXhat">(8.13)</a> holds for <span class="math inline">\(\theta &gt;2\)</span>, we also use <span class="math inline">\(\tilde U(K_1)\leq \frac{\hat X}{n}\)</span>, i.e. lemma <a href="sec-sharp.html#lem:sublrdsgd">8.7</a></p></li>
 <li>How does it yield theorem <a href="sec-sharp.html#thm:asymUk">8.1</a>?
 </div>
 </li>
@@ -397,8 +400,9 @@ For <span class="math inline">\(\hat V\)</span>, noticing <span class="math inli
 &amp;=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})
 \end{align}\]</span>
 Recall <span class="math inline">\(R&#39;(k)=U(k)+\frac{1}{n}V(k)\)</span>, from theorem <a href="sec-sharp.html#thm:asymUk">8.1</a>, lemma <a href="sec-sharp.html#lem:sublrdsgd">8.7</a>, and lemma <a href="sec-sharp.html#lem:hatVdsgd">8.8</a>, we show
-<span class="math display">\[\begin{equation}
+<span class="math display" id="eq:nimpRp">\[\begin{equation}
 R&#39;(k)\leq \frac{\theta^{2} \sigma^{2}}{(1.5 \theta-1) n \mu^{2}} \frac{1}{\tilde{k}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
+\tag{8.14}
 \end{equation}\]</span>
 <p>Next we improve the bound in theorem <a href="sec-sharp.html#thm:asymUk">8.1</a></p>
 </div>
@@ -421,6 +425,56 @@ R&#39;(k)\leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} \tilde{k}}+\ma
 </div>
 <div id="transient-time" class="section level2">
 <h2><span class="header-section-number">8.3</span> Transient time</h2>
+First we derive the convergence rate of centralized gradient descent <a href="sec-asynt.html#exm:sgd">7.2</a>. Similarly, we use lemma <a href="sec-sharp.html#lem:contraction2L">8.2</a> and assumption <a href="sec-dsgt.html#exr:estg">4.1</a>, then
+<span class="math display" id="eq:Rksgd">\[\begin{align}
+&amp;E\left[\Vert x(k+1)-x^*\Vert^2|x(k) \right]\\
+&amp;\quad=E\left[\Vert x(k)-\alpha_k\nabla f(x(k))-x^*-\alpha_k (\tilde g(k)-\alpha_k\nabla f(x(k)))\Vert^2-|x(k) \right]\\
+&amp;\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2}{n^2}\sum_{i=1}^nE\left[\Vert \nabla f_i(x(k))-g_i(k)\Vert^2|X(k)\right]\\
+&amp;\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2\sigma^2}{n}
+\tag{8.15}
+\end{align}\]</span>
+Take the full expetation on both sides in <a href="sec-sharp.html#eq:Rksgd">(8.15)</a>, we prove lemma <a href="sec-asynt.html#lem:risksgd">7.1</a> in chapter <a href="sec-asynt.html#sec:asynt">7</a>. Substitute <span class="math inline">\(\alpha=\frac{1}{\mu k}\)</span> in <a href="sec-sharp.html#eq:Rksgd">(8.15)</a> and take full expetation on both sides, we have,
+<span class="math display">\[\begin{equation}
+R(k+1) = \left(1-\frac{2 \theta}{k}\right)\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2}}{k^{2}}\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}
+\end{equation}\]</span>
+<p>First we show <span class="math inline">\(\exists c_3=\mathcal{O}(\frac{1}{n}),s.t. E\left[\Vert x(k)-x^*\Vert^2\right]\leq \frac{c_3}{k},\forall k\geq K_2:=\left\lceil\frac{\theta L}{\mu}\right\rceil\)</span>. Then by induction, lemma <a href="sec-sharp.html#lem:prodineq">8.6</a> and bound for the sums, we have the convergence rate for algorithm <a href="sec-asynt.html#exm:sgd">7.2</a>.</p>
+
+<div class="theorem">
+<span id="thm:sublrsgd" class="theorem"><strong>Theorem 8.3  </strong></span>Under algorithm <a href="sec-asynt.html#exm:sgd">7.2</a>, suppose <span class="math inline">\(k\geq K_2\)</span>, we have <span class="math display">\[
+E\left[\left\|x(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} k}+\mathcal{O}\left(\frac{1}{n}\right) \frac{1}{k^{2}}
+\]</span>
+</div>
+
+<p>Compare theorem <a href="sec-sharp.html#thm:sublrsgd">8.3</a> and theorem <a href="sec-sharp.html#thm:impRp">8.2</a>(or formula <a href="sec-sharp.html#eq:nimpRp">(8.14)</a>), we derive the transient time <span class="math inline">\(K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})\)</span></p>
+
+<div class="corollary">
+<span id="cor:transienttimedsgd" class="corollary"><strong>Corollary 8.1  (Transient Time)  </strong></span>It takes <span class="math inline">\(K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})\)</span> for algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> with <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)}\)</span> to reach the aymptotic rate of convergence of algorithm <a href="sec-asynt.html#exm:sgd">7.2</a>,i.e. when <span class="math inline">\(k\geq K_T\)</span>, we have <span class="math inline">\(\frac{1}{n} \sum_{i=1}^{n} E\left[\left\|x_{i}(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2 k}} \mathcal{O}(1)\)</span>.
+</div>
+
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> <br />
+From formula <a href="sec-sharp.html#eq:nimpRp">(8.14)</a>, we have <span class="math display">\[
+R&#39;(k)\leq \frac{\theta^{2} \sigma^{2}}{ (2\theta-1)n \mu^{2}\tilde k}\left[\frac{2\theta-1}{1.5\theta-1}+\mathcal{O}\left(\frac{n}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}}\right]
+\]</span> <span class="math inline">\(\theta&gt;2\)</span> is a constant, let <span class="math display">\[
+\mathcal{O}\left(\frac{n}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{K_T}=\mathcal{O}(1)
+\]</span> we have <span class="math display">\[
+K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)
+\]</span>
+</div>
+
+</div>
+<div id="sharpness" class="section level2">
+<h2><span class="header-section-number">8.4</span> Sharpness</h2>
+<p>From <a href="https://en.wikipedia.org/wiki/List_of_mathematical_jargon">wiki</a>,the constraint is sharp (sometimes optimal) if it cannot be made more restrictive without failing in some cases. We show the transient time for DGS to reach the asymptotic convergence rate is lower bounded by <span class="math inline">\(K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)\)</span>.</p>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">8.5</span> Summary</h2>
+Recall in chapter <a href="sec-asynt.html#sec:asynt">7</a>, we have <a href="sec-asynt.html#eq:tscen">(7.1)</a>, i.e.
+<span class="math display">\[\begin{equation}
+\text { Time }_{n, \varepsilon} \text { (decentralized) } \leq p(\mathcal{G}) \text { Time }_{n, \varepsilon} \text { (centralized) }
+\end{equation}\]</span>
+<p>The corallary <a href="sec-sharp.html#cor:transienttimedsgd">8.1</a> indicates that for DSGD with <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)},\theta&gt;2\)</span>, when <span class="math inline">\(k\geq K_T\)</span>, <span class="math inline">\(p(\mathcal{G})=\mathcal{O}(1)\)</span>, this is what we call <strong>asymptotic network independence</strong>. Hence for a problem where a usual centralized implementation requires a large number of iteration, we can consider a distributed one with asymptotic network independence property. As a result, both methods demand the same computational power but the distributed one enjoys more desirable properties.</p>
 
 </div>
 </div>
