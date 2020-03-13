@@ -59,7 +59,7 @@ U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac
 (\#eq:Uk1)
 \end{align}
 
-Take $c=\frac{3}{8}\alpha_k\mu$ and let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$ in \@ref(eq:Uk1), we derive lemma \@ref(lem:Uk1). $\alpha_k\leq \frac{1}{L}$ is to make $\lambda = 1-\alpha_k\mu$ in lemma \@ref(lem:contraction2L), $\alpha_k\leq \frac{1}{3\mu}$ is to make $(1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu$. Thus we derive lemma \@ref(Uk1).
+Take $c=\frac{3}{8}\alpha_k\mu$ and let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$ in \@ref(eq:Uk1), we derive lemma \@ref(lem:Uk1). $\alpha_k\leq \frac{1}{L}$ is to make $\lambda = 1-\alpha_k\mu$ in lemma \@ref(lem:contraction2L), $\alpha_k\leq \frac{1}{3\mu}$ is to make $(1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu$. Thus we derive lemma \@ref(lem:Uk1).
 
 __Todo:why $1-\frac{3}{2}\alpha_k\mu$__
 
@@ -350,8 +350,8 @@ R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} \tilde{k}}+\mathca
 
 First we derive the convergence rate of centralized gradient descent \@ref(exm:sgd). Similarly, we use lemma \@ref(lem:contraction2L) and assumption \@ref(exr:estg), then 
 \begin{align}
-&E\left[Vert x(k+1)-x^*\Vert^2|x(k) \right]\\
-&\quad=E\left[Vert x(k)-\alpha_k\nabla f(x(k))-x^*-\alpha_k (\tilde g(k)-\alpha_k\nabla f(x(k)))\Vert^2-|x(k) \right]\\
+&E\left[\Vert x(k+1)-x^*\Vert^2|x(k) \right]\\
+&\quad=E\left[\Vert x(k)-\alpha_k\nabla f(x(k))-x^*-\alpha_k (\tilde g(k)-\alpha_k\nabla f(x(k)))\Vert^2-|x(k) \right]\\
 &\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2}{n^2}\sum_{i=1}^nE\left[\Vert \nabla f_i(x(k))-g_i(k)\Vert^2|X(k)\right]\\
 &\quad\leq (1-\alpha_k\mu)^2\Vert x(k)-x^*\Vert^2+\frac{\alpha_k^2\sigma^2}{n}
 (\#eq:Rksgd)
@@ -362,16 +362,47 @@ Take the full expetation on both sides in \@ref(eq:Rksgd), we prove lemma \@ref(
 R(k+1) = \left(1-\frac{2 \theta}{k}\right)\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2}}{k^{2}}\left\|x(k)-x^{*}\right\|^{2}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}
 \end{equation}
 
-First we show $\exists c=\mathcal{O}(\frac{1}{n}),s.t. E\left[\Vert x(k)-x^*\Vert^2\right]\leq \frac{c_3}{k},\forall k\geq K_2:=\left\lceil\frac{\theta L}{\mu}\right\rceil$. Then by induction, lemma \@ref(lem:prodineq) and bound for the sums, we have the convergence rate for algorithm \@ref(exm:sgd).
+First we show $\exists c_3=\mathcal{O}(\frac{1}{n}),s.t. E\left[\Vert x(k)-x^*\Vert^2\right]\leq \frac{c_3}{k},\forall k\geq K_2:=\left\lceil\frac{\theta L}{\mu}\right\rceil$. Then by induction, lemma \@ref(lem:prodineq) and bound for the sums, we have the convergence rate for algorithm \@ref(exm:sgd).
 
 ```{theorem, sublrsgd}
-Under algorithm \@ref(ex:sgd), suppose $k\geq K_2$, we have 
+Under algorithm \@ref(exm:sgd), suppose $k\geq K_2$, we have 
 $$
-\mathbb{E}\left[\left\|x(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} k}+\mathcal{O}\left(\frac{1}{n}\right) \frac{1}{k^{2}}
+E\left[\left\|x(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} k}+\mathcal{O}\left(\frac{1}{n}\right) \frac{1}{k^{2}}
 $$
 ```
 
-Compare theorem \@ref(thm:sublrsgd) and theorem \@ref(thm:impRp)(or formula \@ref(eq:nimpRp)), we derive the transient time $K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})$ for algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$ to reach the aymptotic rate of convergence of algorithm \@ref(exm:sgd).
+Compare theorem \@ref(thm:sublrsgd) and theorem \@ref(thm:impRp)(or formula \@ref(eq:nimpRp)), we derive the transient time $K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})$ 
+
+```{corollary, transienttimedsgd, name = "Transient Time"}
+It takes $K_T=\mathcal{O}(\frac{n}{(1-\rho_w^2)^2})$ for algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$ to reach the aymptotic rate of convergence of algorithm \@ref(exm:sgd),i.e. when $k\geq K_T$, we have $\frac{1}{n} \sum_{i=1}^{n} E\left[\left\|x_{i}(k)-x^{*}\right\|^{2}\right] \leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2 k}} \mathcal{O}(1)$.
+```
 
 
+```{remark}
+\
+From formula \@ref(eq:nimpRp), we have 
+$$
+R'(k)\leq \frac{\theta^{2} \sigma^{2}}{ (2\theta-1)n \mu^{2}\tilde k}\left[\frac{2\theta-1}{1.5\theta-1}+\mathcal{O}\left(\frac{n}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{\tilde{k}}\right]
+$$
+$\theta>2$ is a constant, let 
+$$
+\mathcal{O}\left(\frac{n}{\left(1-\rho_{w}^2\right)^{2}}\right) \frac{1}{K_T}=\mathcal{O}(1)
+$$
+we have 
+$$
+K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)
+$$
+```
 
+## Sharpness
+
+From [wiki](https://en.wikipedia.org/wiki/List_of_mathematical_jargon),the constraint is sharp (sometimes optimal) if it cannot be made more restrictive without failing in some cases. We show the transient time for DGS to reach the asymptotic convergence rate is lower bounded by $K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)$. 
+
+## Summary 
+
+Recall in chapter \@ref(sec:asynt), we have \@ref(eq:tscen), i.e. 
+\begin{equation}
+\text { Time }_{n, \varepsilon} \text { (decentralized) } \leq p(\mathcal{G}) \text { Time }_{n, \varepsilon} \text { (centralized) }
+\end{equation}
+
+The corallary \@ref(cor:transienttimedsgd) indicates that for DSGD with $\alpha_k=\frac{\theta}{\mu(k+K)},\theta>2$, when $k\geq K_T$, $p(\mathcal{G})=\mathcal{O}(1)$, this is what we call **asymptotic network independence**. Hence for a problem where a usual centralized implementation requires a large number of iteration, we can consider a distributed one with asymptotic network independence property. As a result, both methods demand the same computational power but the distributed one enjoys more desirable properties.
