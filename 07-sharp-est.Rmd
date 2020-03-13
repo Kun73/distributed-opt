@@ -52,14 +52,14 @@ $$
 where $\lambda=\max (|1-\alpha \mu|,|1-\alpha L|)$
 ```
 
-From lemma \@ref(lem:condxbardsgd) and \@ref(eq:sepc), take the full expectation on both sides, we have for $\alpha_k\in(0,2/L)$, 
+From lemma \@ref(lem:condxbardsgd) and formula \@ref(eq:sepc), take the full expectation on both sides, we have for $\alpha_k\in(0,2/L)$, 
 
 \begin{align}
 U(k+1)\leq \lambda^2(1+c) U(k)+\frac{\alpha_k^2L^2}{cn}(1+\frac{1}{c})V(k)+\frac{\alpha_k\sigma^2}{n}
 (\#eq:Uk1)
 \end{align}
 
-Take $c=\frac{3}{8}\alpha_k\mu$ and let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$ in \@ref(eq:Uk1), we derive lemma \@ref(lem:Uk1). $\alpha_k\leq \frac{1}{L}$ is to make $\lambda = 1-\alpha_k\mu$ in lemma \@ref(lem:contraction2L), $\alpha_k\leq \frac{1}{3\mu}$ is to make $(1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu$.
+Take $c=\frac{3}{8}\alpha_k\mu$ and let $\alpha_k\leq\min\{\frac{1}{L},\frac{1}{3\mu}\}$ in \@ref(eq:Uk1), we derive lemma \@ref(lem:Uk1). $\alpha_k\leq \frac{1}{L}$ is to make $\lambda = 1-\alpha_k\mu$ in lemma \@ref(lem:contraction2L), $\alpha_k\leq \frac{1}{3\mu}$ is to make $(1+c)\lambda^2\leq 1-\frac{3}{2}\alpha_k\mu$. Thus we derive lemma \@ref(Uk1).
 
 __Todo:why $1-\frac{3}{2}\alpha_k\mu$__
 
@@ -289,8 +289,9 @@ Then,
 
 
 ```{remark}
-\\
-- The last inequality in \@ref(eq:asymUkxhat) holds for $\theta >2$, we also use $\tilde U(K_1)\leq \frac{\hat X}{n}$, i.e. lemma \@ref(lem:sublrdsgd)
+\
+
+- The last inequality in \@ref(eq:asymUkXhat) holds for $\theta >2$, we also use $\tilde U(K_1)\leq \frac{\hat X}{n}$, i.e. lemma \@ref(lem:sublrdsgd)
 
 - How does it yield theorem \@ref(thm:asymUk)?
 ```
@@ -330,8 +331,20 @@ Next we improve the bound in theorem \@ref(thm:asymUk)
 
 ### Improved Bound 
 
-## Comparison with centralized implementation
+In the derivation of theorem \@ref(thm:asymUk), we start from lemma \@ref(lem:Uk1), which is based on lemma \@ref(lem:condxbardsgd). From lemma \@ref(lem:condxbardsgd) to lemma \@ref(lem:Uk1), Cauchy-Schwartz inequality is used twice. Now we start directly from lemma \@ref(lem:condxbardsgd) and do not introduce an arbitary $c>0$(see \@ref(eq:sepc)). Moreover, we consider the situation where $\alpha_k=\frac{\theta}{\mu(k+K)}$ and $k\geq K_1-K$. Then we have 
+\begin{equation}
+\tilde{U}(k+1) \leq\left(1-\frac{2 \theta}{k}\right) \tilde{U}(k)+\frac{\theta^{2} \tilde{U}(k)}{k^{2}}+\frac{2 \theta L}{\sqrt{n} \mu} \frac{\sqrt{\tilde{U}(k) \tilde{V}(k)}}{k}+\frac{\theta^{2} L^{2}}{n \mu^{2}} \frac{\tilde{V}(k)}{k^{2}}+\frac{\theta^{2} \sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}
+\end{equation}
+We expand $(1-\frac{\theta}{k})^2$ to see the power of $\frac{1}{k}$ clearly. Then by induction, lemma \@ref(lem:prodineq), lemma \@ref(lem:sublrdsgd), and similar bounding for the sums $\sum\limits_{t=K_1}^{k-1}\frac{(t+1)^b}{t^a}$, we have improved results for $R'(k)=\frac{1}{n} \sum\limits_{i=1}^{n} E\left[\left\|x_{i}(k)-x^{*}\right\|^{2}\right]$.
 
+```{theorem, impRp}
+For algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$, suppose $\theta>2$, $\sum\limits_{i=1}^{n}\left\|x_{i}(0)-x^{*}\right\|^{2}=\mathcal{O}(n) \text { and } \sum\limits_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}=\mathcal{O}(n)$, then for $k\geq K_1-K$,
+\begin{align}
+R'(k)\leq \frac{\theta^{2} \sigma^{2}}{(2 \theta-1) n \mu^{2} \tilde{k}}+\mathcal{O}\left(\frac{1}{\sqrt{n}\left(1-\rho_{w}\right)}\right) \frac{1}{\tilde{k}^{1.5}}+\mathcal{O}\left(\frac{1}{\left(1-\rho_{w}\right)^{2}}\right) \frac{1}{\tilde{k}^{2}}
+\end{align}
+```
+
+## Transient time
 
 
 
