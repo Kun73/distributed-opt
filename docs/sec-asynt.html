@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Asymptotic network independence | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Asymptotic network independence | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -65,36 +68,45 @@
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
-<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
+<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="sec-asynt.html"><a href="sec-asynt.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
 <li class="chapter" data-level="7.2" data-path="sec-asynt.html"><a href="sec-asynt.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
 <li class="chapter" data-level="7.3" data-path="sec-asynt.html"><a href="sec-asynt.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a><ul>
+<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
-<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a><ul>
+<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="sec-sharp.html"><a href="sec-sharp.html#sublinear-rate"><i class="fa fa-check"></i><b>8.2.1</b> Sublinear rate</a></li>
 <li class="chapter" data-level="8.2.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence"><i class="fa fa-check"></i><b>8.2.2</b> Asymptotic network independence</a></li>
 <li class="chapter" data-level="8.2.3" data-path="sec-sharp.html"><a href="sec-sharp.html#improved-bound"><i class="fa fa-check"></i><b>8.2.3</b> Improved Bound</a></li>
@@ -124,16 +136,17 @@
             <section class="normal" id="section-">
 <div id="sec:asynt" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Asymptotic network independence</h1>
-<p>An undesirable property of distributed optimization method is that the increasing number of nodes may result in a large increase in the time to reach the same <span class="math inline">\(\varepsilon\)</span> accuracy(error <span class="math inline">\(&lt;\varepsilon\)</span>) under the centralized version. <span class="citation">Pu, Olshevsky, and Paschalidis (<a href="#ref-pu2019asymptotic">2019</a><a href="#ref-pu2019asymptotic">b</a>)</span> discuss this phenomenon under the following scenario</p>
-<span class="math display" id="eq:tscen">\[\begin{equation}
+<p>An undesirable property of distributed optimization method is that the increasing number of nodes may result in a large increase in the time to reach the same <span class="math inline">\(\varepsilon\)</span> accuracy(error <span class="math inline">\(&lt;\varepsilon\)</span>) under the centralized version. <span class="citation">Pu, Olshevsky, and Paschalidis (<a href="#ref-pu2019asymptotic" role="doc-biblioref">2019</a><a href="#ref-pu2019asymptotic" role="doc-biblioref">b</a>)</span> discuss this phenomenon under the following scenario</p>
+<p><span class="math display" id="eq:tscen">\[\begin{equation}
 \text { Time }_{n, \varepsilon} \text { (decentralized) } \leq p(\mathcal{G}) \text { Time }_{n, \varepsilon} \text { (centralized) }
 \tag{7.1}
-\end{equation}\]</span>
-<p>where <span class="math inline">\(\text { Time }_{n, \varepsilon} \text { (decentralized) }\)</span> denotes the time for the decentralized algorithm on n nodes to reach <span class="math inline">\(\varepsilon\)</span> accuracy, and <span class="math inline">\(\text { Time }_{n, \varepsilon} \text { (centralized) }\)</span> is the time for the centralized algorithm which can query <span class="math inline">\(n\)</span> gradients per time step to reach <span class="math inline">\(\varepsilon\)</span> accuracy.<span class="math inline">\(\mathcal{G}=(\mathcal{N},\mathcal{E})\)</span> Typically, <span class="math inline">\(p(\mathcal{G})\)</span> is at least <span class="math inline">\(\mathcal{O}(n^2)\)</span><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>, which is inpractical to use.</p>
-<p><span class="math inline">\(p(\mathcal{G})=\mathcal{O}(1)\)</span> is a desirable setting, which means a decentralized algorithm converge to the optimal at a comparable rate to a centralized algorithm with the same computational power<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Fortunately, it is possible for the iteration time <span class="math inline">\(k\)</span> to be large enough for some distributed stochastic optimization, which is the <strong>asymptotic network independence</strong> property: it is as if the network is not even there.</p>
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(\text { Time }_{n, \varepsilon} \text { (decentralized) }\)</span> denotes the time for the decentralized algorithm on n nodes
+to reach <span class="math inline">\(\varepsilon\)</span> accuracy, and <span class="math inline">\(\text { Time }_{n, \varepsilon} \text { (centralized) }\)</span> is the time for the centralized algorithm which can query <span class="math inline">\(n\)</span> gradients per time step to reach <span class="math inline">\(\varepsilon\)</span> accuracy.<span class="math inline">\(\mathcal{G}=(\mathcal{N},\mathcal{E})\)</span> denotes the graph. Typically, <span class="math inline">\(p(\mathcal{G})\)</span> is at least <span class="math inline">\(\mathcal{O}(n^2)\)</span><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, which is inpractical to use. This is because, <span class="math inline">\(p(\mathcal{G})=\mathcal{O}(n^2)\)</span> implies the distributed version would be <span class="math inline">\(n^2\)</span> times slower than the centralized one with the same computational power.</p>
+<p><span class="math inline">\(p(\mathcal{G})=\mathcal{O}(1)\)</span> is a desirable setting, which means a decentralized algorithm converge to the optimal at a comparable rate to a centralized algorithm with the same computational power<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. Fortunately, it is possible for the iteration time <span class="math inline">\(k\)</span> to be large enough for some distributed stochastic optimization, which is the <strong>asymptotic network independence</strong> property: it is as if the network is not even there. In chapter <a href="sec-sharp.html#sec:sharp">8</a>, we summarize some notes showing the asymptotic network independence property of algorithm <a href="sec-asynt.html#exm:dsgd">7.1</a> with <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)}\)</span><span class="citation">(Pu, Olshevsky, and Paschalidis <a href="#ref-pu2019sharp" role="doc-biblioref">2019</a><a href="#ref-pu2019sharp" role="doc-biblioref">a</a>)</span>.</p>
 <div id="sgd-and-dsgd" class="section level2">
 <h2><span class="header-section-number">7.1</span> SGD and DSGD</h2>
-<p>We consider a distributed stochastic gradient descent(DSGD) method, see algorithm under assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>,<a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus symmetric<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>, the similar settings as we discuss in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>. By assumption <a href="index.html#exr:muL">1.1</a>, there exist a unique solution <span class="math inline">\(x^*\in\mathbb{R}^p\)</span> to the problem <a href="index.html#eq:obj">(1.1)</a>.</p>
+<p>We consider a distributed stochastic gradient descent(DSGD) method, see algorithm under assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>,<a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus symmetric<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, the similar settings as we discuss in chapter <a href="sec-dsgt.html#sec:dsgt">4</a>. By assumption <a href="index.html#exr:muL">1.1</a>, there exist a unique solution <span class="math inline">\(x^*\in\mathbb{R}^p\)</span> to the problem <a href="index.html#eq:obj">(1.1)</a>.</p>
 
 <div class="example">
 <p><span id="exm:dsgd" class="example"><strong>Algorithm7.1  (DSGD)  </strong></span>Each agent <span class="math inline">\(i\)</span> choose the same step size <span class="math inline">\(\alpha_k\)</span> at the <span class="math inline">\(k\)</span>th iteration and initilized with an arbitary <span class="math inline">\(x_i(0)\in\mathbb{R}^p\)</span></p>
@@ -141,16 +154,16 @@
 <ul>
 <li><p>For <span class="math inline">\(i\in\mathcal{N}\)</span>,</p>
 <ul>
-<li><span class="math inline">\(x_i(k+1) = \sum\limits_{j=1}^nw_{ij}(x_j(k+1)-\alpha_k g_j(x_j(k),\xi_j(k)))\)</span>
+<li><p><span class="math inline">\(x_i(k+1) = \sum\limits_{j=1}^nw_{ij}(x_j(k+1)-\alpha_k g_j(x_j(k),\xi_j(k)))\)</span></p>
 </div>
- <span class="math inline">\(\{\alpha_k\}\)</span> are a sequence of nonnegative non-increasing stepsizes. In the long run, <span class="math inline">\(x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}\)</span>, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a> and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric.</li>
+<p><span class="math inline">\(\{\alpha_k\}\)</span> are a sequence of nonnegative non-increasing stepsizes. In the long run, <span class="math inline">\(x_{i,k}=x_{j,k},\forall i,j\in\mathcal{N}\)</span>, i.e. DSGD belongs to the class of consensus-based distributed optimization methods, which can be achieved under assumptions <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a> and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric.</p></li>
 </ul></li>
 </ul>
-Let <span class="math inline">\(X(k)=(x_1(k),...,x_n(k))^T\in\mathbb{R^{n\times p}}, G(k)=(g_1(x_1(k),\xi_1(k)),...,g_n(x_n(k),\xi_n(k)))^T\in\mathbb{R}^{n\times p}\)</span>, and <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span>, then we can rewrite <a href="sec-asynt.html#exm:dsgd">7.1</a> as
+<p>Let <span class="math inline">\(X(k)=(x_1(k),...,x_n(k))^T\in\mathbb{R^{n\times p}}, G(k)=(g_1(x_1(k),\xi_1(k)),...,g_n(x_n(k),\xi_n(k)))^T\in\mathbb{R}^{n\times p}\)</span>, and <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span>, then we can rewrite <a href="sec-asynt.html#exm:dsgd">7.1</a> as
 <span class="math display" id="eq:dsgdc">\[\begin{equation}
 X(k+1)=W(X(k)-\alpha_kG(k))
 \tag{7.2}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p><strong>Todo:<span class="math inline">\(x_{i,k}\stackrel{?}=x_{j,k},\forall i,j\in\mathcal{N}\)</span></strong></p>
 <p>We compare DSGD with centralized stochastic gradient descent(SGD) which can query <span class="math inline">\(n\)</span> gradients at each iteration,</p>
 
@@ -159,55 +172,58 @@ X(k+1)=W(X(k)-\alpha_kG(k))
 <p>For k=0,1,…,</p>
 <ul>
 <li><span class="math inline">\(x(k+1)=x(k)-\alpha_k\bar g(k)\)</span>
-</div>
-</li>
+</div></li>
 </ul>
 <p>where <span class="math inline">\(\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k)),\alpha_k=\frac{1}{\mu k}\)</span>, we use <span class="math inline">\(\bar g(k)\)</span> here to make the gradient comparable to that in DSGD, i.e., <span class="math inline">\(\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))\)</span>.</p>
-Choose <span class="math inline">\(2-\)</span>norm as the loss function, the risk at the <span class="math inline">\(k\)</span>th step is
+<p>Choose <span class="math inline">\(2-\)</span>norm as the loss function, the distance between <span class="math inline">\(x(k)\)</span> and <span class="math inline">\(x^*\)</span> at the <span class="math inline">\(k\)</span>th step is
 <span class="math display" id="eq:risksgd">\[\begin{equation}
 R(k)=E  \left[\Vert x(k)-x^*\Vert^2\right]=\frac{1}{n}\sum\limits_{i=1}^nE  \left[\Vert x(k)-x^*\Vert^2\right]
 \tag{7.3}
 \end{equation}\]</span>
-which hints us to evaluate the performance of DSGD by
+which hints us to evaluate the similar distance of DSGD by
 <span class="math display" id="eq:riskdsgd">\[\begin{equation}
 R&#39;(k)=\frac{1}{n}\sum\limits_{i=1}^n E\left[\Vert x_i(k)-x^*\Vert^2\right]
 \tag{7.4}
-\end{equation}\]</span>
-Additonnally, <a href="sec-asynt.html#eq:riskdsgd">(7.4)</a> can be divided into two sources, one from the optimization error, and one from the consensus error, i.e.,
+\end{equation}\]</span></p>
+<p>Additonnally, <a href="sec-asynt.html#eq:riskdsgd">(7.4)</a> can be divided into two sources, one from the optimization error, and one from the consensus error, i.e.,
 <span class="math display" id="eq:drdsgd">\[\begin{equation}
 R&#39;(K)=\underbrace{E  \left[\Vert \bar x(k)-x^*\Vert^2\right]}_{\text{expected optimization error}} + 
 \underbrace{\frac{1}{n}\sum_{i=1}^nE  \left[\Vert  x_i(k)-\bar x(k)^*\Vert^2\right]}_{\text{expected consensus error}}
 \tag{7.5}
 \end{equation}\]</span>
+This is because
+<span class="math display">\[\begin{align}
+\frac{1}{n}\sum_{i=1}^n E\left[\langle x_i(k)-\bar x, \bar x - x^*\rangle\right]&amp;=E\left[\langle \frac{1}{n}\sum_{i=1}^nx_i(k)-\bar x, \bar x - x^*\rangle\right]\\
+&amp;=0
+\end{align}\]</span></p>
 </div>
 <div id="bounds" class="section level2">
 <h2><span class="header-section-number">7.2</span> Bounds</h2>
 <p>We next compare SGD and DSGD by analyzing their error bounds.</p>
 
 <div class="lemma">
-<span id="lem:risksgd" class="lemma"><strong>Lemma 7.1  </strong></span>Let assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>, <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric hold, for SGD <a href="sec-asynt.html#exm:sgd">7.2</a>, we have <span class="math display">\[
+<span id="lem:risksgd" class="lemma"><strong>Lemma 7.1  </strong></span>Let assumptions <a href="index.html#exr:muL">1.1</a>, <a href="sec-dsgt.html#exr:estg">4.1</a>, <a href="sec-dsgt.html#exr:dsgtgraph">4.2</a>,and <a href="sec-dsgt.html#exr:dsw">4.3</a> plus <span class="math inline">\(W\)</span> is symmetric hold, for SGD <a href="sec-asynt.html#exm:sgd">7.2</a>, we have
+<span class="math display">\[
 R(k+1) \leq\left(1-\alpha_{k} \mu\right)^{2} R(k)+\frac{\alpha_{k}^{2} \sigma^{2}}{n}
 \]</span>
 </div>
-
 <p>Denote <span class="math inline">\(U(k)=E \left[\Vert \bar x(k)-x^*\Vert^2\right]\)</span> and <span class="math inline">\(V(k)=\sum\limits_{i=1}^nE \left[\Vert x_i(k)-\bar x(k)\right]\)</span>, we have</p>
 
 <div class="lemma">
-<span id="lem:riskdsgd" class="lemma"><strong>Lemma 7.2  </strong></span>Let the same assumptions in <a href="sec-asynt.html#lem:risksgd">7.1</a> hold, <span class="math display">\[
+<span id="lem:riskdsgd" class="lemma"><strong>Lemma 7.2  </strong></span>Let the same assumptions in <a href="sec-asynt.html#lem:risksgd">7.1</a> hold,
+<span class="math display">\[
 U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\sqrt{U(k) V(k)}}{k}+\frac{L^{2}}{n \mu^{2}} \frac{V(k)}{k^{2}}+\frac{\sigma^{2}}{n \mu^{2}} \frac{1}{k^{2}}
 \]</span>
 </div>
-
 <p>In chapter <a href="sec-sharp.html#sec:sharp">8</a>, lemma <a href="sec-sharp.html#lem:sublrdsgd">8.7</a> shows that <span class="math inline">\(\exists K_0, s.t.\)</span> when <span class="math inline">\(k&gt;K_0, R&#39;(k)\leq \frac{\hat W}{\tilde k}+\frac{\hat V}{\tilde k^2}\)</span>, where <span class="math inline">\(\tilde k\)</span> is some shift of <span class="math inline">\(k\)</span> with a choice of step size <span class="math inline">\(\alpha_k=\frac{\theta}{\mu(k+K)},K:=\left\lceil\frac{2 \theta L^{2}}{\mu^{2}}\right\rceil\)</span>.</p>
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> \</p>
 <ul>
 <li><p>In a view that <span class="math inline">\(R(k)\)</span> and <span class="math inline">\(R&#39;(k)\)</span> are both risk functions, if <span class="math inline">\(V(k)\)</span> decays fast enough compared to <span class="math inline">\(U(k)\)</span>, we then have <span class="math inline">\(R(k)\approx R&#39;(k)\)</span> for large <span class="math inline">\(k\)</span>.</p></li>
-<li>the asymptotic network independence phenomenon: after a transient, DSGD performs comparably to a centralized stochastic gradient descent method with the same computational power.</li>
+<li><p>the asymptotic network independence phenomenon: after a transient, DSGD performs comparably to a centralized stochastic gradient descent method with the same computational power.</p></li>
 </ul>
 </div>
-
 </div>
 <div id="possible-ways-to-achieve-asymptotic-network-independece" class="section level2">
 <h2><span class="header-section-number">7.3</span> Possible ways to achieve asymptotic network independece</h2>
@@ -223,16 +239,19 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-pu2019sharp">
+<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019a. “A Sharp Estimate on the Transient Time of Distributed Stochastic Gradient Descent.” <a href="http://arxiv.org/abs/1906.02702">http://arxiv.org/abs/1906.02702</a>.</p>
+</div>
 <div id="ref-pu2019asymptotic">
-<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. 2019b. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.”</p>
+<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. 2019b. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.” <a href="http://arxiv.org/abs/1906.12345">http://arxiv.org/abs/1906.12345</a>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>smaller <span class="math inline">\(p(\mathcal{G})\)</span> is possible for some special cases<a href="sec-asynt.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Computing Power: Two processors have the same computing power if they can run the same programs (after translation into each processor’s machine language) and produce the same results<a href="sec-asynt.html#fnref4">↩</a></p></li>
-<li id="fn5"><p>It seems <span class="math inline">\(W\)</span> in DSGT is also symmetric?<a href="sec-asynt.html#fnref5">↩</a></p></li>
+<li id="fn3"><p>smaller <span class="math inline">\(p(\mathcal{G})\)</span> is possible for some special cases<a href="sec-asynt.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Computing Power: Two processors have the same computing power if they can run the same programs (after translation into each processor’s machine language) and produce the same results<a href="sec-asynt.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>It seems <span class="math inline">\(W\)</span> in DSGT is also symmetric?<a href="sec-asynt.html#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -246,11 +265,13 @@ U(k+1) \leq\left(1-\frac{1}{k}\right)^{2} U(k)+\frac{2 L}{\sqrt{n} \mu} \frac{\s
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -258,12 +279,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -275,6 +295,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -291,7 +315,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

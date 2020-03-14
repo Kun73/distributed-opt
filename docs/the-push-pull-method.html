@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 The Push-Pull Method | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
-  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 The Push-Pull Method | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -65,36 +68,45 @@
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="orgnization-of-the-notes.html"><a href="orgnization-of-the-notes.html"><i class="fa fa-check"></i><b>2</b> Orgnization of the Notes</a></li>
-<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a><ul>
+<li class="chapter" data-level="3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html"><i class="fa fa-check"></i><b>3</b> The Push-Pull Method</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="3.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#analysis-of-convergence"><i class="fa fa-check"></i><b>3.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#relationship-between-two-iteration-steps"><i class="fa fa-check"></i><b>3.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="3.2.2" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#inequalities"><i class="fa fa-check"></i><b>3.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="3.2.3" data-path="the-push-pull-method.html"><a href="the-push-pull-method.html#spectral-radius-of-a"><i class="fa fa-check"></i><b>3.2.3</b> Spectral radius of A</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a><ul>
+<li class="chapter" data-level="4" data-path="sec-dsgt.html"><a href="sec-dsgt.html"><i class="fa fa-check"></i><b>4</b> Distributed Stochastic Gradient Tracking(DSGT) Method</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a><ul>
+<li class="chapter" data-level="4.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#analysis-of-convergence-1"><i class="fa fa-check"></i><b>4.2</b> Analysis of Convergence</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="sec-dsgt.html"><a href="sec-dsgt.html#relationship-between-two-iteration-steps-1"><i class="fa fa-check"></i><b>4.2.1</b> Relationship between two iteration steps</a></li>
 <li class="chapter" data-level="4.2.2" data-path="sec-dsgt.html"><a href="sec-dsgt.html#inequalities-1"><i class="fa fa-check"></i><b>4.2.2</b> Inequalities</a></li>
 <li class="chapter" data-level="4.2.3" data-path="sec-dsgt.html"><a href="sec-dsgt.html#spectral-radius-of-a_dsgt"><i class="fa fa-check"></i><b>4.2.3</b> Spectral radius of <span class="math inline">\(A_{dsgt}\)</span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a><ul>
+<li class="chapter" data-level="5" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>5</b> Summary of PuSh-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="summary-of-push-pull-and-dsgt.html"><a href="summary-of-push-pull-and-dsgt.html#questions"><i class="fa fa-check"></i><b>5.1</b> Questions</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a><ul>
+<li class="chapter" data-level="6" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html"><i class="fa fa-check"></i><b>6</b> Gossip-like Push-Pull and DSGT</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="gossip-like-push-pull-and-dsgt.html"><a href="gossip-like-push-pull-and-dsgt.html#g-push-pull"><i class="fa fa-check"></i><b>6.1</b> G-Push-Pull</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a><ul>
+<li class="chapter" data-level="7" data-path="sec-asynt.html"><a href="sec-asynt.html"><i class="fa fa-check"></i><b>7</b> Asymptotic network independence</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="sec-asynt.html"><a href="sec-asynt.html#sgd-and-dsgd"><i class="fa fa-check"></i><b>7.1</b> SGD and DSGD</a></li>
 <li class="chapter" data-level="7.2" data-path="sec-asynt.html"><a href="sec-asynt.html#bounds"><i class="fa fa-check"></i><b>7.2</b> Bounds</a></li>
 <li class="chapter" data-level="7.3" data-path="sec-asynt.html"><a href="sec-asynt.html#possible-ways-to-achieve-asymptotic-network-independece"><i class="fa fa-check"></i><b>7.3</b> Possible ways to achieve asymptotic network independece</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a><ul>
+<li class="chapter" data-level="8" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>8</b> A sharp estimate of the transient time of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>8.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
-<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a><ul>
+<li class="chapter" data-level="8.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence-of-dsgd"><i class="fa fa-check"></i><b>8.2</b> Asymptotic network independence of DSGD</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="sec-sharp.html"><a href="sec-sharp.html#sublinear-rate"><i class="fa fa-check"></i><b>8.2.1</b> Sublinear rate</a></li>
 <li class="chapter" data-level="8.2.2" data-path="sec-sharp.html"><a href="sec-sharp.html#asymptotic-network-independence"><i class="fa fa-check"></i><b>8.2.2</b> Asymptotic network independence</a></li>
 <li class="chapter" data-level="8.2.3" data-path="sec-sharp.html"><a href="sec-sharp.html#improved-bound"><i class="fa fa-check"></i><b>8.2.3</b> Improved Bound</a></li>
@@ -126,27 +138,24 @@
 <h1><span class="header-section-number">Chapter 3</span> The Push-Pull Method</h1>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>Suppose we have two nonnegative matrices <span class="math inline">\(R,C^T\in\mathbb{R}^{n\times n}\)</span> and two induced digraph <span class="math inline">\(\mathcal{G}_R, \mathcal{G}_{C^T}\)</span>. Suppose each agent <span class="math inline">\(i\in\mathcal{N}\)</span> can actively and reliably push information out to its neighbor <span class="math inline">\(l\in\mathcal{N}^{out}_{C,i}\subset\mathcal{N}\)</span> and pull information from its neighbor <span class="math inline">\(j\in\mathcal{N}^{in}_{R,i}\subset\mathcal{N}\)</span>. Matrix <span class="math inline">\(R=(r_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the pulling weights that agent <span class="math inline">\(i\)</span> pulls information from agent <span class="math inline">\(j\)</span>. Thus the row sum of <span class="math inline">\(R\)</span> should be <span class="math inline">\(1\)</span>, i.e. <span class="math inline">\(R\boldsymbol 1 = \boldsymbol 1\)</span> and <span class="math inline">\(r_{ij}\geq 0\)</span>. That is to say, matrix <span class="math inline">\(R\)</span> is row-stochastic. Similarly, <span class="math inline">\(C = (c_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the pushing weights that agent <span class="math inline">\(i\)</span> pushes information to agent <span class="math inline">\(j\)</span>. In other words, it denotes the pulling weights that agent <span class="math inline">\(j\)</span> pulls information from agent <span class="math inline">\(i\)</span>. Hence <span class="math inline">\(C^T\boldsymbol 1=\boldsymbol 1\)</span>, i.e. <span class="math inline">\(\boldsymbol 1^T C=\boldsymbol 1^T, c_{ji}\geq 0\)</span>. Moreover, for agent <span class="math inline">\(i\)</span>, it will have no problem getting information from itself, hence <span class="math inline">\(r_{ii}&gt;0, c_{ii}&gt;0\)</span>. Assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> will gurantee this.</p>
+<p>Suppose we have two nonnegative matrices <span class="math inline">\(R,C^T\in\mathbb{R}^{n\times n}\)</span> and two induced digraph <span class="math inline">\(\mathcal{G}_R, \mathcal{G}_{C^T}\)</span>. Suppose each agent <span class="math inline">\(i\in\mathcal{N}\)</span> can actively and reliably push information out to its neighbor <span class="math inline">\(l\in\mathcal{N}^{out}_{C,i}\subset\mathcal{N}\)</span> and pull information from its neighbor <span class="math inline">\(j\in\mathcal{N}^{in}_{R,i}\subset\mathcal{N}\)</span>. Matrix <span class="math inline">\(R=(r_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the pulling weights that agent <span class="math inline">\(i\)</span> pulls information from agent <span class="math inline">\(j\)</span>. Thus the row sum of <span class="math inline">\(R\)</span> should be <span class="math inline">\(1\)</span>, i.e. <span class="math inline">\(R\boldsymbol 1 = \boldsymbol 1\)</span> and <span class="math inline">\(r_{ij}\geq 0\)</span>. That is to say, matrix <span class="math inline">\(R\)</span> is row-stochastic. Similarly, <span class="math inline">\(C = (c_{ij})\in\mathbb{R}^{n\times n}\)</span> denotes the pushing weights that agent <span class="math inline">\(i\)</span> pushes information to agent <span class="math inline">\(j\)</span>. In other words, it denotes the pulling weights that agent <span class="math inline">\(j\)</span> pulls information from agent <span class="math inline">\(i\)</span>. Hence <span class="math inline">\(C^T\boldsymbol 1=\boldsymbol 1\)</span>, i.e. <span class="math inline">\(\boldsymbol 1^T C=\boldsymbol 1^T, c_{ji}\geq 0\)</span>. Moreover, for agent <span class="math inline">\(i\)</span>, it will have no problem getting information from itself, hence <span class="math inline">\(r_{ii}&gt;0, c_{ii}&gt;0\)</span>. Assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> will gurantee this.</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> In a digraph induced by a nonnegative matrix <span class="math inline">\(M=(m_{ij})\in\mathbb{R}^{n\times n},\exists\)</span> a path from node <span class="math inline">\(j\)</span> to node <span class="math inline">\(i\)</span> iff <span class="math inline">\(m_{ij}&gt;0\)</span>.
 </div>
 
-
 <div class="exercise">
 <span id="exr:mrc" class="exercise"><strong>Assumption3.1  </strong></span>The matrix <span class="math inline">\(R\in\mathbb{R}^{n\times n}\)</span> is nonnegative row-stochastic and <span class="math inline">\(C\in\mathbb{R}^{n\times n}\)</span> is nonnegative column-stochastic, i.e., <span class="math inline">\(R\mathbf{1}=\mathbf{1}\)</span> and <span class="math inline">\(\mathbf{1}^TC=\mathbf{1}\)</span>. <span class="math inline">\(r_{ii}&gt;0,c_{ii}&gt;0,\forall i\)</span>.
 </div>
 
-
 <div class="exercise">
-<span id="exr:adigraph" class="exercise"><strong>Assumption3.2  </strong></span>The graphs <span class="math inline">\(\mathcal{G}_R\)</span> and <span class="math inline">\(\mathcal{G}_{C^T}\)</span> each contain at least one spaning tree. Moreover, there exists at least one node that is a root of spanning trees for both <span class="math inline">\(\mathcal{G}_{R}\)</span> and <span class="math inline">\(\mathcal{G}_{C^T}\)</span>, i.e. <span class="math inline">\(\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}} \neq \emptyset\)</span>, where <span class="math inline">\(\mathcal{R}_R\)</span> is the set of roots of all possible spanning trees in the graph <span class="math inline">\(\mathcal{G}_R\)</span>.
+<span id="exr:adigraph" class="exercise"><strong>Assumption3.2  </strong></span>The graphs <span class="math inline">\(\mathcal{G}_R\)</span> and <span class="math inline">\(\mathcal{G}_{C^T}\)</span> each contain at least one spaning tree. Moreover, there exists at least one node that is a root of spanning trees for both <span class="math inline">\(\mathcal{G}_{R}\)</span> and <span class="math inline">\(\mathcal{G}_{C^T}\)</span>, i.e. <span class="math inline">\(\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}} \neq \emptyset\)</span>, where <span class="math inline">\(\mathcal{R}_R\)</span> is the set of roots of all possible spanning trees in the graph <span class="math inline">\(\mathcal{G}_R\)</span>.
 </div>
-
 <p>\</p>
 <p>Assumption <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is to say that at least one agent is connected to all other agents in this system(thus they should be both “pulled” and “pushed”), which is weaker to assume that the system is connected. Hence these agents are significant and we must assume at least one of them contribute to the update, i.e. assumption <a href="the-push-pull-method.html#exr:palpha">3.3</a>.</p>
-Figure <a href="the-push-pull-method.html#fig:m-w">3.1</a><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> shows the master-workers architecture in distributed optimization, which fits the assumption <a href="the-push-pull-method.html#exr:adigraph">3.2</a> when <span class="math inline">\(\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}=\{\text{master node}\}\)</span>.
+Figure <a href="the-push-pull-method.html#fig:m-w">3.1</a><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> shows the master-workers architecture in distributed optimization, which fits the assumption <a href="the-push-pull-method.html#exr:adigraph">3.2</a> when <span class="math inline">\(\mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}=\{\text{master node}\}\)</span>.
 <div class="figure" style="text-align: center"><span id="fig:m-w"></span>
-<img src="fig/m-w.png" alt="Master-Workers Architecture" width="165" />
+<img src="fig/m-w.png" alt="Master-Workers Architecture"  />
 <p class="caption">
 Figure 3.1: Master-Workers Architecture
 </p>
@@ -155,11 +164,11 @@ Figure 3.1: Master-Workers Architecture
 <div class="exercise">
 <span id="exr:palpha" class="exercise"><strong>Assumption3.3  </strong></span><span class="math inline">\(\exists i\in \mathcal{R}_{R} \cap \mathcal{R}_{\mathbf{C}^{\top}}\)</span> whose step size <span class="math inline">\(\alpha_i&gt;0\)</span>.
 </div>
-
 <p>Assumption <a href="the-push-pull-method.html#exr:adigraph">3.2</a> and <a href="the-push-pull-method.html#exr:mrc">3.1</a> would lead to the following lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a>,</p>
 
 <div class="lemma">
-<p><span id="lem:eigvrc" class="lemma"><strong>Lemma 3.1  </strong></span>Under assumptions <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a>, the matrix <span class="math inline">\(R\)</span> has a unique nonnegative left eigenvector <span class="math inline">\(u^T\)</span>(w.r.t. eigenvalue 1) with <span class="math inline">\(u^T\boldsymbol1 = n\)</span>, and the matrix <span class="math inline">\(C\)</span> has a unique nonnegative right eigenvector <span class="math inline">\(v\)</span> (w.r.t. eigenvalue 1) with <span class="math inline">\(\boldsymbol1^T v = n\)</span>, i.e., <span class="math display">\[
+<p><span id="lem:eigvrc" class="lemma"><strong>Lemma 3.1  </strong></span>Under assumptions <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a>, the matrix <span class="math inline">\(R\)</span> has a unique nonnegative left eigenvector <span class="math inline">\(u^T\)</span>(w.r.t. eigenvalue 1) with <span class="math inline">\(u^T\boldsymbol1 = n\)</span>, and the matrix <span class="math inline">\(C\)</span> has a unique nonnegative right eigenvector <span class="math inline">\(v\)</span> (w.r.t. eigenvalue 1) with <span class="math inline">\(\boldsymbol1^T v = n\)</span>, i.e.,
+<span class="math display">\[
   u^T R = 1\cdot u^T
 \]</span></p>
 <p><span class="math display">\[
@@ -167,30 +176,30 @@ Figure 3.1: Master-Workers Architecture
 \]</span></p>
 <p>Moreover, <span class="math inline">\(u^T\)</span> (resp., <span class="math inline">\(v\)</span>) is nonzero only on the entries associated with agents <span class="math inline">\(i\in\mathcal{R}_R\)</span>(resp., <span class="math inline">\(j\in\mathcal{R}_{C^T}\)</span>), and <span class="math inline">\(u^Tv&gt;0\)</span>.</p>
 </div>
-
 <p>The idea of Push-Pull Gradient Methods is that, at each iteration step <span class="math inline">\(k\)</span>, agent <span class="math inline">\(i\)</span> updates its local copy of decision variable <span class="math inline">\(x_{i,k+1}\in\mathbb R^p\)</span> according to the information it pulls from its nearby agents based on the corresponding pulling weights <span class="math inline">\((r_{i1},r_{i2},...,r_{in})\)</span>. Then it will also update the information stored in an auxiliary variable <span class="math inline">\(y_{i, k+1}\in\mathbb{R}^p\)</span></p>
 
 <div class="example">
-<p><span id="exm:pp" class="example"><strong>Algorithm3.1  (Push-Pull Method)  </strong></span> Each agent <span class="math inline">\(i\)</span> chooses its local step size <span class="math inline">\(\alpha_i\geq0\)</span> and initilized with an arbitary <span class="math inline">\(x_{i,0}\in\mathbb{R}^p, y_{i,0}=\nabla f_i(x_{i,0})\)</span>.</p>
+<p><span id="exm:pp" class="example"><strong>Algorithm3.1  (Push-Pull Method)  </strong></span>
+Each agent <span class="math inline">\(i\)</span> chooses its local step size <span class="math inline">\(\alpha_i\geq0\)</span> and initilized with an arbitary <span class="math inline">\(x_{i,0}\in\mathbb{R}^p, y_{i,0}=\nabla f_i(x_{i,0})\)</span>.</p>
 <p>For k = 0, 1, …,</p>
 <ul>
 <li><p>For <span class="math inline">\(i\in\mathcal{N}\)</span>,</p>
 <ul>
 <li><p><span class="math inline">\(x_{i, k+1} = \sum\limits_{j=1}^nr_{ij}(x_{j, k}-\alpha_j y_{j, k})\)</span> (Pull)</p></li>
-<li><span class="math inline">\(y_{i, k+1} = \sum\limits_{j=1}^nc_{ij}y_{j,k}+\nabla f_i(x_{i,k+1})-\nabla f_i(x_{i,k})\)</span>(Push)</li>
+<li><p><span class="math inline">\(y_{i, k+1} = \sum\limits_{j=1}^nc_{ij}y_{j,k}+\nabla f_i(x_{i,k+1})-\nabla f_i(x_{i,k})\)</span>(Push)</p></li>
 </ul></li>
 </ul>
 </div>
-
-Or in matrix form using <span class="math inline">\(R=(r_{ij})\in\mathbb{R}^{n\times n}, C=(c_{ij})\in\mathbb{R}^{n\times n}, X_k\in\mathbb{R}^{n\times p}, Y_k\in\mathbb{R}^{n\times p}, \boldsymbol\alpha = \text{diag}(\alpha_1,...,\alpha_n)\)</span>.
+<p>Or in matrix form using <span class="math inline">\(R=(r_{ij})\in\mathbb{R}^{n\times n}, C=(c_{ij})\in\mathbb{R}^{n\times n}, X_k\in\mathbb{R}^{n\times p}, Y_k\in\mathbb{R}^{n\times p}, \boldsymbol\alpha = \text{diag}(\alpha_1,...,\alpha_n)\)</span>.
 <span class="math display" id="eq:pp">\[\begin{align}
 X_{k+1} &amp;= R(X_{k}-\boldsymbol\alpha Y_k),\\
 Y_{k+1} &amp;= CY_k+\nabla F(X_{k+1})-\nabla F(X_k)
 \tag{3.1}
-\end{align}\]</span>
+\end{align}\]</span></p>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span>  In the initialization of algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a>, <span class="math inline">\(y_{i,0}=\nabla f_i(x_{i,0}),i=1,2,...,n\)</span>,i.e., <span class="math inline">\(Y_0=\nabla F(X_0)\)</span> is important since
+ <span class="remark"><em>Remark. </em></span> 
+In the initialization of algorithm <a href="the-push-pull-method.html#exm:pp">3.1</a>, <span class="math inline">\(y_{i,0}=\nabla f_i(x_{i,0}),i=1,2,...,n\)</span>,i.e., <span class="math inline">\(Y_0=\nabla F(X_0)\)</span> is important since
 <span class="math display">\[\begin{align*}
 \mathbf{1}^T Y_{1} &amp;= \mathbf{1}^T(CY_0+\nabla F(X_1)-\nabla F(X_0))\\
 &amp;= \mathbf{1}^T\nabla F(X_1)+Y_0-\nabla F(X_0)\\
@@ -203,7 +212,6 @@ Then by induction, we can have
 \end{equation}\]</span>
 which says the auxiliary variable <span class="math inline">\(Y_{k}\)</span> is to track the average gradient.
 </div>
-
 </div>
 <div id="analysis-of-convergence" class="section level2">
 <h2><span class="header-section-number">3.2</span> Analysis of Convergence</h2>
@@ -212,30 +220,29 @@ which says the auxiliary variable <span class="math inline">\(Y_{k}\)</span> is 
 <div class="lemma">
 <span id="lem:lem37" class="lemma"><strong>Lemma 3.2  </strong></span>Given a nonnegative, irreducible matrix <span class="math inline">\(M=(m_{ij})\in \mathbb{R}^{n\times n}\)</span> with <span class="math inline">\(m_{ii}&lt;\lambda, i=1,2,3\)</span> for some <span class="math inline">\(\lambda&gt;0\)</span>. <span class="math inline">\(\rho(M)&lt;\lambda\Leftrightarrow \text{det}(\lambda I-M)&gt;0\)</span>
 </div>
-
 <p>In this chapter, we define the matrix norm of <span class="math inline">\(X\in\mathbb R^{n\times p }\)</span> using definition <a href="the-push-pull-method.html#def:normpp">3.1</a>.</p>
 
 <div class="definition">
-<span id="def:normpp" class="definition"><strong>Definition 3.1  </strong></span>Given an arbitary vector norm <span class="math inline">\(\Vert\cdot\Vert\)</span> on <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(\forall X\in\mathbb{R}^{n\times p }, \Vert X\Vert:= \left\|\left[\left\|\mathbf{x}^{(1)}\right\|,\left\|\mathbf{x}^{(2)}\right\|, \ldots,\left\|\mathbf{x}^{(p)}\right\|\right]\right\|_{2}\)</span>, where <span class="math inline">\(x^{(j)},j=1,2,...,p\)</span> denote the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(X\)</span>, <span class="math inline">\(\Vert \cdot\Vert_2\)</span> denotes <span class="math inline">\(2-\)</span>norm.
+<span id="def:normpp" class="definition"><strong>Definition 3.1  </strong></span>Given an arbitary vector norm <span class="math inline">\(\Vert\cdot\Vert\)</span> on <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(\forall X\in\mathbb{R}^{n\times p }, \Vert X\Vert:= \left\|\left[\left\|\mathbf{x}^{(1)}\right\|,\left\|\mathbf{x}^{(2)}\right\|, \ldots,\left\|\mathbf{x}^{(p)}\right\|\right]\right\|_{2}\)</span>,
+where <span class="math inline">\(x^{(j)},j=1,2,...,p\)</span> denote the <span class="math inline">\(j\)</span>th column of <span class="math inline">\(X\)</span>, <span class="math inline">\(\Vert \cdot\Vert_2\)</span> denotes <span class="math inline">\(2-\)</span>norm.
 </div>
-
 <p>For example, when <span class="math inline">\(\Vert\cdot\Vert\)</span> is the <span class="math inline">\(2-\)</span>norm, then the matrix norm under definition <a href="the-push-pull-method.html#def:normpp">3.1</a> is the Frobenius norm.</p>
 <p>While in the chapter of distributed stochastic gradient tracking method, we use Frobenius norm as matrix norm.</p>
 <div id="relationship-between-two-iteration-steps" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Relationship between two iteration steps</h3>
 <p>We first give definition of <span class="math inline">\(\bar x_k\)</span> and <span class="math inline">\(\bar y_k\)</span>.</p>
-<span class="math display" id="eq:barpp">\[\begin{equation}
+<p><span class="math display" id="eq:barpp">\[\begin{equation}
 \bar x_k := \frac{1}{n}u^TX_k\in\mathbb{R}^{1\times p},\quad \bar y_k:= \frac{1}{n}\boldsymbol 1 \nabla F(X_k)\in\mathbb{R}^{1\times p}
 \tag{3.3}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>The authors do not define <span class="math inline">\(\bar x_k\)</span> as <span class="math inline">\(\frac{1}{n}\boldsymbol 1^TX_k\)</span> is because the pulling information is subject to the graph <span class="math inline">\(\mathcal{G}_R\)</span>, which may not be strongly connected. Thus agent <span class="math inline">\(i\)</span> could never use information from agent <span class="math inline">\(j\not\in N^{in}_{R,i}\)</span>.</p>
 <p>For the pull step,</p>
-<span class="math display" id="eq:barxpp">\[\begin{equation}
+<p><span class="math display" id="eq:barxpp">\[\begin{equation}
 \bar x_{k+1} = \frac{1}{n}u^TX_{k+1}\stackrel{\text{pull step}}{=}\frac{1}{n}u^TR(X_k-\boldsymbol\alpha Y_k)=\bar x_k-\frac{1}{n}u^T\boldsymbol\alpha Y_k
 \tag{3.4}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>Hence,</p>
-<span class="math display" id="eq:pp1bar">\[\begin{align}
+<p><span class="math display" id="eq:pp1bar">\[\begin{align}
 
 X_{k+1}-\boldsymbol1\bar x_{k+1}&amp;= R(X_k-\boldsymbol\alpha Y_k)-\boldsymbol1(\bar x_k-\frac{1}{n}u^T\boldsymbol\alpha Y_k)\\
 &amp;=(R-\frac{\boldsymbol 1 u^T}{n})(X_k-\boldsymbol 1\bar x_k)-
@@ -245,19 +252,18 @@ X_{k+1}-\boldsymbol1\bar x_{k+1}&amp;= R(X_k-\boldsymbol\alpha Y_k)-\boldsymbol1
 \tag{3.5}
 
 \end{align}\]</span>
-<p>This is because <span class="math inline">\(\frac{\boldsymbol 1 u^T}{n}(X_k-\boldsymbol 1\bar x_k)=\bar x_k-\frac{u^T\boldsymbol1}{n}\bar x_k=0\)</span> according to lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a>.</p>
+This is because <span class="math inline">\(\frac{\boldsymbol 1 u^T}{n}(X_k-\boldsymbol 1\bar x_k)=\bar x_k-\frac{u^T\boldsymbol1}{n}\bar x_k=0\)</span> according to lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a>.</p>
 <p>To see what does this difference mean, we rewrite <span class="math inline">\(X_{k+1}-\boldsymbol1\bar x_{k+1}\)</span> as</p>
-<span class="math display">\[\begin{equation}
+<p><span class="math display">\[\begin{equation}
 (x_1-\frac{1}{n}\sum_{i=1}^n u_i x_i,...,x_n-\frac{1}{n}\sum_{i=1}^n u_i x_i)^T\in\mathbb{R}^{n\times p}
 \end{equation}\]</span>
-<p>where <span class="math inline">\(u=(u_1,...,u_n)^T\in\mathbb{R}^n,x_i\in\mathbb{R}^p\)</span>. It denotes the difference between each agent <span class="math inline">\(i\)</span>’s decision variable and the overall weighted mean.</p>
+where <span class="math inline">\(u=(u_1,...,u_n)^T\in\mathbb{R}^n,x_i\in\mathbb{R}^p\)</span>. It denotes the difference between each agent <span class="math inline">\(i\)</span>’s decision variable and the overall weighted mean.</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> The interpretation of <span class="math inline">\(R-\frac{\boldsymbol 1 u^T}{n}\)</span>?
 </div>
-
 <p>For the push step,</p>
-<span class="math display" id="eq:ppvbar">\[\begin{align}
+<p><span class="math display" id="eq:ppvbar">\[\begin{align}
 Y_{k+1}-v\bar y_{k+1}&amp;\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\\
 &amp;\nabla F(X_k)-v[\frac{1}{n}\boldsymbol1(CY_k+\nabla F(X_{k+1})-\nabla F(X_k))]\\
 &amp;=CY_k-v\bar y_k+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))\\
@@ -266,25 +272,27 @@ Y_{k+1}-v\bar y_{k+1}&amp;\stackrel{\text{push step}}=CY_k+\nabla F(X_{k+1})-\\
 &amp;=(C-\frac{v\boldsymbol1^T}{n})(Y_k-v\bar y_k)+(I-\frac{v\boldsymbol1^T}{n})(\nabla F(X_{k+1})-\nabla F(X_k))
 \tag{3.6}
 \end{align}\]</span>
-<p>where <span class="math display">\[
+where
+<span class="math display">\[
 \frac{1}{n}v\boldsymbol1^TCY_k=v\bar y_k
 \]</span></p>
 <p><span class="math display">\[
 Cv\bar y_k+\frac{v\boldsymbol1^T}{n}Y_k-\frac{v\boldsymbol1^Tv}{n}\bar y_k-v\bar y_k=v\bar y_k+v\bar y_k-v\bar y_k-v\bar y_k=0
-\]</span> This is because the column-stochastic of <span class="math inline">\(C\)</span>, i.e. <span class="math inline">\(\mathbf{1}^TC=\mathbf{1}^T\)</span> and lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a>.</p>
-Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</span> as
+\]</span>
+This is because the column-stochastic of <span class="math inline">\(C\)</span>, i.e. <span class="math inline">\(\mathbf{1}^TC=\mathbf{1}^T\)</span> and lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a>.</p>
+<p>Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</span> as
 <span class="math display">\[\begin{equation}
 (y_1-\frac{1}{n}v_1\sum_{i=1}^ny_i,...,y_n-\frac{1}{n}v_n\sum_{i=1}^ny_i)^T
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p>Where <span class="math inline">\(v=(v_1,...,v_n)^T\in\mathbb{R}^n,y_i\in\mathbb R^p\)</span>.</p>
 <p>Additionally, recall our goal is to bound those three distance, from <a href="the-push-pull-method.html#eq:barxpp">(3.4)</a>, we separate <span class="math inline">\(Y_k\)</span> as <span class="math inline">\(Y_k-v\bar y_k\)</span> and <span class="math inline">\(v\bar y_k\)</span>, then</p>
-<span class="math display" id="eq:xbar2pp">\[\begin{align}
+<p><span class="math display" id="eq:xbar2pp">\[\begin{align}
 
 \bar x_{k+1} &amp;=\bar x_k -\underbrace{\frac{1}{n}u^T\boldsymbol\alpha v}_{\alpha&#39;}\bar y_k-\frac{1}{n}u^T\boldsymbol \alpha(Y_k-v\bar y_k)\\
 &amp;=\bar x_k-\alpha&#39;(\bar y_k-\underbrace{\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)}_{g_k})-\frac{1}{n}\alpha&#39;\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)\\
 &amp;=\bar x_k-\alpha&#39;(\bar y_k-g_k)-\alpha&#39;g_k-\frac{1}{n}u^T\boldsymbol\alpha(Y_k-v\bar y_k)
 \tag{3.7}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>The auther introduce <span class="math inline">\(g_k=\frac{1}{n}\boldsymbol 1^T\nabla F(\boldsymbol 1\bar x_k)\)</span> is because <span class="math inline">\(\bar y_k =\frac{1}{n}\boldsymbol 1^T \nabla F(X_k)\)</span>, i.e, equation <a href="the-push-pull-method.html#eq:avgy">(3.2)</a>. It is the gradient of the obejective function at <span class="math inline">\(\bar x_k\)</span>.</p>
 </div>
 <div id="inequalities" class="section level3">
@@ -312,33 +320,36 @@ Similarly, we can rewrite <span class="math inline">\(Y_{k+1}-v\bar y_{k+1}\)</s
 \tag{3.8}
 \end{equation}\]</span>
 </div>
-
 <p>In general, assumption <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> is used to derive the relationships in <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, and <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>. Assumption <a href="index.html#exr:muL">1.1</a> is needed for lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>.</p>
 <p>Next we derive the elements of <span class="math inline">\(A\)</span>, which can be seen in <a href="the-push-pull-method.html#eq:App">(3.13)</a>. We add supported lemmas during derivation.</p>
 <p>First, for <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span>, substitute <span class="math inline">\(\bar x_{k+1}\)</span> using <a href="the-push-pull-method.html#eq:xbar2pp">(3.7)</a>, we have</p>
-<span class="math display" id="eq:ineq11">\[\begin{align}
+<p><span class="math display" id="eq:ineq11">\[\begin{align}
 
 \Vert\bar x_{k+1}-x^*\Vert_2&amp;\leq \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2}+\alpha^{\prime}\left\|\bar{y}_{k}-g_{k}\right\|_{2}+\frac{1}{n}\left\|u^{\top} \boldsymbol{\alpha}\left(Y_{k}-v \bar{y}_{k}\right)\right\|_{2}
 \tag{3.9}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>On the right hand side, <span class="math inline">\(\Vert \bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\Vert_2\)</span> is the distance between the optimal and the next iterated value, <span class="math inline">\(\vert \bar{y}_{k}-g_{k}\Vert_2\)</span> is the distance between average gradient and gradient of iterated value. Lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> connects them with <span class="math inline">\(\Vert X_{k}-\boldsymbol1\bar x_{k}\Vert_2\)</span> and <span class="math inline">\(\Vert\bar x_{k+1}-x^*\Vert_2\)</span> and add conditions on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>.</p>
 
 <div class="lemma">
-<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> hold, <span class="math display">\[
+<span id="lem:lem31" class="lemma"><strong>Lemma 3.4  </strong></span>Let assumption <a href="index.html#exr:muL">1.1</a> hold,
+<span class="math display">\[
 \left\|\bar{y}_{k}-g_{k}\right\|_{2} \leq \frac{L}{\sqrt{n}}\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{2}, \quad\left\|g_{k}\right\|_{2} \leq L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
-\]</span> In addition, when <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, we have <span class="math display">\[
+\]</span>
+In addition, when <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>, we have
+<span class="math display">\[
 \left\|\bar{x}_{k}-\alpha^{\prime} g_{k}-x^{*}\right\|_{2} \leq\left(1-\alpha^{\prime} \mu\right)\left\|\bar{x}_{k}-x^{*}\right\|_{2}, \quad \forall k
 \]</span>
 </div>
-
 <p>However, notice that our final goal involves norm <span class="math inline">\(\Vert\cdot\Vert_R\)</span> and <span class="math inline">\(\Vert\cdot\Vert_C\)</span>. We need to transform them, which is ensured from the equivalence of norms. To make the notation more easily, the author gives lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a>.</p>
 
 <div class="lemma">
-<p><span id="lem:lem35" class="lemma"><strong>Lemma 3.5  </strong></span><span class="math inline">\(\exists \delta_{\mathrm{C}, \mathrm{R}}, \delta_{\mathrm{C}, 2}, \delta_{\mathrm{R}, \mathrm{C}}, \delta_{\mathrm{R}, 2}&gt;0,s.t. \forall X\in\mathbb{R}^{n\times p}\)</span>, we have <span class="math inline">\(\Vert X\Vert_{\mathrm{C}} \leq \delta_{\mathrm{C}, \mathrm{R}}\Vert X\Vert_{\mathrm{R}},\Vert X\Vert_{\mathrm{C}} \leq \delta_{\mathrm{C}, 2}\Vert X\Vert_{2},\Vert X\Vert_{\mathrm{R}} \leq \delta_{\mathrm{R}, \mathrm{C}}\Vert X\Vert_{\mathrm{C}}\)</span>, and <span class="math inline">\(\|X\|_{\mathrm{R}} \leq\delta_{\mathrm{R}, 2}\Vert X\Vert_{2}\)</span>. In addition, with a proper rescaling of the norms <span class="math inline">\(\Vert\cdot\Vert_R\)</span> and <span class="math inline">\(\Vert\cdot\Vert_C\)</span>, we have <span class="math inline">\(\Vert X\Vert_{2} \leq\Vert X\Vert_{\mathrm{R}} \text { and }\Vert X\Vert_{2} \leq\Vert X\Vert_{\mathrm{C}}\)</span></p>
+<p><span id="lem:lem35" class="lemma"><strong>Lemma 3.5  </strong></span><span class="math inline">\(\exists \delta_{\mathrm{C}, \mathrm{R}}, \delta_{\mathrm{C}, 2}, \delta_{\mathrm{R}, \mathrm{C}}, \delta_{\mathrm{R}, 2}&gt;0,s.t. \forall X\in\mathbb{R}^{n\times p}\)</span>, we have
+<span class="math inline">\(\Vert X\Vert_{\mathrm{C}} \leq \delta_{\mathrm{C}, \mathrm{R}}\Vert X\Vert_{\mathrm{R}},\Vert X\Vert_{\mathrm{C}} \leq \delta_{\mathrm{C}, 2}\Vert X\Vert_{2},\Vert X\Vert_{\mathrm{R}} \leq \delta_{\mathrm{R}, \mathrm{C}}\Vert X\Vert_{\mathrm{C}}\)</span>, and
+<span class="math inline">\(\|X\|_{\mathrm{R}} \leq\delta_{\mathrm{R}, 2}\Vert X\Vert_{2}\)</span>. In addition, with a proper rescaling of the norms <span class="math inline">\(\Vert\cdot\Vert_R\)</span> and <span class="math inline">\(\Vert\cdot\Vert_C\)</span>, we have <span class="math inline">\(\Vert X\Vert_{2} \leq\Vert X\Vert_{\mathrm{R}} \text { and }\Vert X\Vert_{2} \leq\Vert X\Vert_{\mathrm{C}}\)</span></p>
 </div>
-
-<p>On the other hand, <span class="math inline">\(\boldsymbol\alpha=\text{diag}(\alpha_1,...,\alpha_n)\in \mathbb{R}^{n\times n}\)</span>, then <span class="math inline">\(\Vert \boldsymbol\alpha\Vert_2=\sigma_{\max}(\boldsymbol\alpha)=\underset{i}{\max}\alpha_i:=\hat\alpha\)</span>,since <span class="math inline">\(\alpha_i\in\mathbb{R}^+,i=1,2,...,n\)</span>. <span class="math inline">\(\sigma(A)\)</span> denotes the singular value of <span class="math inline">\(A\)</span>.</p>
-Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.9)</a> can be written as
+<p>On the other hand,
+<span class="math inline">\(\boldsymbol\alpha=\text{diag}(\alpha_1,...,\alpha_n)\in \mathbb{R}^{n\times n}\)</span>, then <span class="math inline">\(\Vert \boldsymbol\alpha\Vert_2=\sigma_{\max}(\boldsymbol\alpha)=\underset{i}{\max}\alpha_i:=\hat\alpha\)</span>,since <span class="math inline">\(\alpha_i\in\mathbb{R}^+,i=1,2,...,n\)</span>. <span class="math inline">\(\sigma(A)\)</span> denotes the singular value of <span class="math inline">\(A\)</span>.</p>
+<p>Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.9)</a> can be written as
 <span class="math display" id="eq:ineq1pp">\[\begin{align}
 
 \Vert\bar x_{k+1}-x^*\Vert_2&amp;\leq
@@ -346,14 +357,14 @@ Finally, <a href="the-push-pull-method.html#eq:ineq11">(3.9)</a> can be written 
 &amp;\frac{\hat{\alpha}\|u\|_{2}}{n}\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}}
 \tag{3.10}
 \end{align}\]</span>
-<p>Where the first and second parts come from lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>, which adds constraints on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>. The second part also uses lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming different norms, as well as the last part. Additionally, the last part uses lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> when separating <span class="math inline">\(u,\boldsymbol\alpha\)</span> out of norm, which can be seen as a further result of consistency of norms.</p>
+Where the first and second parts come from lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a>, which adds constraints on <span class="math inline">\(f_i\)</span> and <span class="math inline">\(\alpha&#39;\)</span>. The second part also uses lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming different norms, as well as the last part. Additionally, the last part uses lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> when separating <span class="math inline">\(u,\boldsymbol\alpha\)</span> out of norm, which can be seen as a further result of consistency of norms.</p>
 
 <div class="lemma">
-<span id="lem:lem34" class="lemma"><strong>Lemma 3.6  </strong></span> Given an arbitrary norm <span class="math inline">\(\Vert\cdot\Vert\)</span>, <span class="math inline">\(\forall W\in\mathbb{R}^{n\times n}\)</span> and <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, we have <span class="math inline">\(\Vert WX\Vert\leq\Vert W\vert\Vert X\Vert\)</span>. <span class="math inline">\(\forall w\in\mathbb{R}^{n\times 1},x\in\mathbb{R}^{1\times p},\Vert wx\Vert = \Vert w\Vert \Vert x\Vert_2\)</span>
+<span id="lem:lem34" class="lemma"><strong>Lemma 3.6  </strong></span>
+Given an arbitrary norm <span class="math inline">\(\Vert\cdot\Vert\)</span>, <span class="math inline">\(\forall W\in\mathbb{R}^{n\times n}\)</span> and <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, we have <span class="math inline">\(\Vert WX\Vert\leq\Vert W\vert\Vert X\Vert\)</span>. <span class="math inline">\(\forall w\in\mathbb{R}^{n\times 1},x\in\mathbb{R}^{1\times p},\Vert wx\Vert = \Vert w\Vert \Vert x\Vert_2\)</span>
 </div>
-
 <p>\</p>
-For <span class="math inline">\(\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R\)</span>, from <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, we have
+<p>For <span class="math inline">\(\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R\)</span>, from <a href="the-push-pull-method.html#eq:pp1bar">(3.5)</a>, we have
 <span class="math display" id="eq:ineq2pp">\[\begin{align}
 \Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R&amp;\leq 
 \underbrace{\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R}_{\sigma_R}\cdot\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R+\Vert R-\frac{\mathbf{1} u^{T}}{n}\Vert_R\cdot \Vert\boldsymbol{\alpha}\Vert_R\cdot\Vert Y_{k}-v\bar y_k+v\bar y_k\Vert_R\\
@@ -367,43 +378,41 @@ For <span class="math inline">\(\Vert X_{k+1}-\boldsymbol1\bar x_{k+1}\Vert_R\)<
 
 &amp;\hat{\alpha} \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \tag{3.11}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>Where the second inquality is derived from lemma <a href="the-push-pull-method.html#lem:lem33">3.8</a> in transforming <span class="math inline">\(\Vert\boldsymbol\alpha\Vert_R=\Vert\boldsymbol\alpha\Vert_2=\hat\alpha\)</span> since <span class="math inline">\(\boldsymbol\alpha\)</span> is diagonal and lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> in transforming <span class="math inline">\(\Vert\cdot\Vert_R\)</span> into <span class="math inline">\(\Vert\cdot\Vert_C\)</span>. Next we use lemma <a href="the-push-pull-method.html#lem:lem34">3.6</a> and <a href="the-push-pull-method.html#lem:lem31">3.4</a> to transform <span class="math inline">\(\Vert \bar y_k\Vert_R\)</span> into the two parts. Finally, we choose a proper rescaling of the norm <span class="math inline">\(\Vert\cdot\Vert_R\)</span> to derive <span class="math inline">\(\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_2\leq\Vert X_{k}-\mathbf{1} \bar{x}_{k}\Vert_R\)</span>.</p>
 
 <div class="lemma">
 <span id="lem:lem32" class="lemma"><strong>Lemma 3.7  </strong></span>Let assumptions <a href="the-push-pull-method.html#exr:mrc">3.1</a> and <a href="the-push-pull-method.html#exr:adigraph">3.2</a> hold. Then the spectral radii of <span class="math inline">\((R-\frac{\mathbf{1}u^T}{n})\)</span> and <span class="math inline">\((C-\frac{v\mathbf{1}^T}{n})\)</span>, denoted as <span class="math inline">\(\rho_R\)</span> and <span class="math inline">\(\rho_C\)</span> respectively are both less than 1.
 </div>
-
 <p>\</p>
 
 <div class="lemma">
 <span id="lem:lem33" class="lemma"><strong>Lemma 3.8  </strong></span>There exist matrix norms <span class="math inline">\(\Vert\cdot\Vert_R\)</span> and <span class="math inline">\(\Vert\cdot\Vert_C\)</span> such that <span class="math inline">\(\sigma_R:=\Vert R-\frac{\mathbf1u^T}{n}\Vert_R&lt;1,\sigma_{\mathrm{C}}:=\left\|\mathbf{C}-\frac{v \mathbf{1}^{\mathrm{T}}}{n}\right\|_{\mathrm{C}}&lt;1\)</span>, and <span class="math inline">\(\sigma_R\)</span> and <span class="math inline">\(\sigma_C\)</span> are arbitrarily close to <span class="math inline">\(\rho_R\)</span> and <span class="math inline">\(\rho_C\)</span>, respectively. In addition, given any diagnal matrix <span class="math inline">\(W\in\mathbb{R}^{n\times n}\)</span>, we have <span class="math inline">\(\|W\|_{\mathrm{R}}=\|W\|_{\mathrm{C}}=\|W\|_{2}\)</span>.
 </div>
-
 <p>\</p>
 <p>For <span class="math inline">\(\Vert Y_{k+1}-v\bar y_{k+1}\Vert_C\)</span>, denote <span class="math inline">\(\sigma_{\mathrm{C}}:=\left\|\mathbf{C}-\frac{v \mathbf{1}^{\mathrm{T}}}{n}\right\|_{\mathrm{C}}\)</span> and <span class="math inline">\(c_0 :=\Vert I-\frac{v\boldsymbol1^T}{n}\Vert_C\)</span>, from <a href="the-push-pull-method.html#eq:ppvbar">(3.6)</a>, we have</p>
-<span class="math display">\[\begin{align}
+<p><span class="math display">\[\begin{align}
 \Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&amp;\leq
 \sigma_C\Vert Y_k-v\bar y_k\Vert_C+c_0\Vert\nabla F(X_{k+1})-\nabla F(X_k)\Vert_C\\
 &amp;\leq \sigma_C \Vert Y_k-v\bar y_k\Vert_C + c_0L\delta_{C,2}\Vert X_{k+1} - X_k\Vert_2
-\end{align}\]</span>
-For <span class="math inline">\(\Vert X_{k+1}-X_k\Vert_2\)</span>, we have
+\end{align}\]</span></p>
+<p>For <span class="math inline">\(\Vert X_{k+1}-X_k\Vert_2\)</span>, we have
 <span class="math display">\[\begin{align}
 \Vert X_{k+1}-X_k\Vert_2 &amp;=\Vert R(X_k-\boldsymbol\alpha Y_k)-X_k\Vert_2\\
 &amp;=\Vert (R-I)(X_k-\mathbf 1\bar x_k)+R\boldsymbol\alpha (Y_k-v\bar y_k+v\bar y_k)\Vert_2\\
 &amp;\leq \Vert R- I\Vert_2\cdot \Vert X_k-\mathbf 1\bar x_k\Vert_R + 
 \Vert R\Vert_2\hat\alpha(\Vert Y_k-v\bar y_k+v\bar y_k\Vert_2)\\
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>The inequality is based on lemma <a href="the-push-pull-method.html#lem:lem35">3.5</a> by choosing a proper rescaling of <span class="math inline">\(\Vert \cdot\Vert_R\)</span>. Then by lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> and combine like terms, we have</p>
-<span class="math display" id="eq:ineq3pp">\[\begin{align}
+<p><span class="math display" id="eq:ineq3pp">\[\begin{align}
 \Vert Y_{k+1}-v\bar y_{k+1}\Vert_C&amp;\leq \left(\sigma_{\mathrm{C}}+\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L\right)\left\|Y_{k}-v \bar{y}_{k}\right\|_{\mathrm{C}} +\\ 
 &amp;c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-I\|_{2}+\hat{\alpha}\|R\|_{2}\|v\|_{2} \frac{L}{\sqrt{n}}\right)\left\|X_{k}-\mathbf{1} \bar{x}_{k}\right\|_{\mathrm{R}} +\\
 
 &amp;\hat{\alpha} c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2}\|v\|_{2} L^{2}\left\|\bar{x}_{k}-x^{*}\right\|_{2}
 \tag{3.12}
-\end{align}\]</span>
+\end{align}\]</span></p>
 <p>In short, <span class="math inline">\(A\)</span> can be written as</p>
-<span class="math display" id="eq:App">\[\begin{equation}
+<p><span class="math display" id="eq:App">\[\begin{equation}
 
 A_{pp} = 
 \left(
@@ -417,25 +426,24 @@ c_{0} \delta_{\mathrm{C}, 2} L\left(\|R-\mathbf{I}\|_{2}+\hat{\alpha}\|R\|_{2}\|
 \end{array}
 \right)
 \tag{3.13}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 </div>
 <div id="spectral-radius-of-a" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Spectral radius of A</h3>
 <p>Lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> lead us to give conditions on <span class="math inline">\(A\)</span> so that <span class="math inline">\(\rho(A_{pp})&lt;1\)</span>. Hence we need to make <span class="math inline">\(a_{ii}&lt;1,i=1,2,3\)</span> and <span class="math inline">\(\det(I-A_{pp})&gt;0\)</span>.</p>
-From <a href="the-push-pull-method.html#lem:lem33">3.8</a>, <span class="math inline">\(\sigma_R&lt;1\)</span>, so it is sufficient to have <span class="math inline">\(a_{22}\leq\frac{1+\sigma_R}{2}\)</span> so that <span class="math inline">\(a_{22}&lt;1\)</span>. Similar for <span class="math inline">\(a_{33}&lt;1\)</span>, we let <span class="math inline">\(a_{33}\leq\frac{1+\sigma_C}{2}\)</span>. This may explain why the authors let <span class="math inline">\(1-a_{22}\geq \frac{1-\sigma_R}{2}\)</span> and <span class="math inline">\(1-a_{33}\geq\frac{1-\sigma_C}{2}\)</span>. For <span class="math inline">\(a_{11}&lt;1\)</span>, i.e. <span class="math inline">\(\alpha&#39;\mu&gt;0\)</span>, we have
+<p>From <a href="the-push-pull-method.html#lem:lem33">3.8</a>, <span class="math inline">\(\sigma_R&lt;1\)</span>, so it is sufficient to have <span class="math inline">\(a_{22}\leq\frac{1+\sigma_R}{2}\)</span> so that <span class="math inline">\(a_{22}&lt;1\)</span>. Similar for <span class="math inline">\(a_{33}&lt;1\)</span>, we let <span class="math inline">\(a_{33}\leq\frac{1+\sigma_C}{2}\)</span>. This may explain why the authors let <span class="math inline">\(1-a_{22}\geq \frac{1-\sigma_R}{2}\)</span> and <span class="math inline">\(1-a_{33}\geq\frac{1-\sigma_C}{2}\)</span>. For <span class="math inline">\(a_{11}&lt;1\)</span>, i.e. <span class="math inline">\(\alpha&#39;\mu&gt;0\)</span>, we have
 <span class="math display" id="eq:ag0">\[\begin{equation}
 \alpha&#39; = \frac{1}{n}u^T\boldsymbol{\alpha}v
 =\frac{1}{n}\sum_{i=1}^n\alpha_iu_iv_i&gt;0
 \tag{3.14}
 \end{equation}\]</span>
-<p>Which can be seen from lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a> that <span class="math inline">\(u,v\in\mathbb{R}^{n}\)</span> are nonnegative vectors and <span class="math inline">\(\alpha_i\geq0\)</span>.</p>
+Which can be seen from lemma <a href="the-push-pull-method.html#lem:eigvrc">3.1</a> that <span class="math inline">\(u,v\in\mathbb{R}^{n}\)</span> are nonnegative vectors and <span class="math inline">\(\alpha_i\geq0\)</span>.</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> Lemma <a href="the-push-pull-method.html#lem:lem37">3.2</a> also requires nonnegative matrix, so we also need <span class="math inline">\(a_{11}=1-\alpha&#39;\mu\geq 0\)</span>, which is satisfied according to lemma <a href="the-push-pull-method.html#lem:lem31">3.4</a> by requring <span class="math inline">\(\alpha&#39;\leq \frac{2}{\mu+L}\)</span>.
 </div>
-
 <p>Next we deive the sufficient conditions on <span class="math inline">\(\hat\alpha:=\underset{i}{\max}\alpha_i\)</span> so that <span class="math inline">\(\det{(I-A_{pp})}&gt;0\)</span>. Additionally, since <span class="math inline">\(\alpha&#39;=\frac{1}{n}\sum\limits_{i=1}^nu_iv_i\alpha_i=\frac{1}{n}\sum\limits_{i\in\mathcal{R}_R\cap\mathcal{R}_C}u_iv_i\alpha_i\)</span> and <span class="math inline">\(\hat\alpha=\underset{i}{\max}\alpha_i\)</span>, then <span class="math inline">\(\exists M,s.t.\alpha&#39;=M\hat\alpha\)</span>. <span class="math inline">\(M\)</span> is determined once we know the graphs <span class="math inline">\(\mathcal{G}_R\)</span> and <span class="math inline">\(\mathcal{G}_C\)</span> and choose the step sizes for each agent. Then <span class="math inline">\(\det(I-A)\)</span> becomes a function of <span class="math inline">\(\hat\alpha\)</span>, thus we can derive the requirement for the step sizes <span class="math inline">\(\alpha_i\)</span> by letting <span class="math inline">\(\det(I-A)=f(\hat\alpha)&gt;0\)</span>.</p>
-<span class="math display" id="eq:detppo">\[\begin{align}
+<p><span class="math display" id="eq:detppo">\[\begin{align}
 \det(I-A) &amp;= \left(1-a_{11}\right)\left(1-a_{22}\right)\left(1-a_{33}\right)-a_{12} a_{23} a_{31}\\
 &amp;-a_{13} a_{21} a_{32}-a_{12} a_{23} a_{31}-a_{13} a_{21} a_{32}\\
 &amp;-\left(1-a_{22}\right) a_{13} a_{31}-\left(1-a_{11}\right) a_{23} a_{32}\\
@@ -446,27 +454,28 @@ From <a href="the-push-pull-method.html#lem:lem33">3.8</a>, <span class="math in
 &amp;:=\hat\alpha(c_3-c_2\hat\alpha-c_1\hat\alpha^2)&gt;0
 \tag{3.15}
 \end{align}\]</span>
-Where the inequality holds for <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span>, which gives,
-<span class="math display">\[\begin{equation}
+Where the inequality holds for <span class="math inline">\(1&gt;(1-a_{22})\geq\frac{1-\sigma_R}{2}\)</span>,and <span class="math inline">\(1&gt;(1-a_{33})\geq\frac{1-\sigma_C}{2}\)</span>, which gives, <span class="math display">\[\begin{equation}
 \hat{\alpha} \leq \min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right\}
-\end{equation}\]</span>
-Since <span class="math inline">\(\hat\alpha&gt;0\)</span>, let <a href="the-push-pull-method.html#eq:detppo">(3.15)</a> be positive is equivalent to have <span class="math inline">\(c_3-c_2\hat\alpha-c_1\hat\alpha^2&gt;0\)</span>. Hence,
+\end{equation}\]</span></p>
+<p>Since <span class="math inline">\(\hat\alpha&gt;0\)</span>, let <a href="the-push-pull-method.html#eq:detppo">(3.15)</a> be positive is equivalent to have <span class="math inline">\(c_3-c_2\hat\alpha-c_1\hat\alpha^2&gt;0\)</span>. Hence,
 <span class="math display">\[\begin{equation}
 \hat\alpha&lt; \frac{\sqrt{c_2^2+4c_1c_2}-c_2}{2c_1}
 =\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}
-\end{equation}\]</span>
-So when
+\end{equation}\]</span></p>
+<p>So when
 <span class="math display">\[\begin{equation}
 \hat\alpha\leq \min \left\{\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|R\|_{2} L},\frac{2 c_{3}}{c_{2}+\sqrt{c_{2}^{2}+4 c_{1} c_{3}}}\right\}
-\end{equation}\]</span>
+\end{equation}\]</span></p>
 <p><span class="math inline">\(\rho(A_{pp})&lt;1\)</span>.</p>
 <p><strong>Todo: <span class="math inline">\(\min \left\{\frac{\left(1-\sigma_{\mathrm{R}}\right) \sqrt{n}}{2 \sigma_{\mathrm{R}}\|v\|_{\mathrm{R}} L}, \frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 c_{0} \delta_{\mathrm{C}, 2}\|R\|_{2} L}\right\}\stackrel{?}=\frac{\left(1-\sigma_{\mathrm{C}}\right)}{2 \sigma_{\mathrm{C}} \delta_{\mathrm{C}, 2}\|\mathbf{R}\|_{2} L}\)</span> </strong></p>
 
 <div class="remark">
 <p> <span class="remark"><em>Remark. </em></span> <br />
-- If we do not use the inequality in <a href="the-push-pull-method.html#eq:detppo">(3.15)</a>, we can still have <span class="math inline">\(b_3-b_2\hat\alpha-b_1\hat\alpha^2&gt;0\)</span>. However, it is not easy to determine the sign of <span class="math inline">\(b_i,i=1,2,3\)</span> for this situation.</p>
+</p>
+<ul>
+<li>If we do not use the inequality in <a href="the-push-pull-method.html#eq:detppo">(3.15)</a>, we can still have <span class="math inline">\(b_3-b_2\hat\alpha-b_1\hat\alpha^2&gt;0\)</span>. However, it is not easy to determine the sign of <span class="math inline">\(b_i,i=1,2,3\)</span> for this situation.</li>
+</ul>
 </div>
-
 <p><strong>Todo:When <span class="math inline">\(\hat\alpha\)</span> is sufficiently small, show <span class="math inline">\(\rho(A_{pp})\approx 1-\alpha&#39;\mu\)</span></strong></p>
 
 </div>
@@ -475,7 +484,7 @@ So when
 <div class="footnotes">
 <hr />
 <ol start="2">
-<li id="fn2"><p>from <span class="citation">Nedić, Olshevsky, and Rabbat (<a href="#ref-nedic2018network">2018</a>)</span><a href="the-push-pull-method.html#fnref2">↩</a></p></li>
+<li id="fn2"><p>from <span class="citation">Nedić, Olshevsky, and Rabbat (<a href="#ref-nedic2018network" role="doc-biblioref">2018</a>)</span><a href="the-push-pull-method.html#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -489,11 +498,13 @@ So when
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -501,12 +512,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -518,6 +528,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -534,7 +548,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
