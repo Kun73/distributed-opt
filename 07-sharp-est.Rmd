@@ -392,6 +392,8 @@ we have
 $$
 K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)
 $$
+
+The above can also begin with theorem \@ref(thm:impRp)
 ```
 
 ## Sharpness
@@ -405,4 +407,4 @@ Recall in chapter \@ref(sec:asynt), we have \@ref(eq:tscen), i.e.
 \text { Time }_{n, \varepsilon} \text { (decentralized) } \leq p(\mathcal{G}) \text { Time }_{n, \varepsilon} \text { (centralized) }
 \end{equation}
 
-The corallary \@ref(cor:transienttimedsgd) indicates that for DSGD with $\alpha_k=\frac{\theta}{\mu(k+K)},\theta>2$, when $k\geq K_T$, $p(\mathcal{G})=\mathcal{O}(1)$, this is what we call **asymptotic network independence**. Hence for a problem where a usual centralized implementation requires a large number of iteration, we can consider a distributed one with asymptotic network independence property. As a result, both methods demand the same computational power but the distributed one enjoys more desirable properties.
+The corallary \@ref(cor:transienttimedsgd) indicates that for DSGD with $\alpha_k=\frac{\theta}{\mu(k+K)},\theta>2$, when $k\geq K_T$, $p(\mathcal{G})=\mathcal{O}(1)$, this is what we call **asymptotic network independence**. 

@@ -9,10 +9,10 @@ An undesirable property of distributed optimization method is that the increasin
 
 
 where $\text { Time }_{n, \varepsilon} \text { (decentralized) }$ denotes the time for the decentralized algorithm on n nodes
-to reach $\varepsilon$ accuracy, and $\text { Time }_{n, \varepsilon} \text { (centralized) }$ is the time for the centralized algorithm which can query $n$ gradients per time step to reach $\varepsilon$ accuracy.$\mathcal{G}=(\mathcal{N},\mathcal{E})$ Typically, $p(\mathcal{G})$ is at least $\mathcal{O}(n^2)$^[smaller $p(\mathcal{G})$ is possible for some special cases], which is inpractical to use. 
+to reach $\varepsilon$ accuracy, and $\text { Time }_{n, \varepsilon} \text { (centralized) }$ is the time for the centralized algorithm which can query $n$ gradients per time step to reach $\varepsilon$ accuracy.$\mathcal{G}=(\mathcal{N},\mathcal{E})$ denotes the graph. Typically, $p(\mathcal{G})$ is at least $\mathcal{O}(n^2)$^[smaller $p(\mathcal{G})$ is possible for some special cases], which is inpractical to use. This is because, $p(\mathcal{G})=\mathcal{O}(n^2)$ implies the distributed version would be $n^2$ times slower than the centralized one with the same computational power.
 
 
-$p(\mathcal{G})=\mathcal{O}(1)$ is a desirable setting, which means a decentralized algorithm converge to the optimal at a comparable rate to a centralized algorithm with the same computational power^[Computing Power: Two processors have the same computing power if they can run the same programs (after translation into each processor's machine language) and produce the same results]. Fortunately, it is possible for the iteration time $k$ to be large enough for some distributed stochastic optimization, which is the **asymptotic network independence** property: it is as if the network is not even there. 
+$p(\mathcal{G})=\mathcal{O}(1)$ is a desirable setting, which means a decentralized algorithm converge to the optimal at a comparable rate to a centralized algorithm with the same computational power^[Computing Power: Two processors have the same computing power if they can run the same programs (after translation into each processor's machine language) and produce the same results]. Fortunately, it is possible for the iteration time $k$ to be large enough for some distributed stochastic optimization, which is the **asymptotic network independence** property: it is as if the network is not even there. In chapter \@ref(sec:sharp), we summarize some notes showing the asymptotic network independence property of algorithm \@ref(exm:dsgd) with $\alpha_k=\frac{\theta}{\mu(k+K)}$[@pu2019sharp].
 
 ## SGD and DSGD 
 
@@ -53,12 +53,12 @@ For k=0,1,...,
 
 where $\bar g(k)=\frac{1}{n}\sum\limits_{i=1}^n g_i(x(k),\xi_i(k)),\alpha_k=\frac{1}{\mu k}$, we use $\bar g(k)$ here to make the gradient comparable to that in DSGD, i.e., $\sum\limits_{j=1}^n w_{ij} g_j(x_j(k),\xi_j(k))$. 
 
-Choose $2-$norm as the loss function, the risk at the $k$th step is 
+Choose $2-$norm as the loss function, the distance between $x(k)$ and $x^*$ at the $k$th step is 
 \begin{equation}
 R(k)=E  \left[\Vert x(k)-x^*\Vert^2\right]=\frac{1}{n}\sum\limits_{i=1}^nE  \left[\Vert x(k)-x^*\Vert^2\right]
 (\#eq:risksgd)
 \end{equation} 
-which hints us to evaluate the performance of DSGD by 
+which hints us to evaluate the similar distance of DSGD by 
 \begin{equation}
 R'(k)=\frac{1}{n}\sum\limits_{i=1}^n E\left[\Vert x_i(k)-x^*\Vert^2\right]
 (\#eq:riskdsgd)
@@ -70,6 +70,11 @@ R'(K)=\underbrace{E  \left[\Vert \bar x(k)-x^*\Vert^2\right]}_{\text{expected op
 \underbrace{\frac{1}{n}\sum_{i=1}^nE  \left[\Vert  x_i(k)-\bar x(k)^*\Vert^2\right]}_{\text{expected consensus error}}
 (\#eq:drdsgd)
 \end{equation}
+This is because 
+\begin{align}
+\frac{1}{n}\sum_{i=1}^n E\left[\langle x_i(k)-\bar x, \bar x - x^*\rangle\right]&=E\left[\langle \frac{1}{n}\sum_{i=1}^nx_i(k)-\bar x, \bar x - x^*\rangle\right]\\
+&=0
+\end{align}
 
 ## Bounds
 
