@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Notes about Distributed Optimization</title>
+  <title>Chapter 8 Some results in asymptotic network independence | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 8 Some results in asymptotic network independence | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 8 Some results in asymptotic network independence | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
-
+<link rel="prev" href="sec-asynt.html"/>
+<link rel="next" href="sec-sharp.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -128,54 +128,99 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="sec:referasymnt" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Some results in asymptotic network independence</h1>
+<div id="compressed-communication" class="section level2">
+<h2><span class="header-section-number">8.1</span> Compressed Communication</h2>
+<div id="choco-sgd" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> CHOCO-SGD</h3>
+<span class="citation">Koloskova, Stich, and Jaggi (<a href="#ref-koloskova2019decentralized">2019</a>)</span> proposed a decentralized stochastic method Choco-SGD(see algorithm <a href="sec-referasymnt.html#exm:chocosgd">8.1</a>) that converges at rate
+<span class="math display">\[\begin{equation}
+\mathcal{O}(\frac{1}{nk}+\frac{1}{(\delta^2w^k)^2})
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\delta=1-|\lambda_2(W)|\)</span> denotes the spectral gap of mixing matrix <span class="math inline">\(W\)</span>, <span class="math inline">\(w\leq1\)</span> is the compression quality factor. This method conserve the asymptotic network independence and can be applied to a network where the nodes compress their model update with quality <span class="math inline">\(0&lt;w\leq1\)</span>. Addtionnally, the noise introduced by compression operator vanishes as <span class="math inline">\(k\to\infty\)</span>.</p>
+<p>Different from DSGD, Choco-SGD <a href="sec-referasymnt.html#exm:chocosgd">8.1</a> use the averaged iterate <span class="math inline">\(x_{\mathrm{avg}}=\frac{1}{S}\sum\limits_{k=1}^{k_{\mathrm{stop}}}w_k\bar x(k)\)</span>, i.e., theorem <a href="sec-referasymnt.html#thm:chocorate">8.1</a>,</p>
 
+<div class="theorem">
+<span id="thm:chocorate" class="theorem"><strong>Theorem 8.1  </strong></span>Let assumptions <a href="index.html#exr:muL">1.1</a> and <a href="sec-referasymnt.html#exr:chocoF">8.2</a> hold, algorithm <a href="sec-referasymnt.html#exm:chocosgd">8.1</a> with SGD stepsize <span class="math inline">\(\alpha_k=\frac{4}{\mu(a+k)}\)</span>, <span class="math inline">\(a\geq\max\{\frac{410}{\delta^2w},16\kappa\}\)</span> for <span class="math inline">\(\kappa=\frac{L}{\mu}\)</span>, and consensus stepsize <span class="math inline">\(\gamma=\frac{\delta^{2} \omega}{16 \delta+\delta^{2}+4 \beta^{2}+2 \delta \beta^{2}-8 \delta \omega}\)</span> converges with the rate <span class="math display">\[
+\mathbb{E} \left[f(x_{\mathrm{avg}})-f(x^*)\right]=\mathcal{O}\left(\frac{\bar{\sigma}^{2}}{\mu n T}\right)+\mathcal{O}\left(\frac{\kappa G^{2}}{\mu \omega^{2} \delta^{4} T^{2}}\right)+\mathcal{O}\left(\frac{G^{2}}{\mu \omega^{3} \delta^{6} T^{3}}\right)
+\]</span> where <span class="math inline">\(x_{\mathrm{avg}}=\frac{1}{S}\sum\limits_{k=0}^{k_{\mathrm{stop}}}w_k\bar x(k)\)</span> with weight <span class="math inline">\(w_k=(a+k)^2\)</span> and <span class="math inline">\(S=\sum\limits_{k=0}^{k_{\mathrm{stop}}}w_k\)</span>
+</div>
+
+<p>In the proof of theorem <a href="sec-referasymnt.html#thm:chocorate">8.1</a>, the difference is that the author <span class="citation">Koloskova, Stich, and Jaggi (<a href="#ref-koloskova2019decentralized">2019</a>)</span> deal the term <span class="math display">\[
+\bar x(k)-\alpha_k h(\bar x(k))-x^* 
+\]</span> differently. They estimate <span class="math inline">\(\Vert h(\bar x(k))\Vert^2\)</span> and <span class="math inline">\(\langle\bar x(k)-x^*,h(\bar x(k))\rangle\)</span>(from lemma <a href="sec-referasymnt.html#lem:Lmini">8.1</a>, we have <span class="math inline">\(f(\bar x(k))-f(x^*)\)</span>), while in DSGD, we use lemma <a href="sec-sharp.html#lem:contraction2L">9.2</a>. Then based on a lemma from <span class="citation">Stich, Cordonnier, and Jaggi (<a href="#ref-stich2018sparsified">2018</a>)</span>, they finish the proof.</p>
+
+<div class="lemma">
+<span id="lem:Lmini" class="lemma"><strong>Lemma 8.1  </strong></span>If <span class="math inline">\(f\)</span> has <span class="math inline">\(L-\)</span>Lipschitz gradient with minimizer <span class="math inline">\(x^*,s.t.\nabla f(x^*)=\mathbf{0}\)</span>, then <span class="math display">\[
+  \|\nabla f(x)\|^{2}=\left\|\nabla f(x)-\nabla f\left(x^{\star}\right)\right\|^{2} \leq 2 L\left(f(x)-f\left(x^{\star}\right)\right)
+\]</span>
+</div>
+
+<p>Let <span class="math inline">\(Q(\cdot):\mathbb{R}^{p}\to\mathbb{R}^p\)</span> be a specific compression operator, which is known and satisfy assumption <a href="sec-referasymnt.html#exr:contractionEQ">8.1</a>. <span class="math inline">\(f_i(x):=E_{\xi_i\sim\mathcal{D}_i} F_i(x,\xi_i)\)</span> for a loss function <span class="math inline">\(F_i:\mathcal{R}^p\times \Omega_\boldsymbol\xi\)</span>, <span class="math inline">\(f_i\)</span> satisfy assumption <a href="index.html#exr:muL">1.1</a> and distribution <span class="math inline">\(\mathcal{D_1},...,\mathcal{D_n}\)</span> can be different on every node.</p>
+
+<div class="exercise">
+<span id="exr:contractionEQ" class="exercise"><strong>Assumption8.1  </strong></span>The compression operator <span class="math inline">\(Q(\cdot):\mathbb{R}^{p}\to\mathbb{R}^p\)</span> satisfies, <span class="math display">\[
+  E_{Q}\|Q(x)-x\|^{2} \leq(1-\omega)\|x\|^{2}, x\in\mathbb{R}^p,
+\]</span> for a parameter <span class="math inline">\(w&gt;0\)</span>. <span class="math inline">\(E_Q\)</span> denotes the expectation over the internal randomness of operator <span class="math inline">\(Q\)</span>
+</div>
+
+The CHOCO-SGD method can be seen in algorithm <a href="sec-referasymnt.html#exm:chocosgd">8.1</a>, 
+<div class="example">
+<p><span id="exm:chocosgd" class="example"><strong>Algorithm8.1  (CHOCO-SGD)  </strong></span>Initialize <span class="math inline">\(x_i(0)\in \mathbb{R}^{p}, \hat x_i(0)=\mathbf{0}\in\mathbb{R}^{p}\)</span> for <span class="math inline">\(i\in\mathcal{N}\)</span>, consensus stepsize <span class="math inline">\(\gamma\)</span>, SGD stepsize <span class="math inline">\(\alpha_k\geq0\)</span>,and mixing matrix <span class="math inline">\(W=(w_{ij})\in\mathbb{R}^{n\times n}\)</span></p>
+<p>For <span class="math inline">\(k=0,1,...\)</span> do in parallel for all agents <span class="math inline">\(i\in\mathcal{N}\)</span>,</p>
+<ul>
+<li><p>Sample <span class="math inline">\(\xi_i(k)\)</span>, compute <span class="math inline">\(g_i(k)=\nabla F_i(x_i(k),\xi_i(k))\)</span></p></li>
+<li><p><span class="math inline">\(x_i(k+\frac{1}{2})=x_i(k)-\alpha_kg_i(k)\)</span> (stochastic gradient)</p></li>
+<li><p><span class="math inline">\(q_i(k)=Q(x_i(k)-\hat x_i(k))\)</span> (compression operator)</p></li>
+<li><p>For all the neighbor <span class="math inline">\(j\)</span> of agents <span class="math inline">\(i\)</span>, i.e., <span class="math inline">\((i,j)\in\mathcal{E}\)</span>,</p>
+<ul>
+<li><p>Send <span class="math inline">\(q_i(k)\)</span> and receive <span class="math inline">\(q_j(k)\)</span></p></li>
+<li><p><span class="math inline">\(\hat x_j(k+1)=\hat x_j(k)+q_j(k)\)</span></p></li>
+</ul></li>
+<li><span class="math inline">\(x_i(k+1)=x_i(k+\frac{1}{2})+\gamma \sum_{j:(i,j)\in\mathcal{E}} w_{ij}(\hat x_j(k+1)-\hat x_i(k+1))\)</span></li>
+</ul>
+</div>
+
+<p>When the compression quality <span class="math inline">\(w=1\)</span>,i.e. no communication compression, and consensus stepsize <span class="math inline">\(\gamma=1\)</span>, the updation in algorithm <a href="sec-referasymnt.html#exm:chocosgd">8.1</a> becomes <span class="math display">\[
+x_i(k+1)=\sum\limits_{i=1}^nw_{ij}(x_i(k)-\alpha_kg_i(k))
+\]</span> which is the DSGD algorithm <a href="sec-asynt.html#exm:sgd">7.2</a>. From the setting <span class="math display">\[f_i(x):=E_{\xi_i\sim\mathcal{D}_i} F_i(x,\xi_i)\]</span> <span class="math inline">\(g_i(k)\)</span> satisify the unbiased property in assumption <a href="sec-dsgt.html#exr:estg">4.1</a> automatically when <span class="math inline">\(\nabla\)</span> and expectation on <span class="math inline">\(F_i\)</span> can be interchanged. Despite the second property in assumption <a href="sec-dsgt.html#exr:estg">4.1</a>, we need to assum the second moment of <span class="math inline">\(\nabla F_i(x,\xi_i)\)</span> is finite,i.e., assumption <a href="sec-referasymnt.html#exr:chocoF">8.2</a>. A little difference is that <span class="math inline">\(\sigma\)</span> can be different for each agent.</p>
+
+<div class="exercise">
+<span id="exr:chocoF" class="exercise"><strong>Assumption8.2  </strong></span>
+<span class="math display">\[\begin{align}
+E_{\xi_{i}}\left\|\nabla F_{i}\left(x, \xi_{i}\right)-\nabla f_{i}(x)\right\|^{2} &amp;\leq \sigma_{i}^{2}, \quad \forall x \in \mathbb{R}^{d}, i \in\mathcal{N}\\
+E_{\xi_{i}}\left\|\nabla F_{i}\left(x, \xi_{i}\right)\right\|^{2} &amp;\leq G^{2},\quad\forall x \in \mathbb{R}^{d}, i \in\mathcal{N}
+\end{align}\]</span>
+</div>
+
+</div>
+<div id="stochastic-gradient-push" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Stochastic gradient push</h3>
+<p>The push sum gossip algorithm is robust to stragglers and communication delays. <span class="citation">Assran et al. (<a href="#ref-assran2018stochastic">2018</a>)</span> prove that the stochastic gradient push(SGP) converges to a stationary point of smooth, <strong>non-convex</strong> objectives at the same sub-linear rate as SGD, and that all nodes achieve consensus.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
 <div id="refs" class="references">
-<div>
+<div id="ref-assran2018stochastic">
 <p>Assran, Mahmoud, Nicolas Loizou, Nicolas Ballas, and Michael Rabbat. 2018. “Stochastic Gradient Push for Distributed Deep Learning.” <em>arXiv Preprint arXiv:1811.10792</em>.</p>
 </div>
-<div>
+<div id="ref-koloskova2019decentralized">
 <p>Koloskova, Anastasia, Sebastian U Stich, and Martin Jaggi. 2019. “Decentralized Stochastic Optimization and Gossip Algorithms with Compressed Communication.” <em>arXiv Preprint arXiv:1902.00340</em>.</p>
 </div>
-<div>
-<p>Nedić, Angelia, Alex Olshevsky, and Michael G Rabbat. 2018. “Network Topology and Communication-Computation Tradeoffs in Decentralized Optimization.” <em>Proceedings of the IEEE</em> 106 (5). IEEE: 953–76.</p>
-</div>
-<div>
-<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.”</p>
-</div>
-<div>
-<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019a. “A Sharp Estimate on the Transient Time of Distributed Stochastic Gradient Descent.”</p>
-</div>
-<div>
-<p>———. 2019b. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.”</p>
-</div>
-<div>
-<p>Pu, Shi, Wei Shi, Jinming Xu, and Angelia Nedić. 2018. “A Push-Pull Gradient Method for Distributed Optimization in Networks.” In <em>2018 Ieee Conference on Decision and Control (Cdc)</em>, 3385–90. IEEE.</p>
-</div>
-<div>
+<div id="ref-stich2018sparsified">
 <p>Stich, Sebastian U, Jean-Baptiste Cordonnier, and Martin Jaggi. 2018. “Sparsified Sgd with Memory.” In <em>Advances in Neural Information Processing Systems</em>, 4447–58.</p>
 </div>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="sec-asynt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sec-sharp.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
