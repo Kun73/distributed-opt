@@ -86,4 +86,4 @@ F(X) = \sum_{i=1}^n f_i(x_i), X\in\mathbb{R}^{n\times p}
 \nabla F(X) = \left(\nabla f_1(x_1), ..., \nabla f_n(x_n)\right)^T\in\mathbb{R}^{n\times p}
 \end{equation*}
 
-If not stated otherwise, we use the capital letter to denote a matrix, and use column vectors.
+If not stated otherwise, we use the capital letter to denote a matrix, and use column vectors. The appendix in [@koloskova2019decentralized] includes some inequalities we repeatedly use in the proof or deravation.
