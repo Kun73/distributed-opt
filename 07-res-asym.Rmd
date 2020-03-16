@@ -82,6 +82,8 @@ E_{\xi_{i}}\left\|\nabla F_{i}\left(x, \xi_{i}\right)\right\|^{2} &\leq G^{2},\q
 
 ```
 
+### Stochastic gradient push
 
+The push sum gossip algorithm is robust to stragglers and communication delays. @assran2018stochastic prove that the stochastic gradient push(SGP) converges to a stationary point of smooth, **non-convex** objectives at the same sub-linear rate as SGD, and that all nodes achieve consensus.
 
 
