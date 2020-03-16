@@ -185,7 +185,7 @@ For $k=0,1,...$ do in parallel for all agents $i\in\mathcal{N}$,
 ```
 
 
-When the compression quality $w=1$,i.e. no communication compression, and consensus stepsize $\gamma=1$, the updation in algorithm \@ref(exm:choco) becomes 
+When the compression quality $w=1$,i.e. no communication compression, and consensus stepsize $\gamma=1$, the updation in algorithm \@ref(exm:chocosgd) becomes 
 $$
 x_i(k+1)=\sum\limits_{i=1}^nw_{ij}(x_i(k)-\alpha_kg_i(k))
 $$
