@@ -396,6 +396,17 @@ $$
 The above can also begin with theorem \@ref(thm:impRp)
 ```
 
+```{remark}
+\
+
+\begin{align}
+  \frac{1}{(1-\rho_w)^2} / \frac{1}{(1-\rho_w^2)^2}&=\left(\frac{1-\rho_w^2}{1-\rho_w}\right)^2\\
+&=(1+\rho_w)^2
+\end{align}
+where $\rho_w<1$. Hence $\mathcal{O}(\frac{1}{(1-\rho_w^2)^2})$ and $\mathcal{O}(\frac{1}{(1-\rho_w)^2})$ have the same order.
+```
+
+
 ## Sharpness
 
 From [wiki](https://en.wikipedia.org/wiki/List_of_mathematical_jargon),the constraint is sharp (sometimes optimal) if it cannot be made more restrictive without failing in some cases. We show the transient time for DGS to reach the asymptotic convergence rate is lower bounded by $K_T=\mathcal{O}\left(\frac{n}{(1-\rho_w^2)^2}\right)$. 
