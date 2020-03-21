@@ -1,0 +1,13 @@
+# comparison
+
+We consider DSGT, DSGD, DGD, EXTRA, and $D^2$ here. Generally, EXTRA, DSGT, and $D^2$ achieve better convergence properties because of adding some correction terms.
+
+
+| Name  | Scheme                                                       | Stepsize | Convergence Rate |
+| :---: | :----------------------------------------------------------- | :------: | :--------------: |
+|  DGD  | $X_{k+1}=WX_k-\alpha_k\nabla f(X_k)$                         |          |                  |
+| EXTRA | $X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t$ |          |                  |
+| DSGD  | $X_{k+1}=W(X_k-\alpha_{k}G_k)$                               |          |                  |
+| DSGT  | $$X_{k+1}=W(X_k-\alpha Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k$$      |          |                  |
+| $D^2$ | $$X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})$$ |          |                  |
+
