@@ -92,6 +92,5 @@ We uses a different convergence criteria[@lian2017can], i.e., for the number of 
 (#eq:lian)
 \end{equation}
 
-## $D^2$
 
 
