@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Notes about Distributed Optimization</title>
+  <title>Chapter 10 comparison | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 10 comparison | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 10 comparison | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
-
+<link rel="prev" href="sec-sharp.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -129,57 +129,80 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
+<div id="comparison" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> comparison</h1>
+<p>We consider DSGT, DSGD, DGD, EXTRA, and <span class="math inline">\(D^2\)</span> here. Generally, EXTRA, DSGT, and <span class="math inline">\(D^2\)</span> achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms.</p>
+<table style="width:94%;">
+<colgroup>
+<col width="9%" />
+<col width="84%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="left">Scheme</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">c-SGD</td>
+<td align="left"><span class="math inline">\(x_{k+1}=x_k-\alpha_k\tilde g(k)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">DGD</td>
+<td align="left"><span class="math inline">\(X_{k+1}=WX_k-\alpha_k\nabla f(X_k)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">D-PSGD</td>
+<td align="left"><span class="math inline">\(X_{k+1}=WX_{k}-\alpha G_k\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">EXTRA</td>
+<td align="left"><span class="math inline">\(X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">DSGD</td>
+<td align="left"><span class="math inline">\(X_{k+1}=W(X_k-\alpha_{k}G_k)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">DSGT</td>
+<td align="left"><span class="math display">\[X_{k+1}=W(X_k-\alpha_k Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k\]</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(D^2\)</span></td>
+<td align="left"><span class="math display">\[X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})\]</span></td>
+</tr>
+</tbody>
+</table>
+To see the influence of the correction term <span class="math inline">\(H\)</span>, suppose we have a scheme,
+<span class="math display" id="eq:Hcor">\[\begin{equation}
+X_{k+1}=W(X_k-\alpha_k G_k+H)
+\tag{10.1}
+\end{equation}\]</span>
+We assume <span class="math inline">\(X_k\)</span> has achieved the optimum <span class="math inline">\(X_k=\mathbf{1}{x^*}\)</span>, then from <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span>, we have
+<span class="math display">\[\begin{align}
+X_{k+1}=\mathbf{1}x^*-\alpha_kWG_k+WH
+\end{align}\]</span>
+<p>Thus <span class="math inline">\(nR&#39;(k+1)=E\left[\Vert X_{k+1}-\mathbf{1}x^*\Vert^2\right]\)</span> is affected by <span class="math display">\[
+E\left[\Vert H-\alpha_k G_k\Vert^2\right]
+\]</span> Similar for DSGD, we have <span class="math inline">\(nR&#39;(k+1)\)</span> is affected by <span class="math display">\[
+E\left[\Vert\alpha_k G_k\Vert^2 \right]=\alpha_k E\left[\Vert G_k\Vert^2 \right]
+\]</span></p>
+We can see that a sequence of dimishing <span class="math inline">\(\alpha_k\)</span> can decrease <span class="math inline">\(E\left[\Vert G_k\Vert^2 \right]\)</span> as <span class="math inline">\(k\)</span> gets large, which explains why dimishing stepsizes can improve fixed stepsize scheme to an exact convergence. On the other hand, we can also design a distributed algorithm <span class="math inline">\(s.t.\)</span>
+<span class="math display" id="eq:design">\[\begin{equation}
+E\left[\Vert H-\alpha_k G_k\Vert^2\right]\leq \left[\Vert\alpha_k G_k\Vert^2 \right]
+\tag{10.2}
+\end{equation}\]</span>
+<p>and conserve the consensus property.</p>
 
-<div id="refs" class="references">
-<div>
-<p>Assran, Mahmoud, Nicolas Loizou, Nicolas Ballas, and Michael Rabbat. 2018. “Stochastic Gradient Push for Distributed Deep Learning.” <em>arXiv Preprint arXiv:1811.10792</em>.</p>
 </div>
-<div>
-<p>Koloskova, Anastasia, Sebastian U Stich, and Martin Jaggi. 2019. “Decentralized Stochastic Optimization and Gossip Algorithms with Compressed Communication.” <em>arXiv Preprint arXiv:1902.00340</em>.</p>
-</div>
-<div>
-<p>Lian, Xiangru, Ce Zhang, Huan Zhang, Cho-Jui Hsieh, Wei Zhang, and Ji Liu. 2017. “Can Decentralized Algorithms Outperform Centralized Algorithms? A Case Study for Decentralized Parallel Stochastic Gradient Descent.” In <em>Advances in Neural Information Processing Systems</em>, 5330–40.</p>
-</div>
-<div>
-<p>Nedić, Angelia, Alex Olshevsky, and Michael G Rabbat. 2018. “Network Topology and Communication-Computation Tradeoffs in Decentralized Optimization.” <em>Proceedings of the IEEE</em> 106 (5). IEEE: 953–76.</p>
-</div>
-<div>
-<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.”</p>
-</div>
-<div>
-<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019a. “A Sharp Estimate on the Transient Time of Distributed Stochastic Gradient Descent.”</p>
-</div>
-<div>
-<p>———. 2019b. “Asymptotic Network Independence in Distributed Stochastic Optimization for Machine Learning.”</p>
-</div>
-<div>
-<p>Pu, Shi, Wei Shi, Jinming Xu, and Angelia Nedić. 2018. “A Push-Pull Gradient Method for Distributed Optimization in Networks.” In <em>2018 Ieee Conference on Decision and Control (Cdc)</em>, 3385–90. IEEE.</p>
-</div>
-<div>
-<p>Stich, Sebastian U, Jean-Baptiste Cordonnier, and Martin Jaggi. 2018. “Sparsified Sgd with Memory.” In <em>Advances in Neural Information Processing Systems</em>, 4447–58.</p>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="sec-sharp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

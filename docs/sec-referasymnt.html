@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-15" />
+<meta name="date" content="2020-03-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -109,7 +109,8 @@
 <li class="chapter" data-level="9.4" data-path="sec-sharp.html"><a href="sec-sharp.html#sharpness"><i class="fa fa-check"></i><b>9.4</b> Sharpness</a></li>
 <li class="chapter" data-level="9.5" data-path="sec-sharp.html"><a href="sec-sharp.html#summary"><i class="fa fa-check"></i><b>9.5</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
+<li class="chapter" data-level="10" data-path="comparison.html"><a href="comparison.html"><i class="fa fa-check"></i><b>10</b> comparison</a></li>
+<li class="chapter" data-level="11" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>11</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -197,7 +198,12 @@ E_{\xi_{i}}\left\|\nabla F_{i}\left(x, \xi_{i}\right)\right\|^{2} &amp;\leq G^{2
 </div>
 <div id="stochastic-gradient-push" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Stochastic gradient push</h3>
-<p>The push sum gossip algorithm is robust to stragglers and communication delays. <span class="citation">Assran et al. (<a href="#ref-assran2018stochastic">2018</a>)</span> prove that the stochastic gradient push(SGP) converges to a stationary point of smooth, <strong>non-convex</strong> objectives at the same sub-linear rate as SGD, and that all nodes achieve consensus.</p>
+<p>The push sum gossip algorithm is robust to stragglers and communication delays. <span class="citation">Assran et al. (<a href="#ref-assran2018stochastic">2018</a>)</span> propose a variant of stochastic gradient push(SGP), called overlap SGP, converges to a stationary point of smooth, <strong>non-convex</strong> objectives at an <span class="math inline">\(\mathcal{O}(\frac{1}{\sqrt{nK}})\)</span>, and that all nodes achieve consensus. Additionally, we use a sequence of mixing matrice <span class="math inline">\(W_k\)</span> here.</p>
+We uses a different convergence criteria<span class="citation">(Lian et al. <a href="#ref-lian2017can">2017</a>)</span>, i.e., for the number of iterations <span class="math inline">\(K\)</span>,
+<span class="math display" id="eq:lian">\[\begin{equation}
+\frac{1}{K} \sum_{k=1}^{K} \mathbb{E}\left\|\nabla f\left(\bar{{x}}(k)\right)\right\|^{2} \leq \varepsilon, \forall \varepsilon
+\tag{8.1}
+\end{equation}\]</span>
 
 </div>
 </div>
@@ -209,6 +215,9 @@ E_{\xi_{i}}\left\|\nabla F_{i}\left(x, \xi_{i}\right)\right\|^{2} &amp;\leq G^{2
 </div>
 <div id="ref-koloskova2019decentralized">
 <p>Koloskova, Anastasia, Sebastian U Stich, and Martin Jaggi. 2019. “Decentralized Stochastic Optimization and Gossip Algorithms with Compressed Communication.” <em>arXiv Preprint arXiv:1902.00340</em>.</p>
+</div>
+<div id="ref-lian2017can">
+<p>Lian, Xiangru, Ce Zhang, Huan Zhang, Cho-Jui Hsieh, Wei Zhang, and Ji Liu. 2017. “Can Decentralized Algorithms Outperform Centralized Algorithms? A Case Study for Decentralized Parallel Stochastic Gradient Descent.” In <em>Advances in Neural Information Processing Systems</em>, 5330–40.</p>
 </div>
 <div id="ref-stich2018sparsified">
 <p>Stich, Sebastian U, Jean-Baptiste Cordonnier, and Martin Jaggi. 2018. “Sparsified Sgd with Memory.” In <em>Advances in Neural Information Processing Systems</em>, 4447–58.</p>
