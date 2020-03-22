@@ -1,13 +1,40 @@
 # comparison
 
-We consider DSGT, DSGD, DGD, EXTRA, and $D^2$ here. Generally, EXTRA, DSGT, and $D^2$ achieve better convergence properties because of adding some correction terms.
+We consider DSGT, DSGD, DGD, EXTRA, and $D^2$ here. Generally, EXTRA, DSGT, and $D^2$ achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms. 
 
 
-| Name  | Scheme                                                       | Stepsize | Convergence Rate |
-| :---: | :----------------------------------------------------------- | :------: | :--------------: |
-|  DGD  | $X_{k+1}=WX_k-\alpha_k\nabla f(X_k)$                         |          |                  |
-| EXTRA | $X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t$ |          |                  |
-| DSGD  | $X_{k+1}=W(X_k-\alpha_{k}G_k)$                               |          |                  |
-| DSGT  | $$X_{k+1}=W(X_k-\alpha Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k$$      |          |                  |
-| $D^2$ | $$X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})$$ |          |                  |
+|  Name  | Scheme                                                       |
+| :----: | :----------------------------------------------------------- |
+| c-SGD  | $x_{k+1}=x_k-\alpha_k\tilde g(k)$                            |
+|  DGD   | $X_{k+1}=WX_k-\alpha_k\nabla f(X_k)$                         |
+| D-PSGD | $X_{k+1}=WX_{k}-\alpha G_k$                                  |
+| EXTRA  | $X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t$ |
+|  DSGD  | $X_{k+1}=W(X_k-\alpha_{k}G_k)$                               |
+|  DSGT  | $$X_{k+1}=W(X_k-\alpha_k Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k$$      |
+| $D^2$  | $$X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})$$ |
+
+To see the influence of the correction term $H$, suppose we have a scheme, 
+\begin{equation}
+X_{k+1}=W(X_k-\alpha_k G_k+H)
+(\#eq:Hcor)
+\end{equation}
+We assume $X_k$ has achieved the optimum $X_k=\mathbf{1}{x^*}$, then from $W\mathbf{1}=\mathbf{1}$, we have 
+\begin{align}
+X_{k+1}=\mathbf{1}x^*-\alpha_kWG_k+WH
+\end{align}
+Thus $nR'(k+1)=E\left[\Vert X_{k+1}-\mathbf{1}x^*\Vert^2\right]$ is affected by 
+$$
+E\left[\Vert H-\alpha_k G_k\Vert^2\right]
+$$
+Similar for DSGD, we have $nR'(k+1)$ is affected by 
+$$
+E\left[\Vert\alpha_k G_k\Vert^2 \right]=\alpha_k E\left[\Vert G_k\Vert^2 \right]
+$$
+
+We can see that a sequence of dimishing $\alpha_k$ can decrease $E\left[\Vert G_k\Vert^2 \right]$ as $k$ gets large, which explains why dimishing stepsizes can improve fixed stepsize scheme to an exact convergence. On the other hand, we can also design a distributed algorithm $s.t.$
+\begin{equation}
+E\left[\Vert H-\alpha_k G_k\Vert^2\right]\leq \left[\Vert\alpha_k G_k\Vert^2 \right]
+(\#eq:design)
+\end{equation}
+and conserve the consensus property.
 
