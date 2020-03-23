@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-21" />
+<meta name="date" content="2020-03-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -109,7 +109,9 @@
 <li class="chapter" data-level="9.4" data-path="sec-sharp.html"><a href="sec-sharp.html#sharpness"><i class="fa fa-check"></i><b>9.4</b> Sharpness</a></li>
 <li class="chapter" data-level="9.5" data-path="sec-sharp.html"><a href="sec-sharp.html#summary"><i class="fa fa-check"></i><b>9.5</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="comparison.html"><a href="comparison.html"><i class="fa fa-check"></i><b>10</b> comparison</a></li>
+<li class="chapter" data-level="10" data-path="comparison.html"><a href="comparison.html"><i class="fa fa-check"></i><b>10</b> comparison</a><ul>
+<li class="chapter" data-level="10.1" data-path="comparison.html"><a href="comparison.html#assumptions-of-different-schemes"><i class="fa fa-check"></i><b>10.1</b> Assumptions of different schemes</a></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>11</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -140,37 +142,37 @@
 <thead>
 <tr class="header">
 <th align="center">Name</th>
-<th align="left">Scheme</th>
+<th align="center">Scheme</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="center">c-SGD</td>
-<td align="left"><span class="math inline">\(x_{k+1}=x_k-\alpha_k\tilde g(k)\)</span></td>
+<td align="center"><span class="math inline">\(x_{k+1}=x_k-\alpha_k\tilde g(k)\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">DGD</td>
-<td align="left"><span class="math inline">\(X_{k+1}=WX_k-\alpha_k\nabla f(X_k)\)</span></td>
+<td align="center"><span class="math inline">\(X_{k+1}=WX_k-\alpha_k\nabla f(X_k)\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">D-PSGD</td>
-<td align="left"><span class="math inline">\(X_{k+1}=WX_{k}-\alpha G_k\)</span></td>
+<td align="center"><span class="math inline">\(X_{k+1}=WX_{k}-\alpha G_k\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">EXTRA</td>
-<td align="left"><span class="math inline">\(X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t\)</span></td>
+<td align="center"><span class="math inline">\(X_{k+1}=WX_k-\alpha \nabla f(X_k)+\sum\limits_{t=0}^{k-1}(W-\tilde W)X_t\)</span></td>
 </tr>
 <tr class="odd">
 <td align="center">DSGD</td>
-<td align="left"><span class="math inline">\(X_{k+1}=W(X_k-\alpha_{k}G_k)\)</span></td>
+<td align="center"><span class="math inline">\(X_{k+1}=W(X_k-\alpha_{k}G_k)\)</span></td>
 </tr>
 <tr class="even">
 <td align="center">DSGT</td>
-<td align="left"><span class="math display">\[X_{k+1}=W(X_k-\alpha_k Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k\]</span></td>
+<td align="center"><span class="math display">\[X_{k+1}=W(X_k-\alpha_k Y_k)\\Y_{k+1}=WY_k+G_{k+1}-G_k\]</span></td>
 </tr>
 <tr class="odd">
 <td align="center"><span class="math inline">\(D^2\)</span></td>
-<td align="left"><span class="math display">\[X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})\]</span></td>
+<td align="center"><span class="math display">\[X_1=W(X_0-\alpha G_0)\\X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})\]</span></td>
 </tr>
 </tbody>
 </table>
@@ -194,7 +196,127 @@ E\left[\Vert H-\alpha_k G_k\Vert^2\right]\leq \left[\Vert\alpha_k G_k\Vert^2 \ri
 \tag{10.2}
 \end{equation}\]</span>
 <p>and conserve the consensus property.</p>
+<div id="assumptions-of-different-schemes" class="section level2">
+<h2><span class="header-section-number">10.1</span> Assumptions of different schemes</h2>
+<p>The following table summarizes the assumptions needed for each schemes. The column of <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\zeta^2\)</span> denote <span class="math display">\[
+E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, \quad \forall i, \forall x
+\]</span> and <span class="math display">\[
+\frac{1}{n} \sum_{i=1}^{n}\left\|\nabla f_{i}(x)-\nabla f(x)\right\|^{2} \leqslant \zeta^{2}, \quad \forall i, \forall x
+\]</span> respectively.</p>
+<p><span class="math inline">\(\zeta_0=\frac{1}{n} \sum\limits_{i=1}^{n}\left\|\nabla f_{i}(\mathbf{0})-\nabla f(\mathbf{0})\right\|^{2}\)</span>; <span class="math inline">\(\rho_w\)</span> is the spectral norm of <span class="math inline">\(W-\frac{\mathbf{1}\mathbf{1}^T}{n}\)</span></p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="27%" />
+<col width="11%" />
+<col width="18%" />
+<col width="23%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center"><span class="math inline">\(f_i(x)\)</span></th>
+<th align="center"><span class="math inline">\(\nabla f_i(x)\)</span></th>
+<th align="center"><span class="math inline">\(W\)</span></th>
+<th align="center">Spectral gap</th>
+<th align="center"><span class="math inline">\(\sigma^2\)</span></th>
+<th align="center"><span class="math inline">\(\zeta^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">c-SGD</td>
+<td align="center"></td>
+<td align="center">Lipschitz continuous</td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">DGD</td>
+<td align="center"></td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">Sym and <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span></td>
+<td align="center"><span class="math inline">\(\rho_w&lt;1\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">D-PSGD</td>
+<td align="center"></td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">Sym and doubly stochastic</td>
+<td align="center">$((</td>
+<td align="center">_2</td>
+<td align="center">,</td>
+</tr>
+<tr class="even">
+<td align="center">EXTRA</td>
+<td align="center">convex (<span class="math inline">\(f\)</span> strongly convex leads to better rate)</td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">Sym and <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span></td>
+<td align="center"><span class="math inline">\(\lambda_\min(W)\geq0\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+<td align="center"><span class="math inline">\(\backslash\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">DSGD</td>
+<td align="center">strongly convex</td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">Sym and doubly stochastic</td>
+<td align="center"><span class="math inline">\(\rho_w\)</span></td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr class="even">
+<td align="center">DSGT</td>
+<td align="center">strongly convex</td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">doubly stochastic</td>
+<td align="center"><span class="math inline">\(\rho_w\)</span></td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(D^2\)</span></td>
+<td align="center"></td>
+<td align="center">Lipschitz continuous</td>
+<td align="center">Sym and <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span></td>
+<td align="center"><span class="math inline">\(\lambda_2&lt;1,\lambda_\min\geq-\frac{1}{3}\)</span></td>
+<td align="center">Y</td>
+<td align="center"><span class="math inline">\(\zeta_0\)</span></td>
+</tr>
+</tbody>
+</table>
 
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> \</p>
+<ul>
+<li><p>EXTRA assumes a less restrictive assumption on <span class="math inline">\(W\)</span> which leads to <span class="math inline">\(W\mathbf{1}=\mathbf{1}\)</span> and <span class="math inline">\(\lambda(W)\in(-1, 1]\)</span>;</p></li>
+<li><p>In EXTRA, if <span class="math inline">\(\lambda_{\min}(W)&lt;0\)</span>, we can replace <span class="math inline">\(W\)</span> by <span class="math inline">\(\frac{I+W}{2}\)</span>;</p></li>
+<li><p>In EXTRA, if we assume <span class="math inline">\(g(x)=\frac{1}{n}\sum\limits_{i=1}^n f_i(x) + \frac{1}{4\alpha}\Vert x\Vert_{\tilde{W}-W}\)</span> is restricted strongly convex w.r.t. <span class="math inline">\(x^*\)</span>, we can derive a convergence rate <span class="math inline">\(\mathcal{O}(1+\delta)^{-k}\)</span>. This conditon does not require all <span class="math inline">\(f_i\)</span> to be individually restricted strongly convex, which is less restrictive to that in DSGT and DSGD.</p></li>
+<li><p>DSGD addtionally assume <span class="math inline">\(\sum\limits_{i=1}^{n}\left\|x_{i}(0)-x^{*}\right\|^{2}=\mathcal{O}(n)\)</span> and <span class="math inline">\(\sum\limits_{i=1}^{n}\left\|\nabla f_{i}\left(x^{*}\right)\right\|^{2}=\mathcal{O}(n)\)</span>;</p></li>
+<li><p><span class="math inline">\(D^2\)</span> is less senstive to the data variance across workers compared to D-PSGD</p></li>
+</ul>
+</div>
+
+<p>options:</p>
+<ul>
+<li><p>In EXTRA, the authors report they observe a step size as large as <span class="math inline">\(\mathcal{O}(\frac{1}{L})\)</span> still leads to linear convergence. It remains an open question to prove linear convergence under this larger step size.</p></li>
+<li><p>What is the convergence rate when assuming <span class="math inline">\(f_i\)</span> to be strongly convex in <span class="math inline">\(D^2\)</span>?</p></li>
+<li><p><span class="citation">Li, Shi, and Yan (<a href="#ref-li2019decentralized">2019</a>)</span> assume a sturcture of <span class="math inline">\(f_i(x)=s_i(x)+r_i(x)\)</span> on the objective function, where <span class="math inline">\(s_i\)</span> is differentiable and has a Lipschitz continuous gradient with parameter <span class="math inline">\(L\)</span> and <span class="math inline">\(r_i\)</span> is proximable. They improve The PG-EXTRA in the speed and the dependency of convergence over networks. If we assume the same structure on DSGT or DSGD, what is the convergence rate?</p></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-li2019decentralized">
+<p>Li, Zhi, Wei Shi, and Ming Yan. 2019. “A Decentralized Proximal-Gradient Method with Network Independent Step-Sizes and Separated Convergence Rates.” <em>IEEE Transactions on Signal Processing</em> 67 (17). IEEE: 4494–4506.</p>
+</div>
 </div>
             </section>
 
