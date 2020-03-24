@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -97,6 +97,7 @@
 <li class="chapter" data-level="8.1.1" data-path="sec-referasymnt.html"><a href="sec-referasymnt.html#choco-sgd"><i class="fa fa-check"></i><b>8.1.1</b> CHOCO-SGD</a></li>
 <li class="chapter" data-level="8.1.2" data-path="sec-referasymnt.html"><a href="sec-referasymnt.html#stochastic-gradient-push"><i class="fa fa-check"></i><b>8.1.2</b> Stochastic gradient push</a></li>
 </ul></li>
+<li class="chapter" data-level="8.2" data-path="sec-referasymnt.html"><a href="sec-referasymnt.html#d2"><i class="fa fa-check"></i><b>8.2</b> <span class="math inline">\(D^2\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="sec-sharp.html"><a href="sec-sharp.html"><i class="fa fa-check"></i><b>9</b> A sharp estimate of the transient time of DSGD</a><ul>
 <li class="chapter" data-level="9.1" data-path="sec-sharp.html"><a href="sec-sharp.html#uk-and-vk"><i class="fa fa-check"></i><b>9.1</b> <span class="math inline">\(U(k)\)</span> and <span class="math inline">\(V(k)\)</span></a></li>
@@ -111,6 +112,7 @@
 </ul></li>
 <li class="chapter" data-level="10" data-path="comparison.html"><a href="comparison.html"><i class="fa fa-check"></i><b>10</b> comparison</a><ul>
 <li class="chapter" data-level="10.1" data-path="comparison.html"><a href="comparison.html#assumptions-of-different-schemes"><i class="fa fa-check"></i><b>10.1</b> Assumptions of different schemes</a></li>
+<li class="chapter" data-level="10.2" data-path="comparison.html"><a href="comparison.html#convergence-rate"><i class="fa fa-check"></i><b>10.2</b> Convergence rate</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>11</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -133,7 +135,7 @@
             <section class="normal" id="section-">
 <div id="comparison" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> comparison</h1>
-<p>We consider DSGT, DSGD, DGD, EXTRA, and <span class="math inline">\(D^2\)</span> here. Generally, EXTRA, DSGT, and <span class="math inline">\(D^2\)</span> achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms.</p>
+<p>We consider DSGT<span class="citation">(Pu and Nedić <a href="#ref-pu2018distributed">2018</a>)</span>, DSGD<span class="citation">(Pu, Olshevsky, and Paschalidis <a href="#ref-pu2019sharp">2019</a><a href="#ref-pu2019sharp">a</a>)</span>, DGD, EXTRA<span class="citation">(Shi et al. <a href="#ref-shi2015extra">2015</a>)</span>, D-PSGD<span class="citation">(Lian et al. <a href="#ref-lian2017can">2017</a>)</span> and <span class="math inline">\(D^2\)</span><span class="citation">(Tang et al. <a href="#ref-tang2018d">2018</a>)</span> here. Generally, EXTRA, DSGT, and <span class="math inline">\(D^2\)</span> achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms.</p>
 <table style="width:94%;">
 <colgroup>
 <col width="9%" />
@@ -199,7 +201,7 @@ E\left[\Vert H-\alpha_k G_k\Vert^2\right]\leq \left[\Vert\alpha_k G_k\Vert^2 \ri
 <div id="assumptions-of-different-schemes" class="section level2">
 <h2><span class="header-section-number">10.1</span> Assumptions of different schemes</h2>
 <p>The following table summarizes the assumptions needed for each schemes. The column of <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\zeta^2\)</span> denote <span class="math display">\[
-E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, \quad \forall i, \forall x
+E_{\xi }\left\|g_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, \quad \forall i, \forall x
 \]</span> and <span class="math display">\[
 \frac{1}{n} \sum_{i=1}^{n}\left\|\nabla f_{i}(x)-\nabla f(x)\right\|^{2} \leqslant \zeta^{2}, \quad \forall i, \forall x
 \]</span> respectively.</p>
@@ -249,9 +251,9 @@ E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigm
 <td align="center"></td>
 <td align="center">Lipschitz continuous</td>
 <td align="center">Sym and doubly stochastic</td>
-<td align="center">$((</td>
-<td align="center">_2</td>
-<td align="center">,</td>
+<td align="center"><span class="math inline">\(\lambda_2^2&lt;1\)</span></td>
+<td align="center">Y</td>
+<td align="center">Y</td>
 </tr>
 <tr class="even">
 <td align="center">EXTRA</td>
@@ -309,6 +311,73 @@ E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigm
 <li><p>What is the convergence rate when assuming <span class="math inline">\(f_i\)</span> to be strongly convex in <span class="math inline">\(D^2\)</span>?</p></li>
 <li><p><span class="citation">Li, Shi, and Yan (<a href="#ref-li2019decentralized">2019</a>)</span> assume a sturcture of <span class="math inline">\(f_i(x)=s_i(x)+r_i(x)\)</span> on the objective function, where <span class="math inline">\(s_i\)</span> is differentiable and has a Lipschitz continuous gradient with parameter <span class="math inline">\(L\)</span> and <span class="math inline">\(r_i\)</span> is proximable. They improve The PG-EXTRA in the speed and the dependency of convergence over networks. If we assume the same structure on DSGT or DSGD, what is the convergence rate?</p></li>
 </ul>
+</div>
+<div id="convergence-rate" class="section level2">
+<h2><span class="header-section-number">10.2</span> Convergence rate</h2>
+<p>The following table lists the convergence rate of the above algorithms.</p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="34%" />
+<col width="27%" />
+<col width="34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">nonconvex</th>
+<th align="center">convex</th>
+<th align="center">strongly convex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">c-SGD</td>
+<td align="center"><span class="math inline">\(\mathcal{O}(\frac{1}{\sqrt{nT}}+\frac{1}{T})\)</span></td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\mathcal{O}(\frac{1}{nk}+\frac{1}{k^2})\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">DGD</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\mathcal{O}\left(\frac{\ln k}{\sqrt{k}}\right)\)</span></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center">D-PSGD</td>
+<td align="center"><span class="math inline">\(\mathcal{O}\left(\frac{\sigma}{\sqrt{n T}}+\frac{n^{\frac{1}{4}} \zeta^{\frac{2}{3}}}{T^{\frac{2}{3}}}+\frac{1}{T}\right)\)</span></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">EXTRA</td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\mathcal{O}(\frac{1}{k})\)</span></td>
+<td align="center"><span class="math inline">\(\mathcal{O}((1+\delta)^{-k})\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">DSGD</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\mathcal{O}\left(\frac{1}{nk}+\frac{1}{k^{1.5}}+\frac{1}{k^2}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">DSGT</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\mathcal{O}\left(\frac{1}{nk} +\frac{1}{k^{\theta\mu}}+\frac{1}{k^2} \right)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(D^2\)</span></td>
+<td align="center"><span class="math inline">\(\mathcal{O}\left(\frac{\sigma}{\sqrt{n T}}+\frac{1}{T}+\frac{\zeta_{0}^{2}}{T+\sigma^{2} T^{2}}+\frac{\sigma^2}{1+\sigma^2T}\right)\)</span></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>DSGT converges to the neighborhood of <span class="math inline">\(x^*\)</span> at the linear rate of <span class="math inline">\(\rho(A)^k\)</span> when choosing fixed <span class="math inline">\(\alpha\)</span> and converges to <span class="math inline">\(x^*\)</span> when choosing <span class="math inline">\(\alpha_k=\frac{\theta}{m+k}\)</span>. This implies us to choose stepsize adaptively.</li>
+</ul>
 
 </div>
 </div>
@@ -316,6 +385,21 @@ E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigm
 <div id="refs" class="references">
 <div id="ref-li2019decentralized">
 <p>Li, Zhi, Wei Shi, and Ming Yan. 2019. “A Decentralized Proximal-Gradient Method with Network Independent Step-Sizes and Separated Convergence Rates.” <em>IEEE Transactions on Signal Processing</em> 67 (17). IEEE: 4494–4506.</p>
+</div>
+<div id="ref-lian2017can">
+<p>Lian, Xiangru, Ce Zhang, Huan Zhang, Cho-Jui Hsieh, Wei Zhang, and Ji Liu. 2017. “Can Decentralized Algorithms Outperform Centralized Algorithms? A Case Study for Decentralized Parallel Stochastic Gradient Descent.” In <em>Advances in Neural Information Processing Systems</em>, 5330–40.</p>
+</div>
+<div id="ref-pu2018distributed">
+<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.”</p>
+</div>
+<div id="ref-pu2019sharp">
+<p>Pu, Shi, Alex Olshevsky, and Ioannis Ch. Paschalidis. 2019a. “A Sharp Estimate on the Transient Time of Distributed Stochastic Gradient Descent.”</p>
+</div>
+<div id="ref-shi2015extra">
+<p>Shi, Wei, Qing Ling, Gang Wu, and Wotao Yin. 2015. “Extra: An Exact First-Order Algorithm for Decentralized Consensus Optimization.” <em>SIAM Journal on Optimization</em> 25 (2). SIAM: 944–66.</p>
+</div>
+<div id="ref-tang2018d">
+<p>Tang, Hanlin, Xiangru Lian, Ming Yan, Ce Zhang, and Ji Liu. 2018. “D <span class="math inline">\(\^{} 2\)</span>: Decentralized Training over Decentralized Data.” <em>arXiv Preprint arXiv:1803.07068</em>.</p>
 </div>
 </div>
             </section>
