@@ -92,5 +92,23 @@ We uses a different convergence criteria[@lian2017can], i.e., for the number of 
 (#eq:lian)
 \end{equation}
 
+## $D^2$
 
-
+Global scheme, 
+$$
+X_1=W(X_0-\alpha G_0)\\
+X_{k+1}=W(X_k-\alpha G_k)+W(X_k-X_{k-1}-\alpha G_{k-1})
+$$
+then we have, 
+$$
+\bar x_{k+1} = \bar x_k - \alpha G_k
+$$
+Thus if we assume each $f_i$ is strongly convex, we can still use lemma \@ref(lem:Uk1). However, for the expected consensus error $V(k)=E\left[\Vert X_{k}-\mathbf{1}\bar x_k\right]$, we need to use, 
+\begin{align}
+X_{k+1}-\mathbf{1}\bar x_{k+1}&=
+W(2X_k-X_{k-1}-\alpha G_k+\alpha G_{k-1})-\mathbf{1}(\bar x_k-\alpha \bar g_k)\\
+&=2(WX_{k}-\mathbf{1}\bar x_k)-\alpha (WG_k-\mathbf{1}\bar g_k)\\
+&\quad -(WX_{k-1}-\mathbf{1}\bar x_{k-1}) +\alpha(WG_{k-1}-\bar g_{k-1})
+(\#eq:d2Vk1)
+\end{align}
+then the following steps are similar to those in the proof of lemma \@ref(lem:Vk1). Then if we can uniformly bound $R'(k)$, we can derive the convergence rate of $D^2$.  
