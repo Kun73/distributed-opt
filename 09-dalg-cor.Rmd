@@ -1,6 +1,6 @@
 # comparison
 
-We consider DSGT, DSGD, DGD, EXTRA, and $D^2$ here. Generally, EXTRA, DSGT, and $D^2$ achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms. 
+We consider DSGT[@pu2018distributed], DSGD[@pu2019sharp], DGD, EXTRA[@shi2015extra], D-PSGD[@lian2017can] and $D^2$[@tang2018d] here. Generally, EXTRA, DSGT, and $D^2$ achieve better convergence properties because of adding some correction terms. The following table lists the schemes of these algorithms. 
 
 
 |  Name  | Scheme                                                       |
@@ -42,7 +42,7 @@ and conserve the consensus property.
 
 The following table summarizes the assumptions needed for each schemes. The column of $\sigma^2$ and $\zeta^2$ denote 
 $$
-E_{\xi }\left\|\nabla F_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, \quad \forall i, \forall x
+E_{\xi }\left\|g_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, \quad \forall i, \forall x
 $$
 and 
 $$
@@ -57,7 +57,7 @@ $\zeta_0=\frac{1}{n} \sum\limits_{i=1}^{n}\left\|\nabla f_{i}(\mathbf{0})-\nabla
 | :----: | :-----------------------------------------------: | :------------------: | :------------------------------: | :----------------------------------------: | :----------: | :----------: |
 | c-SGD  |                                                   | Lipschitz continuous |           $\backslash$           |                $\backslash$                | $\backslash$ | $\backslash$ |
 |  DGD   |                                                   | Lipschitz continuous | Sym and $W\mathbf{1}=\mathbf{1}$ |                 $\rho_w<1$                 | $\backslash$ | $\backslash$ |
-| D-PSGD |                                                   | Lipschitz continuous |    Sym and doubly stochastic     |   $(\max(|\lambda_2|,|\lambda_n|))^2<1$    |      Y       |      Y       |
+| D-PSGD |                                                   | Lipschitz continuous |    Sym and doubly stochastic     |   $\lambda_2^2<1$    |      Y       |      Y       |
 | EXTRA  | convex ($f$ strongly convex leads to better rate) | Lipschitz continuous | Sym and $W\mathbf{1}=\mathbf{1}$ |           $\lambda_\min(W)\geq0$           | $\backslash$ | $\backslash$ |
 |  DSGD  |                  strongly convex                  | Lipschitz continuous |    Sym and doubly stochastic     |                  $\rho_w$                  |      Y       |      N       |
 |  DSGT  |                  strongly convex                  | Lipschitz continuous |        doubly stochastic         |                  $\rho_w$                  |      Y       |      N       |
@@ -89,5 +89,23 @@ options:
 - @li2019decentralized assume a sturcture of $f_i(x)=s_i(x)+r_i(x)$ on the objective function, where $s_i$ is differentiable and has a Lipschitz continuous gradient with parameter $L$ and $r_i$ is proximable. They improve The PG-EXTRA in the speed and the dependency of convergence over networks. If we assume the same structure on DSGT or DSGD, what is the convergence rate?
 
 
+## Convergence rate
 
+The following table lists the convergence rate of the above algorithms. 
+
+|  Name  |                          nonconvex                           |                      convex                      |                       strongly convex                        |
+| :----: | :----------------------------------------------------------: | :----------------------------------------------: | :----------------------------------------------------------: |
+| c-SGD  |        $\mathcal{O}(\frac{1}{\sqrt{nT}}+\frac{1}{T})$        |                                                  |          $\mathcal{O}(\frac{1}{nk}+\frac{1}{k^2})$           |
+|  DGD   |                                                              | $\mathcal{O}\left(\frac{\ln k}{\sqrt{k}}\right)$ |                                                              |
+| D-PSGD | $\mathcal{O}\left(\frac{\sigma}{\sqrt{n T}}+\frac{n^{\frac{1}{4}} \zeta^{\frac{2}{3}}}{T^{\frac{2}{3}}}+\frac{1}{T}\right)$ |                                                  |                                                              |
+| EXTRA  |                                                              |            $\mathcal{O}(\frac{1}{k})$            |                $\mathcal{O}((1+\delta)^{-k})$                |
+|  DSGD  |                                                              |                                                  | $\mathcal{O}\left(\frac{1}{nk}+\frac{1}{k^{1.5}}+\frac{1}{k^2}\right)$ |
+|  DSGT  |                                                              |                                                  | $\mathcal{O}\left(\frac{1}{nk} +\frac{1}{k^{\theta\mu}}+\frac{1}{k^2} \right)$ |
+| $D^2$  | $\mathcal{O}\left(\frac{\sigma}{\sqrt{n T}}+\frac{1}{T}+\frac{\zeta_{0}^{2}}{T+\sigma^{2} T^{2}}+\frac{\sigma^2}{1+\sigma^2T}\right)$ |                                                  |                                                              |
+
+
+
+* DSGT converges to the neighborhood of $x^*$ at the linear rate of $\rho(A)^k$ when choosing fixed $\alpha$ and converges to $x^*$ when choosing $\alpha_k=\frac{\theta}{m+k}$. This implies us to choose stepsize adaptively.
+
+  
 
