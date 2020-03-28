@@ -82,8 +82,6 @@ $\zeta_0=\frac{1}{n} \sum\limits_{i=1}^{n}\left\|\nabla f_{i}(\mathbf{0})-\nabla
 
 options:
 
-- In EXTRA, the authors report they observe a step size as large as $\mathcal{O}(\frac{1}{L})$ still leads to linear convergence. It remains an open question to prove linear convergence under this larger step size.
-
 - What is the convergence rate when assuming $f_i$ to be strongly convex in $D^2$?
 
 - @li2019decentralized assume a sturcture of $f_i(x)=s_i(x)+r_i(x)$ on the objective function, where $s_i$ is differentiable and has a Lipschitz continuous gradient with parameter $L$ and $r_i$ is proximable. They improve The PG-EXTRA in the speed and the dependency of convergence over networks. If we assume the same structure on DSGT or DSGD, what is the convergence rate?
