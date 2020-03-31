@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization</title>
+  <title>Chapter 11 Exact diffusion | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 11 Exact diffusion | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Gossip-like Push-Pull and DSGT | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 11 Exact diffusion | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="summary-of-push-pull-and-dsgt.html"/>
-<link rel="next" href="sec-asynt.html"/>
+<link rel="prev" href="comparison.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -134,13 +134,87 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="gossip-like-push-pull-and-dsgt" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> Gossip-like Push-Pull and DSGT</h1>
-<p><strong>Todo:gossip algorithms</strong></p>
-<p>Instead of iterating all the agents, at each time slot <span class="math inline">\(k=0,1,...\)</span>, a batch of agents may wake up randomly, and communicate with a subset of their nearby agents.</p>
-<div id="g-push-pull" class="section level2">
-<h2><span class="header-section-number">6.1</span> G-Push-Pull</h2>
+<div id="sec:ediff" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Exact diffusion</h1>
+Consider the following problem,
+<span class="math display" id="eq:eloss">\[\begin{equation}
+x^*=\underset{x\in\mathbb{R}^p}{\arg\min}\sum_{i=1}^nf_i(x)\left(=E_{\xi_i}Q(x,\xi_i)\right)
+\tag{11.1}
+\end{equation}\]</span>
+<p>The noisy gradient <span class="math inline">\(\nabla Q(x_{i,k},\xi_{i,k})\)</span> is more concrete than the <span class="math inline">\(g(x_{i,k},\xi_{i,k})\)</span> we use in the previous chapters, like chapter <a href="sec-dsgt.html#sec:dsgt">4</a>. In the following, we use <span class="math inline">\(g(x_{i,k},\xi_{i,k})=\nabla Q(x_{i,k},\xi_{i,k})\)</span>.</p>
+<p>We focus on the class of diffusion strategies here. The exact diffusion and the traditional diffusion strategy(take adapt-then-conbine formulartion of diffusion as an example) can be seen in the following table,</p>
+<table>
+<colgroup>
+<col width="37%" />
+<col width="62%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Scheme</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">adapt-then-combine of diffusion</td>
+<td align="center"><span class="math display">\[X_{k+\frac{1}{2}}=X_{k}-\alpha\nabla G(X_k,\boldsymbol\xi_k)(\text{adaptation})\\X_{k+1}=WX_{k+\frac{1}{2}}(\text{combination})\]</span></td>
+</tr>
+<tr class="even">
+<td align="center">exact diffusion(stochastic version)</td>
+<td align="center"><span class="math display">\[X_{k+\frac{1}{3}}=X_{k}-\alpha G(X_k,\boldsymbol\xi_k)(\text{adaptation})\\X_{k+\frac{2}{3}}=X_{k+\frac{1}{3}}+X_k-X_{k-1+\frac{1}{3}}(\text{correction})\\X_{k+1}=WX_{k+\frac{2}{3}}(\text{combination})\]</span></td>
+</tr>
+</tbody>
+</table>
+The performance of bias-correction methods under stochastic and adaptive settings remain unclear. <span class="citation">Yuan et al. (<a href="#ref-yuan2019performance">2019</a>)</span> show that the correction-step in exact diffusion leads to better standy-state performance under stochastic scenarios. The exact diffusion assume each <span class="math inline">\(f_i\)</span> to be <strong>differentiable and <span class="math inline">\(\mu-\)</span>strongly convex</strong>. Under sufficiently small step sizes <span class="math inline">\(\alpha\)</span>, the exact diffusion converges exponentially at the rate <span class="math inline">\(1-\mathcal{O}(\alpha\mu)\)</span> to a neiborhood of <span class="math inline">\(x^*\)</span>, which can be characterized as
+<span class="math display" id="eq:ned">\[\begin{equation}
+\underset{k\to \infty}{\lim\sup}\frac{1}{n}E\left[\Vert X_k-\mathbf{1}x^*\Vert^2\right]_{ed}
+=\mathcal{O}\left(\frac{\alpha\bar\sigma^2}{n\mu}+\frac{\delta^2}{n\mu^2}\cdot\frac{\alpha^2\bar\sigma^2}{1-\lambda}\right)
+\tag{11.2}
+\end{equation}\]</span>
+In comparison, the traditional diffusion strategy converges at the similar rate to the following neighborhood of <span class="math inline">\(x^*\)</span>,
+<span class="math display" id="eq:nd">\[\begin{equation}
+\underset{k\to \infty}{\lim\sup}\frac{1}{n}E\left[\Vert X_k-\mathbf{1}x^*\Vert^2\right]_{d}
+=\mathcal{O}\left(\frac{\alpha\bar\sigma^2}{n\mu}+\frac{\delta^2}{n\mu^2}\cdot(\frac{\alpha^2\bar\sigma^2}{1-\lambda}+
+\frac{\alpha^2b^2}{(1-\lambda)^2})\right)
+\tag{11.3}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\bar\sigma^2\)</span> measures the size of gradient noise,<span class="math inline">\(\delta\)</span> bounds the hessian matrix of <span class="math inline">\(f_i\)</span>, <span class="math inline">\(b^2=\sum\limits_{i=1}^n\Vert \nabla f_i(x^*)\Vert^2\)</span>, and <span class="math inline">\(\lambda=\max\{|\lambda_2(W)|,|\lambda_n(W)|\}\in(0,1)\)</span> stands for the spectral gap.</p>
 
+<div class="exercise">
+<p><span id="exr:edfi" class="exercise"><strong>Assumption11.1  </strong></span>Each <span class="math inline">\(f_i\)</span> is <span class="math inline">\(\mu-\)</span>strongly convex and twice differentiable, and <span class="math display">\[
+\mu I_p\leq\nabla^2 f_i(x)\leq\delta I_p
+\]</span></p>
+</div>
+
+<p>We have a more smooth function <span class="math inline">\(f_i\)</span> here compared to assuming <span class="math inline">\(\nabla f_i\)</span> is <span class="math inline">\(L-\)</span>Lipschitz continuous.</p>
+
+<div class="exercise">
+<span id="exr:edw" class="exercise"><strong>Assumption11.2  </strong></span>The network is undirected and stronly connected, and the mixing matrix <span class="math inline">\(W\)</span> is symmetric and doubly-stochastic
+</div>
+
+<p>For the noisy gradient, we assume differently compared to assumption <a href="sec-dsgt.html#exr:estg">4.1</a>, where awe assume the variance of the noisy gradient can be bound be a uniform <span class="math inline">\(\sigma^2\)</span>.</p>
+
+<div class="exercise">
+<span id="exr:edg" class="exercise"><strong>Assumption11.3  </strong></span>Each agent <span class="math inline">\(i\)</span> and the iteration step <span class="math inline">\(k\)</span>, we have,
+<span class="math display">\[\begin{align}
+E\left[\nabla g(x_{i,k},\xi_{i,k})|\mathcal{F}_{k-1}\right]&amp;=\nabla f_i(x_{i,k})\\
+E\left[\Vert \nabla g(x_{i,k},\xi_{i,k})-\nabla f_i(x_{i,k})\Vert^2|\mathcal{F}_{k-1}\right]&amp;\leq \beta_i\Vert x_{i,k-1}-x^*\Vert^2 + \sigma^2_i
+\end{align}\]</span>
+<span class="math inline">\(\bar\sigma^2=\frac{1}{n}\sum_{i=1}^n\sigma_i^2\)</span>
+</div>
+
+<p>Compare the two characterization <a href="sec-ediff.html#eq:ned">(11.2)</a> and <a href="sec-ediff.html#eq:nd">(11.3)</a>, we see that the exact diffusion outperforms the traditional diffusion strategy in the following,</p>
+<ul>
+<li><p>The exact diffusion removes the bias <span class="math inline">\(\frac{\alpha^2b^2}{(1-\lambda^2)}\)</span></p></li>
+<li><p>When we can obtain the exact gradient(deterministic setting), i.e. <span class="math inline">\(\sigma_i^2=0,i=1,2,...,n\)</span>, the exact diffusion converge exactly to <span class="math inline">\(x^*\)</span>.</p></li>
+<li><p>When the bias <span class="math inline">\(\frac{\alpha^2b^2}{(1-\lambda^2)}\)</span> is significant, i.e. <span class="math inline">\(b^2\)</span> is large or the network is badly-connected(i.e. <span class="math inline">\(\lambda\)</span> is close to 1), and the step size is not sufficiently small(<span class="math inline">\(\alpha\leq d_3(1-\lambda)^{(2+y)},y&gt;0\)</span>), the exact diffusion outperforms the traditional one.</p></li>
+</ul>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-yuan2019performance">
+<p>Yuan, Kun, Sulaiman A Alghunaim, Bicheng Ying, and Ali H Sayed. 2019. “On the Performance of Exact Diffusion over Adaptive Networks.” In <em>2019 Ieee 58th Conference on Decision and Control (Cdc)</em>, 4898–4903. IEEE.</p>
 </div>
 </div>
             </section>
@@ -148,8 +222,8 @@
           </div>
         </div>
       </div>
-<a href="summary-of-push-pull-and-dsgt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sec-asynt.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="comparison.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-03-23" />
+<meta name="date" content="2020-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="sec-sharp.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="next" href="sec-ediff.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -114,7 +114,8 @@
 <li class="chapter" data-level="10.1" data-path="comparison.html"><a href="comparison.html#assumptions-of-different-schemes"><i class="fa fa-check"></i><b>10.1</b> Assumptions of different schemes</a></li>
 <li class="chapter" data-level="10.2" data-path="comparison.html"><a href="comparison.html#convergence-rate"><i class="fa fa-check"></i><b>10.2</b> Convergence rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>11</b> Final Words</a></li>
+<li class="chapter" data-level="11" data-path="sec-ediff.html"><a href="sec-ediff.html"><i class="fa fa-check"></i><b>11</b> Exact diffusion</a></li>
+<li class="chapter" data-level="12" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>12</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
@@ -307,7 +308,6 @@ E_{\xi }\left\|g_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, 
 
 <p>options:</p>
 <ul>
-<li><p>In EXTRA, the authors report they observe a step size as large as <span class="math inline">\(\mathcal{O}(\frac{1}{L})\)</span> still leads to linear convergence. It remains an open question to prove linear convergence under this larger step size.</p></li>
 <li><p>What is the convergence rate when assuming <span class="math inline">\(f_i\)</span> to be strongly convex in <span class="math inline">\(D^2\)</span>?</p></li>
 <li><p><span class="citation">Li, Shi, and Yan (<a href="#ref-li2019decentralized">2019</a>)</span> assume a sturcture of <span class="math inline">\(f_i(x)=s_i(x)+r_i(x)\)</span> on the objective function, where <span class="math inline">\(s_i\)</span> is differentiable and has a Lipschitz continuous gradient with parameter <span class="math inline">\(L\)</span> and <span class="math inline">\(r_i\)</span> is proximable. They improve The PG-EXTRA in the speed and the dependency of convergence over networks. If we assume the same structure on DSGT or DSGD, what is the convergence rate?</p></li>
 </ul>
@@ -408,7 +408,7 @@ E_{\xi }\left\|g_{i}(x ; \xi)-\nabla f_{i}(x)\right\|^{2} \leqslant \sigma^{2}, 
         </div>
       </div>
 <a href="sec-sharp.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sec-ediff.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
