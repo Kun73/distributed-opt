@@ -7,7 +7,7 @@ x^*=\underset{x\in\mathbb{R}^p}{\arg\min}\sum_{i=1}^nf_i(x)\left(=E_{\xi_i}Q(x,\
 \end{equation}
 The noisy gradient $\nabla Q(x_{i,k},\xi_{i,k})$ is more concrete than the $g(x_{i,k},\xi_{i,k})$ we use in the previous chapters, like chapter \@ref(sec:dsgt). In the following, we use $g(x_{i,k},\xi_{i,k})=\nabla Q(x_{i,k},\xi_{i,k})$.
 
-The exact diffusion and the traditional diffusion strategy can be seen in the following table, 
+We focus on the class of diffusion strategies here. The exact diffusion and the traditional diffusion strategy(take adapt-then-conbine formulartion of diffusion as an example) can be seen in the following table, 
 
 |                Name                 |                            Scheme                            |
 | :---------------------------------: | :----------------------------------------------------------: |
