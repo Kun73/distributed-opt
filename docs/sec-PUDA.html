@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Orgnization of the Notes | Notes about Distributed Optimization</title>
+  <title>Chapter 12 Decentralized Proximal Gradient Algorithms with Linear Convergence Rates | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Orgnization of the Notes | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 12 Decentralized Proximal Gradient Algorithms with Linear Convergence Rates | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Orgnization of the Notes | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 12 Decentralized Proximal Gradient Algorithms with Linear Convergence Rates | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="the-push-pull-method.html"/>
+<link rel="prev" href="sec-ediff.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -138,22 +138,111 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="orgnization-of-the-notes" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Orgnization of the Notes</h1>
-<p>Currently contents include</p>
-<ul>
-<li><p>The Push-Pull method <span class="citation">(Pu et al. <a href="#ref-pu2018push">2018</a>)</span></p></li>
-<li><p>The distributed stochastic gradient tracking method(DSGT)<span class="citation">(Pu and Nedić <a href="#ref-pu2018distributed">2018</a>)</span></p></li>
-</ul>
+<div id="sec:PUDA" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Decentralized Proximal Gradient Algorithms with Linear Convergence Rates</h1>
+<span class="citation">Alghunaim et al. (<a href="#ref-alghunaim2019decentralized">2019</a>)</span> propose a general primal-dual algorithmic framework that deals with the problem
+<span class="math display" id="eq:proxiR">\[\begin{equation}
+x^* = \underset{x\in\mathbb{R}^p}{\arg\min} \frac{1}{n}\sum_{i=1}^nf_i+R(x)
+\tag{12.1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(R(x):\mathbb{R}^p\to\mathbb{R}\cup\{+\infty\}\)</span> is a common convex nonsmooth function across all agents. Whether it can be relaxed to be <span class="math inline">\(R_i(x)\)</span> is not explicitly answered. However, if we restrict it to be the scenario where each agent can compute one gradient and one proximal mapping per iteration for the smooth and non-smooth part, respectively and unlimited communication per iteration, then the linear convergence rate to the exact <span class="math inline">\(x^*\in\mathbb{R}^p\)</span> cannot be achieved. <span class="math inline">\(f_i\)</span>, which is only known to agent <span class="math inline">\(i\)</span>, is <span class="math inline">\(\mu-\)</span>strongly convex and has <span class="math inline">\(L-\)</span>Lipschitz continuous gradient, and <span class="math inline">\(\mu\leq L\)</span>.</p>
+Instead of stacking the local variable <span class="math inline">\(x_i\in\mathbb{R}^p\)</span> to become a maxtrix, we use vectorized notation here to best fit the setting in <span class="citation">(Alghunaim et al. <a href="#ref-alghunaim2019decentralized">2019</a>)</span>.
+<span class="math display">\[\begin{equation}
+\mathcal{X}
+:=
+\left(\begin{array}{c}
+x_1\\
+x_2\\ 
+\vdots\\
+x_n
+\end{array}
+\right)
+\end{equation}\]</span>
+Then <span class="math inline">\(\mathcal{X}\in\mathbb{R}^{np}\)</span>, denote <span class="math inline">\(J(\mathcal{X}):=\sum\limits_{i=1}^nf_i(x_i)\)</span>. Let <span class="math inline">\(B,C\in\mathbb{R}^{np\times np}\)</span> be two general symmetric matrices satisfying
+<span class="math display" id="eq:BC">\[\begin{align}
+B\mathcal{X}=0&amp;\Longleftrightarrow\quad x_1=\cdot=x_n\\
+C=0\text{ or } C\mathcal{X}=0 &amp;\Longleftrightarrow B\mathcal{X}=0
+\tag{12.2}
+\end{align}\]</span>
+<div id="uda" class="section level2">
+<h2><span class="header-section-number">12.1</span> UDA</h2>
+<p>First we consider <span class="math inline">\(R(x)=0\)</span>, where problem <a href="sec-PUDA.html#eq:proxiR">(12.1)</a> reduces to be problem <a href="index.html#eq:obj">(1.1)</a>. We have the following unified decentralized algorithm(UDA). The network is assumed to be connected and undirected, the mixing matrix <span class="math inline">\(A\)</span> is symmetric, doubly-stochastic, and primitive,i.e. <span class="math inline">\(\exists j\in\mathbb{N}^+\quad s.t.\)</span> all entries of <span class="math inline">\(A^j\)</span> are positive.</p>
 
+<div class="example">
+<p><span id="exm:UDA" class="example"><strong>Algorithm12.1  (UDA)  </strong></span> * Initialize <span class="math inline">\(y_0 = 0\in\mathbb{R}^{np}\)</span> and <span class="math inline">\(\mathcal{X}\)</span> to be arbitary value, set step size <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\overline{\mathcal{A}}\)</span></p>
+<ul>
+<li><p>For k = 1, 2, …, T</p></li>
+<li><p><span class="math inline">\(z_{k+1} = (I - C)\mathcal{X}_k - \alpha\nabla J(\mathcal{X}_k) - By_k\)</span> (primal-descent)</p></li>
+<li><p><span class="math inline">\(y_{k+1} = y_k + Bz_{k+1}\)</span> (dual-ascent)</p></li>
+<li><p><span class="math inline">\(\mathcal{x}_{k+1} = \overline{\mathcal{A}}z_{k+1}\)</span> (combine)</p></li>
+<li>Output <span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^nx_{i,T}\)</span></li>
+</ul>
+</div>
+
+
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> Algorithm <a href="sec-PUDA.html#exm:UDA">12.1</a> provides a general framework, <span class="math inline">\(\overline{\mathcal{A}}\)</span> should be specified. It is corresponding to the mixing matrix <span class="math inline">\(A\)</span>(network combination matrix).</p>
+</div>
+
+From <span class="math inline">\(z_{k+1}-z_k\)</span> and <span class="math inline">\(y_{k+1}-y_k=Bz_{k+1}\)</span>, we can eliminating <span class="math inline">\(y_k\)</span> and have,
+<span class="math display" id="eq:noyUDA">\[\begin{equation}
+z_{k+1} = (I-B^2)z_k + (I-C)(x_k-x_{k-1}) - \alpha (\nabla J(\mathcal{X}_{k}) - \nabla J(\mathcal{X}_{k-1}))
+\tag{12.3}
+\end{equation}\]</span>
+<p>Choosing different <span class="math inline">\(\{\overline{\mathcal{A}}, B, C\}\)</span> leads to many state of art algorithms.</p>
+</div>
+<div id="puda" class="section level2">
+<h2><span class="header-section-number">12.2</span> PUDA</h2>
+When <span class="math inline">\(R(x)\not=0\)</span>, we can extend UDA <a href="sec-PUDA.html#exm:UDA">12.1</a> to a proximal unified decentralized algorithm(PUDA). Let
+<span class="math display" id="eq:RPUDA">\[\begin{equation}
+\mathcal{R}(\mathcal{X}):=\frac{1}{n}\sum_{i=1}^n R(x_i)
+\tag{12.4}
+\end{equation}\]</span>
+and define the proximal operator <span class="math inline">\(\mathrm{prox_{\alpha f}(\cdot)}\)</span>
+<span class="math display">\[\begin{equation}
+\mathrm{prox}_{\alpha f}(x)=\underset{z}{\arg \min } f(z)+\frac{1}{2 \mu}\|z-x\|^{2}
+\end{equation}\]</span>
+<p>then we have,</p>
+
+<div class="example">
+<p><span id="exm:PUDA" class="example"><strong>Algorithm12.2  (PUDA)  </strong></span> * Initialize <span class="math inline">\(y_0 = 0\in\mathbb{R}^{np}\)</span> and <span class="math inline">\(\mathcal{X}\)</span> to be arbitary value, set step size <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\overline{\mathcal{A}}\)</span></p>
+<ul>
+<li><p>For k = 1, 2, …, T</p></li>
+<li><p><span class="math inline">\(z_{k+1} = (I - C)\mathcal{X}_k - \alpha\nabla J(\mathcal{X}_k) - By_k\)</span> (primal-descent)</p></li>
+<li><p><span class="math inline">\(y_{k+1} = y_k + Bz_{k+1}\)</span> (dual-ascent)</p></li>
+<li><p><span class="math inline">\(\mathcal{x}_{k+1} = \mathrm{prox}_{\alpha \mathcal{R}}\overline{\mathcal{A}}z_{k+1}\)</span> (combine)</p></li>
+<li>Output <span class="math inline">\(\frac{1}{n}\sum\limits_{i=1}^nx_{i,T}\)</span></li>
+</ul>
+</div>
+
+
+<div class="remark">
+<p> <span class="remark"><em>Remark. </em></span> The network quantity <span class="math inline">\(\mathcal{R}(\mathcal{X})\)</span> is not <span class="math inline">\(R(\bar x)\)</span></p>
+</div>
+
+<p>For PUDA <a href="sec-PUDA.html#exm:PUDA">12.2</a>, a unique fixed point <span class="math inline">\((\mathcal{X}^*, y^*, z^*)\)</span> exists. Moreover, under some conditions, PUDA <a href="sec-PUDA.html#exm:PUDA">12.2</a> converges at the linear rate to that point with a fixed step size <span class="math inline">\(\mathcal{O}(\frac{1}{L})\)</span>.</p>
+
+<div class="exercise">
+<span id="exr:conmat" class="exercise"><strong>Assumption12.1  </strong></span>Assume matrices <span class="math inline">\(B,C\in\mathbb{R}^{np\times np}\)</span> satisfy <a href="sec-PUDA.html#eq:BC">(12.2)</a> and the following <span class="math display">\[
+  \overline{\mathcal{A}}^{2} \leq I-B^{2} \text { and } 0 \leq C&lt;2 I
+\]</span>
+</div>
+
+
+<div class="theorem">
+<span id="thm:lrPUDA" class="theorem"><strong>Theorem 12.1  </strong></span>Let <span class="math inline">\(f_i\)</span> be <span class="math inline">\(\mu-\)</span>strongly convex and has <span class="math inline">\(L-\)</span>Lipschitz continuous gradient and assumption <a href="sec-PUDA.html#exr:conmat">12.1</a> hold, if <span class="math inline">\(y_1=0\)</span> and step size <span class="math inline">\(\alpha&lt;\frac{2-\sigma_{\max}(C)}{L}\)</span>, then <span class="math display">\[
+  \Vert \mathcal{X}_{k+1}-\mathcal{X}^*\Vert^2 + \Vert y_{k+1}-y_b^*\Vert^2
+\leq \gamma (\Vert \mathcal{X}_{k}-\mathcal{X}^*\Vert^2 + \Vert y_{k}-y^*\Vert^2)
+\]</span> where <span class="math inline">\(\gamma = \max\{1-\alpha\mu(2-\sigma_\max(C)-\alpha L), 1- \underline{\sigma}(B)\}\)</span>
+</div>
+
+
+</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-pu2018distributed">
-<p>Pu, Shi, and Angelia Nedić. 2018. “Distributed Stochastic Gradient Tracking Methods.”</p>
-</div>
-<div id="ref-pu2018push">
-<p>Pu, Shi, Wei Shi, Jinming Xu, and Angelia Nedić. 2018. “A Push-Pull Gradient Method for Distributed Optimization in Networks.” In <em>2018 Ieee Conference on Decision and Control (Cdc)</em>, 3385–90. IEEE.</p>
+<div id="ref-alghunaim2019decentralized">
+<p>Alghunaim, Sulaiman A., Ernest K. Ryu, Kun Yuan, and Ali H. Sayed. 2019. “Decentralized Proximal Gradient Algorithms with Linear Convergence Rates.”</p>
 </div>
 </div>
             </section>
@@ -161,8 +250,8 @@
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-push-pull-method.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sec-ediff.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
