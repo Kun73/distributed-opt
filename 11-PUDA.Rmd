@@ -1,0 +1,117 @@
+# Decentralized Proximal Gradient Algorithms with Linear Convergence Rates{#sec:PUDA}
+
+@alghunaim2019decentralized propose a general primal-dual algorithmic framework that deals with the problem 
+\begin{equation}
+x^* = \underset{x\in\mathbb{R}^p}{\arg\min} \frac{1}{n}\sum_{i=1}^nf_i+R(x)
+(\#eq:proxiR)
+\end{equation}
+where $R(x):\mathbb{R}^p\to\mathbb{R}\cup\{+\infty\}$ is a common convex nonsmooth function across all agents. Whether it can be relaxed to be $R_i(x)$ is not explicitly answered. However, if we restrict it to be the scenario where each
+agent can compute one gradient and one proximal mapping per iteration for the smooth and non-smooth
+part, respectively and unlimited communication per iteration, then the linear convergence rate to the exact $x^*\in\mathbb{R}^p$ cannot be achieved.  $f_i$, which is only known to agent $i$, is $\mu-$strongly convex and has $L-$Lipschitz continuous gradient, and $\mu\leq L$.
+
+Instead of stacking the local variable $x_i\in\mathbb{R}^p$ to become a maxtrix, we use vectorized notation here to best fit the setting in [@alghunaim2019decentralized].
+\begin{equation}
+\mathcal{X}
+:=
+\left(\begin{array}{c}
+x_1\\
+x_2\\ 
+\vdots\\
+x_n
+\end{array}
+\right)
+\end{equation}
+
+Then $\mathcal{X}\in\mathbb{R}^{np}$, denote $J(\mathcal{X}):=\sum\limits_{i=1}^nf_i(x_i)$. Let $B,C\in\mathbb{R}^{np\times np}$ be two general symmetric matrices satisfying 
+\begin{align}
+B\mathcal{X}=0&\Longleftrightarrow\quad x_1=\cdot=x_n\\
+C=0\text{ or } C\mathcal{X}=0 &\Longleftrightarrow B\mathcal{X}=0
+(\#eq:BC)
+\end{align}
+
+## UDA
+
+First we consider $R(x)=0$, where problem \@ref(eq:proxiR) reduces to be problem \@ref(eq:obj). We have the following unified decentralized algorithm(UDA). The network is assumed to be connected and undirected, the mixing matrix $A$ is symmetric, doubly-stochastic, and primitive,i.e. $\exists j\in\mathbb{N}^+\quad s.t.$ all entries of $A^j$ are positive.
+
+```{example, UDA, name = "UDA"}
+
+* Initialize $y_0 = 0\in\mathbb{R}^{np}$ and $\mathcal{X}$ to be arbitary value, set step size $\alpha$, $\overline{\mathcal{A}}$
+
+* For k = 1, 2, ..., T
+
+  * $z_{k+1} = (I - C)\mathcal{X}_k - \alpha\nabla J(\mathcal{X}_k) - By_k$ (primal-descent)
+
+  * $y_{k+1} = y_k + Bz_{k+1}$ (dual-ascent)
+
+  * $\mathcal{x}_{k+1} = \overline{\mathcal{A}}z_{k+1}$ (combine)
+  
+* Output $\frac{1}{n}\sum\limits_{i=1}^nx_{i,T}$
+
+```
+
+```{remark}
+Algorithm \@ref(exm:UDA) provides a general framework, $\overline{\mathcal{A}}$ should be specified. It is corresponding to the mixing matrix $A$(network combination matrix).
+
+```
+
+From $z_{k+1}-z_k$ and $y_{k+1}-y_k=Bz_{k+1}$, we can eliminating $y_k$ and have, 
+\begin{equation}
+z_{k+1} = (I-B^2)z_k + (I-C)(x_k-x_{k-1}) - \alpha (\nabla J(\mathcal{X}_{k}) - \nabla J(\mathcal{X}_{k-1}))
+(\#eq:noyUDA)
+\end{equation}
+Choosing different $\{\overline{\mathcal{A}}, B, C\}$ leads to many state of art algorithms. 
+
+## PUDA 
+
+When $R(x)\not=0$, we can extend UDA \@ref(exm:UDA) to a proximal unified decentralized algorithm(PUDA). Let 
+\begin{equation}
+\mathcal{R}(\mathcal{X}):=\frac{1}{n}\sum_{i=1}^n R(x_i)
+(\#eq:RPUDA)
+\end{equation}
+and define the proximal operator $\mathrm{prox_{\alpha f}(\cdot)}$
+\begin{equation}
+\mathrm{prox}_{\alpha f}(x)=\underset{z}{\arg \min } f(z)+\frac{1}{2 \mu}\|z-x\|^{2}
+\end{equation}
+
+then we have, 
+
+```{example, PUDA, name = "PUDA"}
+
+* Initialize $y_0 = 0\in\mathbb{R}^{np}$ and $\mathcal{X}$ to be arbitary value, set step size $\alpha$, $\overline{\mathcal{A}}$
+
+* For k = 1, 2, ..., T
+
+  * $z_{k+1} = (I - C)\mathcal{X}_k - \alpha\nabla J(\mathcal{X}_k) - By_k$ (primal-descent)
+
+  * $y_{k+1} = y_k + Bz_{k+1}$ (dual-ascent)
+
+  * $\mathcal{x}_{k+1} = \mathrm{prox}_{\alpha \mathcal{R}}\overline{\mathcal{A}}z_{k+1}$ (combine)
+  
+* Output $\frac{1}{n}\sum\limits_{i=1}^nx_{i,T}$
+
+```
+
+```{remark}
+The network quantity $\mathcal{R}(\mathcal{X})$ is not $R(\bar x)$
+
+```
+
+For PUDA \@ref(exm:PUDA), a unique fixed point $(\mathcal{X}^*, y^*, z^*)$ exists. Moreover, under some conditions, PUDA \@ref(exm:PUDA) converges at the linear rate to that point with a fixed step size $\mathcal{O}(\frac{1}{L})$.
+
+```{exercise, conmat}
+Assume matrices $B,C\in\mathbb{R}^{np\times np}$ satisfy \@ref(eq:BC) and the following 
+$$
+  \overline{\mathcal{A}}^{2} \leq I-B^{2} \text { and } 0 \leq C<2 I
+$$
+```
+
+```{theorem, lrPUDA}
+Let $f_i$ be $\mu-$strongly convex and has $L-$Lipschitz continuous gradient and assumption \@ref(exr:conmat) hold, if $y_1=0$ and step size $\alpha<\frac{2-\sigma_{\max}(C)}{L}$, then 
+$$
+  \Vert \mathcal{X}_{k+1}-\mathcal{X}^*\Vert^2 + \Vert y_{k+1}-y_b^*\Vert^2
+\leq \gamma (\Vert \mathcal{X}_{k}-\mathcal{X}^*\Vert^2 + \Vert y_{k}-y^*\Vert^2)
+$$
+where $\gamma = \max\{1-\alpha\mu(2-\sigma_\max(C)-\alpha L), 1- \underline{\sigma}(B)\}$
+```
+
+
