@@ -1,0 +1,50 @@
+# NIDS
+
+A network independent step-size(NIDS) algorithm \@ref(exm:NIDS)[@li2019decentralized] can deal with the problem
+\begin{equation}
+\underset{x\in\mathbb{R}^p}{\min}f(x):= \frac{1}{n}\sum_{i=1}^n(s_i(x)+r_i(x))
+(\#eq:objNIDS)
+\end{equation}
+where $s_{i}: \mathbb{R}^{p} \rightarrow \mathbb{R} \text { and } r_{i}: \mathbb{R}^{p} \rightarrow \mathbb{R} \cup\{+\infty\}$ both are known by agent $i$ only. $s_i$ is differentable and has a Lipschitz continuous gradient, and $r_i$ is proximable, i.e. its proximal mapping 
+$$
+\operatorname{prox}_{\lambda r_{i}}(y)=\underset{x \in \mathbb{R}^{p}}{\arg \min }\quad \lambda r_{i}(x)+\frac{1}{2}\|x-y\|^{2}
+$$
+has a closed-form or can be computed easily. 
+
+By allowing the exchanges of gradient adapted estimations, NIDS achieves the network independent step-size. NIDS also obtains sublinear convergence rate for the convexity assumption and linear convergence rate for strongly convexity assumption. The author claims they have reached the best possible performance of first-order algorithms for distributed optimization without acceleration and further improvements can be obtained by incorpporating Nesterov's techniques.
+
+```{example, NIDS, name = "NIDS"}
+
+
+* Input mixing matrix $W$, each agent initize its own step-size $\alpha_i>0$, $x_{i,0}\in\mathbb{R}^p$, and the same parameter $c$. Each agent sets its mixing value $\tilde w_{ij}:=c\alpha_iw_{ij}$, and $\tilde w_{ii}=1-c\alpha_i+c\alpha_iw_{ii}$
+  
+* for k = 0, 1, 2, ...
+
+  * if k = 0 
+    
+    * each agent i performs 
+
+    * $z_{i,1} = x_{i,0}-\alpha_i\nabla s_i(x_{i,0})$
+
+    * $x_{i,1} = \mathrm{prox}_{\alpha_ir_i}(z_{i,1})$
+  
+  * else
+    
+    * each agent i performs 
+
+    * $z_{i, k+1} = z_{i,k}-x_{i,k}+\sum_{j=1}^n \tilde w_{ij}(2x_{j,k}-x_{j,k-1}-\alpha_j\nabla s_j(x_{j,k})+\alpha_j\nabla s_{j}(x_{j,k-1}))$
+  
+    * $x_{i,k+1} = \mathrm{prox}_{\alpha_ir_i}(z_{i,k+1})$
+  
+  
+```
+
+When we choose $C=0, B^{2}=c(I-\mathcal{A})(c \in \mathbb{R}), \text { and } \overline{\mathcal{A}}=I-B^{2}$ in formula \@ref(eq:noyUDA) in chapter \@ref(sec:PUDA), we obtain the above algorithm \@ref(exm:NIDS). Moreover, let the parameter $c=0.5$, NIDS is identical to the exact diffusion in chapter \@ref(sec:ediff).
+
+Let $\Lambda=\mathrm{diag}(\alpha_1,...,\alpha_n)$, $X_{k},Z_{k}\in\mathbb{R}^{n\times p}$, and $\tilde W=I - c\Lambda(I-W)$, where $c$ is chosen so that $\Lambda^{-\frac{1}{2}}\tilde W\Lambda^{\frac{1}{2}}$ is positive semidefinite, i.e. $\Lambda^{-\frac{1}{2}}\tilde W\Lambda^{\frac{1}{2}}\succcurlyeq \mathbf{0}$. Then the NIDS can be expressed as 
+\begin{align}
+Z_{k+1} &= Z_k-X_k+\tilde W(2X_k-X_{k-1}-\Lambda \nabla s(X_k)+\lambda \nabla s(X_{k-1}))\\
+X_{k+1} &= \underset{X \in \mathbb{R}^{n \times p}}{\arg \min } r(X)+\frac{1}{2}\left\|X-Z_{k+1}\right\|_{\Lambda-1}^{2}
+(\#eq:updateNIDS)
+\end{align}
+where the matrix norm for $X\in\mathbb{R}^{n\times p}$, $\Vert X\Vert^2_Q:=\mathrm{tr}(X^TQX)$ for any given symmetric matrix $Q\in\mathbb{R}^{n\times n}$.
