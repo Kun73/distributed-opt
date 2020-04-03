@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 14 Final Words | Notes about Distributed Optimization</title>
+  <title>Chapter 13 NIDS | Notes about Distributed Optimization</title>
   <meta name="description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 14 Final Words | Notes about Distributed Optimization" />
+  <meta property="og:title" content="Chapter 13 NIDS | Notes about Distributed Optimization" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 14 Final Words | Notes about Distributed Optimization" />
+  <meta name="twitter:title" content="Chapter 13 NIDS | Notes about Distributed Optimization" />
   
   <meta name="twitter:description" content="These are some notes about distributed optimization, including some algorithms, their analysis of convergence, and some understandings of my own. Although the authors of those literature already provide proofs, I complement some details and try to figure out why should we prove in such a way. Hence they could be more easy to understand, especially for myself." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="nids.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="sec-PUDA.html"/>
+<link rel="next" href="final-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -139,17 +139,61 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="final-words" class="section level1">
-<h1><span class="header-section-number">Chapter 14</span> Final Words</h1>
+<div id="nids" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> NIDS</h1>
+A network independent step-size(NIDS) algorithm <a href="nids.html#exm:NIDS">13.1</a><span class="citation">(Li, Shi, and Yan <a href="#ref-li2019decentralized">2019</a>)</span> can deal with the problem
+<span class="math display" id="eq:objNIDS">\[\begin{equation}
+\underset{x\in\mathbb{R}^p}{\min}f(x):= \frac{1}{n}\sum_{i=1}^n(s_i(x)+r_i(x))
+\tag{13.1}
+\end{equation}\]</span>
+<p>where <span class="math inline">\(s_{i}: \mathbb{R}^{p} \rightarrow \mathbb{R} \text { and } r_{i}: \mathbb{R}^{p} \rightarrow \mathbb{R} \cup\{+\infty\}\)</span> both are known by agent <span class="math inline">\(i\)</span> only. <span class="math inline">\(s_i\)</span> is differentable and has a Lipschitz continuous gradient, and <span class="math inline">\(r_i\)</span> is proximable, i.e. its proximal mapping <span class="math display">\[
+\operatorname{prox}_{\lambda r_{i}}(y)=\underset{x \in \mathbb{R}^{p}}{\arg \min }\quad \lambda r_{i}(x)+\frac{1}{2}\|x-y\|^{2}
+\]</span> has a closed-form or can be computed easily.</p>
+<p>By allowing the exchanges of gradient adapted estimations, NIDS achieves the network independent step-size. NIDS also obtains sublinear convergence rate for the convexity assumption and linear convergence rate for strongly convexity assumption. The author claims they have reached the best possible performance of first-order algorithms for distributed optimization without acceleration and further improvements can be obtained by incorpporating Nesterov’s techniques.</p>
 
+<div class="example">
+<p><span id="exm:NIDS" class="example"><strong>Algorithm13.1  (NIDS)  </strong></span></p>
+<ul>
+<li><p>Input mixing matrix <span class="math inline">\(W\)</span>, each agent initize its own step-size <span class="math inline">\(\alpha_i&gt;0\)</span>, <span class="math inline">\(x_{i,0}\in\mathbb{R}^p\)</span>, and the same parameter <span class="math inline">\(c\)</span>. Each agent sets its mixing value <span class="math inline">\(\tilde w_{ij}:=c\alpha_iw_{ij}\)</span>, and <span class="math inline">\(\tilde w_{ii}=1-c\alpha_i+c\alpha_iw_{ii}\)</span></p></li>
+<li><p>for k = 0, 1, 2, …</p></li>
+<li><p>if k = 0</p>
+<ul>
+<li><p>each agent i performs</p></li>
+<li><p><span class="math inline">\(z_{i,1} = x_{i,0}-\alpha_i\nabla s_i(x_{i,0})\)</span></p></li>
+<li><p><span class="math inline">\(x_{i,1} = \mathrm{prox}_{\alpha_ir_i}(z_{i,1})\)</span></p></li>
+</ul></li>
+<li><p>else</p>
+<ul>
+<li><p>each agent i performs</p></li>
+<li><p><span class="math inline">\(z_{i, k+1} = z_{i,k}-x_{i,k}+\sum_{j=1}^n \tilde w_{ij}(2x_{j,k}-x_{j,k-1}-\alpha_j\nabla s_j(x_{j,k})+\alpha_j\nabla s_{j}(x_{j,k-1}))\)</span></p></li>
+<li><p><span class="math inline">\(x_{i,k+1} = \mathrm{prox}_{\alpha_ir_i}(z_{i,k+1})\)</span></p></li>
+</ul></li>
+</ul>
+</div>
+
+<p>When we choose <span class="math inline">\(C=0, B^{2}=c(I-\mathcal{A})(c \in \mathbb{R}), \text { and } \overline{\mathcal{A}}=I-B^{2}\)</span> in formula <a href="sec-PUDA.html#eq:noyUDA">(12.3)</a> in chapter <a href="sec-PUDA.html#sec:PUDA">12</a>, we obtain the above algorithm <a href="nids.html#exm:NIDS">13.1</a>. Moreover, let the parameter <span class="math inline">\(c=0.5\)</span>, NIDS is identical to the exact diffusion in chapter <a href="sec-ediff.html#sec:ediff">11</a>.</p>
+Let <span class="math inline">\(\Lambda=\mathrm{diag}(\alpha_1,...,\alpha_n)\)</span>, <span class="math inline">\(X_{k},Z_{k}\in\mathbb{R}^{n\times p}\)</span>, and <span class="math inline">\(\tilde W=I - c\Lambda(I-W)\)</span>, where <span class="math inline">\(c\)</span> is chosen so that <span class="math inline">\(\Lambda^{-\frac{1}{2}}\tilde W\Lambda^{\frac{1}{2}}\)</span> is positive semidefinite, i.e. <span class="math inline">\(\Lambda^{-\frac{1}{2}}\tilde W\Lambda^{\frac{1}{2}}\succcurlyeq \mathbf{0}\)</span>. Then the NIDS can be expressed as
+<span class="math display" id="eq:updateNIDS">\[\begin{align}
+Z_{k+1} &amp;= Z_k-X_k+\tilde W(2X_k-X_{k-1}-\Lambda \nabla s(X_k)+\lambda \nabla s(X_{k-1}))\\
+X_{k+1} &amp;= \underset{X \in \mathbb{R}^{n \times p}}{\arg \min } r(X)+\frac{1}{2}\left\|X-Z_{k+1}\right\|_{\Lambda-1}^{2}
+\tag{13.2}
+\end{align}\]</span>
+<p>where the matrix norm for <span class="math inline">\(X\in\mathbb{R}^{n\times p}\)</span>, <span class="math inline">\(\Vert X\Vert^2_Q:=\mathrm{tr}(X^TQX)\)</span> for any given symmetric matrix <span class="math inline">\(Q\in\mathbb{R}^{n\times n}\)</span>.</p>
+
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-li2019decentralized">
+<p>Li, Zhi, Wei Shi, and Ming Yan. 2019. “A Decentralized Proximal-Gradient Method with Network Independent Step-Sizes and Separated Convergence Rates.” <em>IEEE Transactions on Signal Processing</em> 67 (17). IEEE: 4494–4506.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="nids.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="sec-PUDA.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
