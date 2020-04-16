@@ -67,4 +67,60 @@ Compare the two characterization \@ref(eq:ned) and \@ref(eq:nd), we see that the
 
 ## Decreasing stepsize
 
+Here we can derive the information of Hessian matrices of $f_i,i=1,2,...,n$, then let $\tilde x_{i,k}=x^*-x_{i,k}$ we have,
+\begin{equation}
+\nabla f_i(x_{i,k})-\nabla f_i(x^*)=-H_{i,k}\tilde x_{i,k}
+\end{equation}
+where 
+\begin{equation}
+H_{i,k}=\int_{0}^1\nabla^2 f_i(x^*-r\tilde x_{i,k})dr\in\mathbb{R}^{p\times p}
+\end{equation}
+then we can denote 
+\begin{equation}
+\nabla F(X_k)-\nabla F(\mathbf{1}x^*):= 
+-\left(
+\begin{array}{c}
+(H_{1,k}\tilde x_{1,k})^T\\
+\vdots)\\
+(H_{n,k}\tilde x_{n,k})^T
+\end{array}\right)
+\in\mathbb{R}^{n,p}
+\end{equation}
+
+However, this notation cannot have the form of $\mathcal{H}_k\tilde X_k$, which helps us to separate the Hessian matrices and the iterated values. To ensure such an advantage, we stack the local vairables of different agents as a long vector, i.e., 
+\begin{equation}
+\mathcal{X}_k = 
+\left(
+\begin{array}{c}
+x_{1,k}\\
+x_{2,k}\\
+\vdots\\
+x_{n,k}
+\end{array}\right):=\mathrm{col}\{x_{1,k},...,x_{n,k}\}\in\mathbb{R}^{np}
+\end{equation}
+
+Similarly, we denote $\mathcal{G}_k:=\mathrm{col}\{g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k})\}$. Then the exact diffusion with decreasing stepsize $\alpha_k$ can be rewritten globally as the following, 
+\begin{align}
+\mathcal{X}_{k+1} &= \overline{\mathcal{W}} (2 \mathcal{X}_k-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k+\alpha_{k-1}\mathcal{G}_{k-1})\\
+\mathcal{X}_1&=\overline{\mathcal{W}} (\mathcal{X}_0-\alpha_0\mathcal{G}_0),\mathcal{X}_0=\mathbf{0}
+(\#eq:extraak)
+\end{align}
+where $\overline{\mathcal{W}}=(\mathcal{W}+I_{np})/2$, $\mathcal{W}=W\otimes I_{p}\in\mathbb{R}^{np\times np}$. Essentially, exact diffusion is a primal-dual method. Since $W$ is symmetric and doubly-stochastic, then so does $\overline W$, thus $I_n-\overline W$ is positive semi-definite(p.s.d.) and symmetric, we have spectral decomposition 
+$I_n-\overline W = U\Sigma U^T:=V^2$. Let $\mathcal{V}=V\otimes I_p$, then $\mathcal{V}^2=I_{np}-\overline{\mathcal{W}}$, we have the primal-dual version of exact diffusion \@ref(eq:pdextra).
+\begin{equation}
+\begin{cases}
+\mathcal{X}_{k+1}=\overline{\mathcal{W}}\left(\mathcal{X}_k-\alpha_k\mathcal{G}_k\right)-\mathcal{V}\mathcal{Y}_k\\
+\mathcal{Y}_{k+1}=\mathcal{Y}_k+\mathcal{V}\mathcal{X}_{k+1}
+\end{cases}
+(\#eq:pdextra)
+\end{equation}
+This is because,
+\begin{align}
+\mathcal{X}_{k+1}-\mathcal{X}_{k}&=\overline{\mathcal{W}}\left(\mathcal{X}_{k}-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k
++\alpha_{k-1}\mathcal{G}_{k-1}\right)-\mathcal{V}\mathcal{Y}_k+\mathcal{V}\mathcal{Y}_{k-1}\\
+&=\overline{\mathcal{W}}\left(\mathcal{X}_{k}-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k
++\alpha_{k-1}\mathcal{G}_{k-1}\right)-\mathcal{V}(\mathcal{Y}_{k-1}+\mathcal{V}\mathcal{X}_k)+\mathcal{V}\mathcal{Y}_{k-1}\\
+&=\overline{\mathcal{W}} (2 \mathcal{X}_k-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k+\alpha_{k-1}\mathcal{G}_{k-1})-\mathcal{X}_{k}
+\end{align}
+We can also have $\mathcal{Y}_k=\mathcal{Y}_0+\mathcal{V}\sum\limits_{i=1}^k \mathcal{X}_i$.
 
