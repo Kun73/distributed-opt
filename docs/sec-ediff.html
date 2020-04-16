@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-04-02" />
+<meta name="date" content="2020-04-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -114,7 +114,9 @@
 <li class="chapter" data-level="10.1" data-path="comparison.html"><a href="comparison.html#assumptions-of-different-schemes"><i class="fa fa-check"></i><b>10.1</b> Assumptions of different schemes</a></li>
 <li class="chapter" data-level="10.2" data-path="comparison.html"><a href="comparison.html#convergence-rate"><i class="fa fa-check"></i><b>10.2</b> Convergence rate</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="sec-ediff.html"><a href="sec-ediff.html"><i class="fa fa-check"></i><b>11</b> Exact diffusion</a></li>
+<li class="chapter" data-level="11" data-path="sec-ediff.html"><a href="sec-ediff.html"><i class="fa fa-check"></i><b>11</b> Exact diffusion</a><ul>
+<li class="chapter" data-level="11.1" data-path="sec-ediff.html"><a href="sec-ediff.html#decreasing-stepsize"><i class="fa fa-check"></i><b>11.1</b> Decreasing stepsize</a></li>
+</ul></li>
 <li class="chapter" data-level="12" data-path="sec-PUDA.html"><a href="sec-PUDA.html"><i class="fa fa-check"></i><b>12</b> Decentralized Proximal Gradient Algorithms with Linear Convergence Rates</a><ul>
 <li class="chapter" data-level="12.1" data-path="sec-PUDA.html"><a href="sec-PUDA.html#uda"><i class="fa fa-check"></i><b>12.1</b> UDA</a></li>
 <li class="chapter" data-level="12.2" data-path="sec-PUDA.html"><a href="sec-PUDA.html#puda"><i class="fa fa-check"></i><b>12.2</b> PUDA</a></li>
@@ -214,7 +216,63 @@ E\left[\Vert \nabla g(x_{i,k},\xi_{i,k})-\nabla f_i(x_{i,k})\Vert^2|\mathcal{F}_
 <li><p>When we can obtain the exact gradient(deterministic setting), i.e. <span class="math inline">\(\sigma_i^2=0,i=1,2,...,n\)</span>, the exact diffusion converge exactly to <span class="math inline">\(x^*\)</span>.</p></li>
 <li><p>When the bias <span class="math inline">\(\frac{\alpha^2b^2}{(1-\lambda^2)}\)</span> is significant, i.e. <span class="math inline">\(b^2\)</span> is large or the network is badly-connected(i.e. <span class="math inline">\(\lambda\)</span> is close to 1), and the step size is not sufficiently small(<span class="math inline">\(\alpha\leq d_3(1-\lambda)^{(2+y)},y&gt;0\)</span>), the exact diffusion outperforms the traditional one.</p></li>
 </ul>
+<div id="decreasing-stepsize" class="section level2">
+<h2><span class="header-section-number">11.1</span> Decreasing stepsize</h2>
+Here we can derive the information of Hessian matrices of <span class="math inline">\(f_i,i=1,2,...,n\)</span>, then let <span class="math inline">\(\tilde x_{i,k}=x^*-x_{i,k}\)</span> we have,
+<span class="math display">\[\begin{equation}
+\nabla f_i(x_{i,k})-\nabla f_i(x^*)=-H_{i,k}\tilde x_{i,k}
+\end{equation}\]</span>
+where
+<span class="math display">\[\begin{equation}
+H_{i,k}=\int_{0}^1\nabla^2 f_i(x^*-r\tilde x_{i,k})dr\in\mathbb{R}^{p\times p}
+\end{equation}\]</span>
+then we can denote
+<span class="math display">\[\begin{equation}
+\nabla F(X_k)-\nabla F(\mathbf{1}x^*):= 
+-\left(
+\begin{array}{c}
+(H_{1,k}\tilde x_{1,k})^T\\
+\vdots)\\
+(H_{n,k}\tilde x_{n,k})^T
+\end{array}\right)
+\in\mathbb{R}^{n,p}
+\end{equation}\]</span>
+However, this notation cannot have the form of <span class="math inline">\(\mathcal{H}_k\tilde X_k\)</span>, which helps us to separate the Hessian matrices and the iterated values. To ensure such an advantage, we stack the local vairables of different agents as a long vector, i.e.,
+<span class="math display">\[\begin{equation}
+\mathcal{X}_k = 
+\left(
+\begin{array}{c}
+x_{1,k}\\
+x_{2,k}\\
+\vdots\\
+x_{n,k}
+\end{array}\right):=\mathrm{col}\{x_{1,k},...,x_{n,k}\}\in\mathbb{R}^{np}
+\end{equation}\]</span>
+Similarly, we denote <span class="math inline">\(\mathcal{G}_k:=\mathrm{col}\{g_1(x_{1,k},\xi_{1,k}),...,g_n(x_{n,k},\xi_{n,k})\}\)</span>. Then the exact diffusion with decreasing stepsize <span class="math inline">\(\alpha_k\)</span> can be rewritten globally as the following,
+<span class="math display" id="eq:extraak">\[\begin{align}
+\mathcal{X}_{k+1} &amp;= \overline{\mathcal{W}} (2 \mathcal{X}_k-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k+\alpha_{k-1}\mathcal{G}_{k-1})\\
+\mathcal{X}_1&amp;=\overline{\mathcal{W}} (\mathcal{X}_0-\alpha_0\mathcal{G}_0),\mathcal{X}_0=\mathbf{0}
+\tag{11.4}
+\end{align}\]</span>
+where <span class="math inline">\(\overline{\mathcal{W}}=(\mathcal{W}+I_{np})/2\)</span>, <span class="math inline">\(\mathcal{W}=W\otimes I_{p}\in\mathbb{R}^{np\times np}\)</span>. Essentially, exact diffusion is a primal-dual method. Since <span class="math inline">\(W\)</span> is symmetric and doubly-stochastic, then so does <span class="math inline">\(\overline W\)</span>, thus <span class="math inline">\(I_n-\overline W\)</span> is positive semi-definite(p.s.d.) and symmetric, we have spectral decomposition <span class="math inline">\(I_n-\overline W = U\Sigma U^T:=V^2\)</span>. Let <span class="math inline">\(\mathcal{V}=V\otimes I_p\)</span>, then <span class="math inline">\(\mathcal{V}^2=I_{np}-\overline{\mathcal{W}}\)</span>, we have the primal-dual version of exact diffusion <a href="sec-ediff.html#eq:pdextra">(11.5)</a>.
+<span class="math display" id="eq:pdextra">\[\begin{equation}
+\begin{cases}
+\mathcal{X}_{k+1}=\overline{\mathcal{W}}\left(\mathcal{X}_k-\alpha_k\mathcal{G}_k\right)-\mathcal{V}\mathcal{Y}_k\\
+\mathcal{Y}_{k+1}=\mathcal{Y}_k+\mathcal{V}\mathcal{X}_{k+1}
+\end{cases}
+\tag{11.5}
+\end{equation}\]</span>
+This is because,
+<span class="math display">\[\begin{align}
+\mathcal{X}_{k+1}-\mathcal{X}_{k}&amp;=\overline{\mathcal{W}}\left(\mathcal{X}_{k}-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k
++\alpha_{k-1}\mathcal{G}_{k-1}\right)-\mathcal{V}\mathcal{Y}_k+\mathcal{V}\mathcal{Y}_{k-1}\\
+&amp;=\overline{\mathcal{W}}\left(\mathcal{X}_{k}-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k
++\alpha_{k-1}\mathcal{G}_{k-1}\right)-\mathcal{V}(\mathcal{Y}_{k-1}+\mathcal{V}\mathcal{X}_k)+\mathcal{V}\mathcal{Y}_{k-1}\\
+&amp;=\overline{\mathcal{W}} (2 \mathcal{X}_k-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k+\alpha_{k-1}\mathcal{G}_{k-1})-\mathcal{X}_{k}
+\end{align}\]</span>
+<p>We can also have <span class="math inline">\(\mathcal{Y}_k=\mathcal{Y}_0+\mathcal{V}\sum\limits_{i=1}^k \mathcal{X}_i\)</span>.</p>
 
+</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
