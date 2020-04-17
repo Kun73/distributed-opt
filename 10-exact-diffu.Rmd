@@ -81,7 +81,7 @@ then we can denote
 -\left(
 \begin{array}{c}
 (H_{1,k}\tilde x_{1,k})^T\\
-\vdots)\\
+\vdots\\
 (H_{n,k}\tilde x_{n,k})^T
 \end{array}\right)
 \in\mathbb{R}^{n,p}
@@ -124,3 +124,259 @@ This is because,
 \end{align}
 We can also have $\mathcal{Y}_k=\mathcal{Y}_0+\mathcal{V}\sum\limits_{i=1}^k \mathcal{X}_i$.
 
+Let $\nabla\mathcal{J}(\mathcal{X}_k):=\mathrm{col}\{\nabla f_1(x_{1,k}),...,\nabla f_n(x_{n,k})\}$, then lemma \@ref(lem:optcond) states the optimality condition for problem \@ref(eq:eloss).
+
+```{lemma, optcond, names = "Optimality Condition"}
+Under assumption \@ref(exr:edfi), if some vectors $(\mathcal{X}^*,\mathcal{Y}^*)$ exist that satisfy:
+\begin{align}
+\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*&=\mathbf{0}\\
+\mathcal{V}\mathcal{X}^*=\mathbf{0}
+\end{align}
+where$\mathcal{X}^*=\mathrm{\{x_1^*,...,x_n^*\}}$, then it holds that 
+$$
+x_1^*=x_2^*=\cdots=x_n^*=x^*
+$$
+where the $x^*$ is the unique solution to problem \@ref(eq:eloss).
+```
+
+We follow the proof in [@yuan2018exact], where the authors prove the situation with different stepsizes for each agents and the objective function is a weighted average of $f_i$.
+
+First, according to $\mathrm{null}(\mathcal{V})=\mathrm{span}\{\mathbf{1}_n\otimes I_p\}$, 
+\begin{align}
+0=\mathcal{V}\mathcal{X}^*\Longleftrightarrow \mathcal{X}^*\in\mathrm{null}(\mathcal{V})
+\end{align}
+so, $x_1^*=x_2^*=\cdots=x_n^*$.
+
+Additionally, let $\mathcal{I}=\mathbf{1}_n\otimes I_p$ and  multiply $\mathcal{I}^T$ on both sides of $\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}$. Since $\mathcal{V}$ is symmetric and $\mathcal{V}\mathcal{I}=\mathbf{0}$, we have 
+\begin{align}
+\alpha_k\mathcal{I}^T\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)&=\alpha_k(\mathbf{1}_n\otimes I_p)^T(\overline{W}\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&=\alpha_k(\mathbf{1}^T\otimes I_p)(\overline{W}\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&=\alpha_k(\mathbf{1}_n\overline{W})\otimes (I_pI_p)\nabla J(\mathcal{X}^*)\\
+&=\alpha_k(\mathbf{1}_n^T\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&=\alpha_k\sum_{i=1}^n\nabla f_i(x_i^*)\\
+&=0
+\end{align}
+where we use the column stochastic property of $\overline W$. $\sum\limits_{i=1}^n\nabla f_i(x_i^*)=0$ implies that $x_1^*=\cdots=x_n^*$ must coincide with the minimizer $x^*$ of problem \@ref(eq:eloss). We can also see from the above proof that changing the stepsize from fixed $\alpha$ to decreasing $\alpha_k$ does not violate too much(**will condtions in lemma \@ref(lem:optcond) requires too much?**). From lemma \@ref(lem:optcond), we have the following error dynamics,
+\begin{equation}
+\begin{cases}
+\tilde{\mathcal{X}}_{k+1}=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}_{k}}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)\\
+\tilde{\mathcal{Y}}_{k+1}=\tilde{\mathcal{Y}_{k}}+\mathcal{V}\tilde{\mathcal{X}}_{k+1}
+\end{cases}
+(\#eq:edy)
+\end{equation}
+
+Where $\mathcal{S}_k(\mathcal{X}_k)=\mathcal{G}_k-\nabla \mathcal{J}(\mathcal{X}_k)$, $\tilde{\mathcal{X}}_k:=\mathcal{X}^*-\mathcal{X}_k$, and $\tilde{\mathcal{Y}}_k:=\mathcal{Y}^*-\mathcal{Y}_k$. 
+
+```{proof}
+\
+From $\mathcal{V}\mathcal{X}^*=0$, we have $0=\mathcal{V}^2\mathcal{X}^*=(I_{np}-\overline{\mathcal{W}})\mathcal{X}^*$, hence $\mathcal{X}^*=\overline{\mathcal{W}}\mathcal{X}^*$, then 
+\begin{align}
+\tilde{\mathcal{X}}_{k+1}&=\mathcal{X}^*-\mathcal{X}_{k+1}\\
+&=\overline{\mathcal{W}}\mathcal{X}^*-\overline{\mathcal{W}}\left(\mathcal{X}_k-\alpha_k\mathcal{G}_k\right)+\mathcal{V}\mathcal{Y}_k\\
+&=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla\mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)+\alpha_k\overline{\mathcal{W}}\nabla \mathcal{J}(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}_k\\
+&=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla\mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)
+\end{align}
+
+```
+
+```{remark}
+\
+In the above proof, we use the condition $\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}$ in lemma \@ref(lem:optcond) so that we can have $\alpha_k\overline{\mathcal{W}}\nabla \mathcal{J}(\mathcal{X}^*)=-mathcal{V}\mathcal{Y}^*$. On the other hand, if requiring the condtions in lemma \@ref(lem:optcond) are satisfied for each $k\in\mathbb{N}$ is too strong, we may instead require $\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}\\
+\mathcal{V}\mathcal{X}^*=\mathbf{0}$, which also leads to $\sum\limits_{i=1}^n\nabla f_i(x_i^*)=0$. Then the error dynamics should be 
+\begin{align}
+\tilde{\mathcal{X}}_{k+1}&=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)+(1-\alpha_k)\mathcal{V}\mathcal{Y}^*\\
+&=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)-(1-\alpha_k)\overline{W}\nabla \mathcal{J}(\mathcal{X}^*)
+\end{align}
+```
+
+Then we can see a nice property of using the above notation as we have mentioned at the beginning. Let 
+\begin{equation}
+\mathcal{H}_k=\mathrm{diag}\{H_{1,k},...,H_{n,k}\}\in\mathbb{R}^{np\times np}
+\end{equation}
+Then $\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*)=-\mathcal{H}_k\tilde{\mathcal{X}}_k$, the error dynamics \@ref(eq:edy) become 
+\begin{equation}
+\begin{cases}
+\tilde{\mathcal{X}}_{k+1}=\overline{\mathcal{W}}\left(\tilde{\mathcal{X}_{k}}-\alpha_k\mathcal{H}_k\tilde{\mathcal{X}_k}\right)-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)\\
+\tilde{\mathcal{Y}}_{k+1}=\tilde{\mathcal{Y}_{k}}+\mathcal{V}\tilde{\mathcal{X}}_{k+1}
+\end{cases}
+(\#eq:edyH)
+\end{equation}
+
+We can further write the above \@ref(eq:edyH) as the matrix form, 
+
+\begin{align}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k+1}}\\
+\tilde{\mathcal{Y}_{k+1}}\\
+\end{array}
+\right)
+&=
+\left(\begin{array}{cc}
+\overline{\mathcal{W}}&-\mathcal{V}\\
+\mathcal{V}\overline{\mathcal{W}}&\overline{\mathcal{W}}
+\end{array}
+\right)
+\left[
+\left(\begin{array}{cc}
+I_{np}&0\\
+0&I_{np}
+\end{array}
+\right)
+-
+\alpha_k\left(\begin{array}{cc}
+\mathcal{H}_k&0\\
+0&0
+\end{array}
+\right)
+\right]
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++\alpha_k
+\left(
+\begin{array}{c}
+\overline{\mathcal{W}}\\
+\mathcal{V}\overline{\mathcal{W}}\\
+\end{array}
+\right)
+\mathcal{S}_k(\mathcal{X}_k)
+\\
+&:=\mathcal{B}(I_{2np}-\alpha_k\mathcal{T}_k)
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++\alpha_k \mathcal{B}_l
+\mathcal{S}_k(\mathcal{X}_k)
+(\#eq:edyHm)
+\end{align}
+Note that 
+\begin{equation}\mathcal{B}_l=\mathcal{B}\left(
+\begin{array}{c}
+I_{np}\\
+I_{np}
+\end{array}
+\right)
+\end{equation}
+and for $\mathcal{B}$ we have the following decomposition(see [@yuan2018exact]). In general, the following decomposition is a eigendecomposition.
+
+```{lemma, funddecom}
+Under assumptions \@ref(exr:edfi) and \@ref(exr:edw), the matrix $\mathcal{B}$ can be decomposed as
+\begin{align}
+\mathcal{B}&=
+\left(\mathcal{R}_1,\mathcal{R}_2,c\mathcal{K}_R\right)\mathrm{diag}(I_p,I_p,\mathcal{D}_1)
+\left(
+\begin{array}{c}
+ \mathcal{L}_1^T\\
+ \mathcal{L}_2^T\\
+ \frac{1}{c}\mathcal{K}_L
+\end{array}
+\right)\\
+&:=\mathcal{K}\mathcal{D}\mathcal{K}^{-1}
+\end{align}
+$\forall c>0$, and 
+\begin{align}
+&\mathcal{R}_{1}=\left(\begin{array}{l}
+\mathcal{I} \\
+0
+\end{array}\right) \in \mathbb{R}^{2 n p \times p}, \quad \mathcal{R}_{2}=\left(\begin{array}{l}
+0 \\
+\mathcal{I}
+\end{array}\right) \in \mathbb{R}^{2 n p \times p}\\
+&\mathcal{L}_{1}=\left(\begin{array}{c}
+\frac{1}{n} \mathcal{I} \\
+0
+\end{array}\right) \in \mathbb{R}^{2 n p \times p},\quad \mathcal{L}_{2}=\left(\begin{array}{c}
+0 \\
+\frac{1}{n} \mathcal{I}
+\end{array}\right) \in \mathbb{R}^{2 n p\times p}\\
+&\mathcal{K}_R=
+\left(
+\begin{array}{c}
+ \mathcal{K}_{R,u}\\
+ \mathcal{K}_{R,l}
+\end{array}
+\right)\in\mathbb{R}^{2np\times 2(n-1)p},\\
+
+&\mathcal{K}_L=(\mathcal{K}_{L,l},\mathcal{K}_{L,r})\in\mathbb{R}^{2(n-1)p\times 2np}
+\end{align}
+where $\mathcal{I}=\mathbf{1}_n\otimes I_p\in\mathbb{R}^{np\times p}$
+```
+
+From the error dynamics \@ref(eq:edyHm) and the decomposition of $\mathcal{B}$, multiply $\mathcal{K}^{-1}$ on the both sides of \@ref(eq:edyHm), we have, 
+\begin{align}
+\mathcal{K}^{-1}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k+1}}\\
+\tilde{\mathcal{Y}_{k+1}}\\
+\end{array}
+\right)&:=
+\left(
+\begin{array}{c}
+\bar z_{k+1}\\
+\hat z_{k+1}\\
+\check z_{k+1}
+\end{array}
+\right)\\
+&=
+\mathcal{D}(\mathcal{K}^{-1}I_{2np}\mathcal{K}-\alpha_k\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K})\mathcal{K}^{-1}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++
+\alpha_k\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)\\
+&=
+\mathcal{D}(I_{2np}-\alpha_k\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K})
+\left(
+\begin{array}{c}
+\bar z_{k}\\
+\hat z_{k}\\
+\check z_{k}
+\end{array}
+\right) + 
+\alpha_k\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)
+\end{align}
+
+Moreover, 
+\begin{align}
+\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K}&=
+\left(
+\begin{array}{cc}
+\frac{1}{n}\mathcal{I}^T&0\\
+0&\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}\mathcal{K}_{L,l}&\frac{1}{c}\mathcal{K}_{L,r}
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+\mathcal{H}_k&0\\
+0&0
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+\mathcal{I}&0&c\mathcal{K}_{R,u}\\
+0&\mathcal{I}&c\mathcal{K}_{R,l}
+\end{array}
+\right)\\
+&=\left(\begin{array}{ccc}
+\frac{1}{n} \mathcal{I}^T \mathcal{H}_{k}\mathcal{I} & 0 & \frac{c}{n} \mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u} \\
+0 & 0 & 0 \\
+\frac{1}{c} \mathcal{K}_{L, l} \mathcal{H}_{k}\mathcal{I} & 0 & \mathcal{K}_{L, l} \mathcal{H}_{k} \mathcal{K}_{R,u}
+\end{array}\right)
+\end{align}
+We can see that, for $\hat z_k$, we have 
+\begin{equation}
+\hat z_{k+1} = \hat z_k+\alpha_k\sum_{i=1}^n (\nabla f_i(x_{i,k})-g(x_{i,k},\xi_{i,k}))
+\end{equation}
+From assumption \@ref(exr:edg), $E[\Vert \hat z_{k}\Vert^2]$ will stat at $0$ if the initial value $\hat z_0=0$. Hence we only check $(\bar z_k,\check z_k)^T$ in the following.
