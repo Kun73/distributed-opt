@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-04-15" />
+<meta name="date" content="2020-04-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -232,7 +232,7 @@ then we can denote
 -\left(
 \begin{array}{c}
 (H_{1,k}\tilde x_{1,k})^T\\
-\vdots)\\
+\vdots\\
 (H_{n,k}\tilde x_{n,k})^T
 \end{array}\right)
 \in\mathbb{R}^{n,p}
@@ -271,6 +271,253 @@ This is because,
 &amp;=\overline{\mathcal{W}} (2 \mathcal{X}_k-\mathcal{X}_{k-1}-\alpha_k\mathcal{G}_k+\alpha_{k-1}\mathcal{G}_{k-1})-\mathcal{X}_{k}
 \end{align}\]</span>
 <p>We can also have <span class="math inline">\(\mathcal{Y}_k=\mathcal{Y}_0+\mathcal{V}\sum\limits_{i=1}^k \mathcal{X}_i\)</span>.</p>
+<p>Let <span class="math inline">\(\nabla\mathcal{J}(\mathcal{X}_k):=\mathrm{col}\{\nabla f_1(x_{1,k}),...,\nabla f_n(x_{n,k})\}\)</span>, then lemma <a href="sec-ediff.html#lem:optcond">11.1</a> states the optimality condition for problem <a href="sec-ediff.html#eq:eloss">(11.1)</a>.</p>
+
+<div class="lemma">
+<span id="lem:optcond" class="lemma"><strong>Lemma 11.1  </strong></span>Under assumption <a href="sec-ediff.html#exr:edfi">11.1</a>, if some vectors <span class="math inline">\((\mathcal{X}^*,\mathcal{Y}^*)\)</span> exist that satisfy:
+<span class="math display">\[\begin{align}
+\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*&amp;=\mathbf{0}\\
+\mathcal{V}\mathcal{X}^*=\mathbf{0}
+\end{align}\]</span>
+where<span class="math inline">\(\mathcal{X}^*=\mathrm{\{x_1^*,...,x_n^*\}}\)</span>, then it holds that <span class="math display">\[
+x_1^*=x_2^*=\cdots=x_n^*=x^*
+\]</span> where the <span class="math inline">\(x^*\)</span> is the unique solution to problem <a href="sec-ediff.html#eq:eloss">(11.1)</a>.
+</div>
+
+<p>We follow the proof in <span class="citation">(Yuan et al. <a href="#ref-yuan2018exact">2018</a>)</span>, where the authors prove the situation with different stepsizes for each agents and the objective function is a weighted average of <span class="math inline">\(f_i\)</span>.</p>
+First, according to <span class="math inline">\(\mathrm{null}(\mathcal{V})=\mathrm{span}\{\mathbf{1}_n\otimes I_p\}\)</span>,
+<span class="math display">\[\begin{align}
+0=\mathcal{V}\mathcal{X}^*\Longleftrightarrow \mathcal{X}^*\in\mathrm{null}(\mathcal{V})
+\end{align}\]</span>
+<p>so, <span class="math inline">\(x_1^*=x_2^*=\cdots=x_n^*\)</span>.</p>
+Additionally, let <span class="math inline">\(\mathcal{I}=\mathbf{1}_n\otimes I_p\)</span> and multiply <span class="math inline">\(\mathcal{I}^T\)</span> on both sides of <span class="math inline">\(\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}\)</span>. Since <span class="math inline">\(\mathcal{V}\)</span> is symmetric and <span class="math inline">\(\mathcal{V}\mathcal{I}=\mathbf{0}\)</span>, we have
+<span class="math display">\[\begin{align}
+\alpha_k\mathcal{I}^T\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)&amp;=\alpha_k(\mathbf{1}_n\otimes I_p)^T(\overline{W}\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&amp;=\alpha_k(\mathbf{1}^T\otimes I_p)(\overline{W}\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&amp;=\alpha_k(\mathbf{1}_n\overline{W})\otimes (I_pI_p)\nabla J(\mathcal{X}^*)\\
+&amp;=\alpha_k(\mathbf{1}_n^T\otimes I_p)\nabla J(\mathcal{X}^*)\\
+&amp;=\alpha_k\sum_{i=1}^n\nabla f_i(x_i^*)\\
+&amp;=0
+\end{align}\]</span>
+where we use the column stochastic property of <span class="math inline">\(\overline W\)</span>. <span class="math inline">\(\sum\limits_{i=1}^n\nabla f_i(x_i^*)=0\)</span> implies that <span class="math inline">\(x_1^*=\cdots=x_n^*\)</span> must coincide with the minimizer <span class="math inline">\(x^*\)</span> of problem <a href="sec-ediff.html#eq:eloss">(11.1)</a>. We can also see from the above proof that changing the stepsize from fixed <span class="math inline">\(\alpha\)</span> to decreasing <span class="math inline">\(\alpha_k\)</span> does not violate too much(<strong>will condtions in lemma <a href="sec-ediff.html#lem:optcond">11.1</a> requires too much?</strong>). From lemma <a href="sec-ediff.html#lem:optcond">11.1</a>, we have the following error dynamics,
+<span class="math display" id="eq:edy">\[\begin{equation}
+\begin{cases}
+\tilde{\mathcal{X}}_{k+1}=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}_{k}}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)\\
+\tilde{\mathcal{Y}}_{k+1}=\tilde{\mathcal{Y}_{k}}+\mathcal{V}\tilde{\mathcal{X}}_{k+1}
+\end{cases}
+\tag{11.6}
+\end{equation}\]</span>
+<p>Where <span class="math inline">\(\mathcal{S}_k(\mathcal{X}_k)=\mathcal{G}_k-\nabla \mathcal{J}(\mathcal{X}_k)\)</span>, <span class="math inline">\(\tilde{\mathcal{X}}_k:=\mathcal{X}^*-\mathcal{X}_k\)</span>, and <span class="math inline">\(\tilde{\mathcal{Y}}_k:=\mathcal{Y}^*-\mathcal{Y}_k\)</span>.</p>
+
+<div class="proof">
+ <span class="proof"><em>Proof. </em></span> <br />
+From <span class="math inline">\(\mathcal{V}\mathcal{X}^*=0\)</span>, we have <span class="math inline">\(0=\mathcal{V}^2\mathcal{X}^*=(I_{np}-\overline{\mathcal{W}})\mathcal{X}^*\)</span>, hence <span class="math inline">\(\mathcal{X}^*=\overline{\mathcal{W}}\mathcal{X}^*\)</span>, then
+<span class="math display">\[\begin{align}
+\tilde{\mathcal{X}}_{k+1}&amp;=\mathcal{X}^*-\mathcal{X}_{k+1}\\
+&amp;=\overline{\mathcal{W}}\mathcal{X}^*-\overline{\mathcal{W}}\left(\mathcal{X}_k-\alpha_k\mathcal{G}_k\right)+\mathcal{V}\mathcal{Y}_k\\
+&amp;=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla\mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)+\alpha_k\overline{\mathcal{W}}\nabla \mathcal{J}(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}_k\\
+&amp;=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla\mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)
+\end{align}\]</span>
+</div>
+
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> <br />
+In the above proof, we use the condition <span class="math inline">\(\alpha_k\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}\)</span> in lemma <a href="sec-ediff.html#lem:optcond">11.1</a> so that we can have <span class="math inline">\(\alpha_k\overline{\mathcal{W}}\nabla \mathcal{J}(\mathcal{X}^*)=-mathcal{V}\mathcal{Y}^*\)</span>. On the other hand, if requiring the condtions in lemma <a href="sec-ediff.html#lem:optcond">11.1</a> are satisfied for each <span class="math inline">\(k\in\mathbb{N}\)</span> is too strong, we may instead require <span class="math inline">\(\overline{\mathcal{W}}\nabla J(\mathcal{X}^*)+\mathcal{V}\mathcal{Y}^*=\mathbf{0}\\ \mathcal{V}\mathcal{X}^*=\mathbf{0}\)</span>, which also leads to <span class="math inline">\(\sum\limits_{i=1}^n\nabla f_i(x_i^*)=0\)</span>. Then the error dynamics should be
+<span class="math display">\[\begin{align}
+\tilde{\mathcal{X}}_{k+1}&amp;=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)+(1-\alpha_k)\mathcal{V}\mathcal{Y}^*\\
+&amp;=\overline{\mathcal{W}}\left[\tilde{\mathcal{X}}_{k}+\alpha_k(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*))\right]-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)-(1-\alpha_k)\overline{W}\nabla \mathcal{J}(\mathcal{X}^*)
+\end{align}\]</span>
+</div>
+
+Then we can see a nice property of using the above notation as we have mentioned at the beginning. Let
+<span class="math display">\[\begin{equation}
+\mathcal{H}_k=\mathrm{diag}\{H_{1,k},...,H_{n,k}\}\in\mathbb{R}^{np\times np}
+\end{equation}\]</span>
+Then <span class="math inline">\(\nabla \mathcal{J}(\mathcal{X}_k)-\nabla \mathcal{J}(\mathcal{X}^*)=-\mathcal{H}_k\tilde{\mathcal{X}}_k\)</span>, the error dynamics <a href="sec-ediff.html#eq:edy">(11.6)</a> become
+<span class="math display" id="eq:edyH">\[\begin{equation}
+\begin{cases}
+\tilde{\mathcal{X}}_{k+1}=\overline{\mathcal{W}}\left(\tilde{\mathcal{X}_{k}}-\alpha_k\mathcal{H}_k\tilde{\mathcal{X}_k}\right)-\mathcal{V}\tilde{\mathcal{Y}_k}+\alpha_k\overline{\mathcal{W}}\mathcal{S}_k(\mathcal{X}_k)\\
+\tilde{\mathcal{Y}}_{k+1}=\tilde{\mathcal{Y}_{k}}+\mathcal{V}\tilde{\mathcal{X}}_{k+1}
+\end{cases}
+\tag{11.7}
+\end{equation}\]</span>
+<p>We can further write the above <a href="sec-ediff.html#eq:edyH">(11.7)</a> as the matrix form,</p>
+<span class="math display" id="eq:edyHm">\[\begin{align}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k+1}}\\
+\tilde{\mathcal{Y}_{k+1}}\\
+\end{array}
+\right)
+&amp;=
+\left(\begin{array}{cc}
+\overline{\mathcal{W}}&amp;-\mathcal{V}\\
+\mathcal{V}\overline{\mathcal{W}}&amp;\overline{\mathcal{W}}
+\end{array}
+\right)
+\left[
+\left(\begin{array}{cc}
+I_{np}&amp;0\\
+0&amp;I_{np}
+\end{array}
+\right)
+-
+\alpha_k\left(\begin{array}{cc}
+\mathcal{H}_k&amp;0\\
+0&amp;0
+\end{array}
+\right)
+\right]
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++\alpha_k
+\left(
+\begin{array}{c}
+\overline{\mathcal{W}}\\
+\mathcal{V}\overline{\mathcal{W}}\\
+\end{array}
+\right)
+\mathcal{S}_k(\mathcal{X}_k)
+\\
+&amp;:=\mathcal{B}(I_{2np}-\alpha_k\mathcal{T}_k)
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++\alpha_k \mathcal{B}_l
+\mathcal{S}_k(\mathcal{X}_k)
+\tag{11.8}
+\end{align}\]</span>
+Note that
+<span class="math display">\[\begin{equation}\mathcal{B}_l=\mathcal{B}\left(
+\begin{array}{c}
+I_{np}\\
+I_{np}
+\end{array}
+\right)
+\end{equation}\]</span>
+<p>and for <span class="math inline">\(\mathcal{B}\)</span> we have the following decomposition(see <span class="citation">(Yuan et al. <a href="#ref-yuan2018exact">2018</a>)</span>). In general, the following decomposition is a eigendecomposition.</p>
+
+<div class="lemma">
+<span id="lem:funddecom" class="lemma"><strong>Lemma 11.2  </strong></span>Under assumptions <a href="sec-ediff.html#exr:edfi">11.1</a> and <a href="sec-ediff.html#exr:edw">11.2</a>, the matrix <span class="math inline">\(\mathcal{B}\)</span> can be decomposed as
+<span class="math display">\[\begin{align}
+\mathcal{B}&amp;=
+\left(\mathcal{R}_1,\mathcal{R}_2,c\mathcal{K}_R\right)\mathrm{diag}(I_p,I_p,\mathcal{D}_1)
+\left(
+\begin{array}{c}
+ \mathcal{L}_1^T\\
+ \mathcal{L}_2^T\\
+ \frac{1}{c}\mathcal{K}_L
+\end{array}
+\right)\\
+&amp;:=\mathcal{K}\mathcal{D}\mathcal{K}^{-1}
+\end{align}\]</span>
+<span class="math inline">\(\forall c&gt;0\)</span>, and
+<span class="math display">\[\begin{align}
+&amp;\mathcal{R}_{1}=\left(\begin{array}{l}
+\mathcal{I} \\
+0
+\end{array}\right) \in \mathbb{R}^{2 n p \times p}, \quad \mathcal{R}_{2}=\left(\begin{array}{l}
+0 \\
+\mathcal{I}
+\end{array}\right) \in \mathbb{R}^{2 n p \times p}\\
+&amp;\mathcal{L}_{1}=\left(\begin{array}{c}
+\frac{1}{n} \mathcal{I} \\
+0
+\end{array}\right) \in \mathbb{R}^{2 n p \times p},\quad \mathcal{L}_{2}=\left(\begin{array}{c}
+0 \\
+\frac{1}{n} \mathcal{I}
+\end{array}\right) \in \mathbb{R}^{2 n p\times p}\\
+&amp;\mathcal{K}_R=
+\left(
+\begin{array}{c}
+ \mathcal{K}_{R,u}\\
+ \mathcal{K}_{R,l}
+\end{array}
+\right)\in\mathbb{R}^{2np\times 2(n-1)p},\\
+
+&amp;\mathcal{K}_L=(\mathcal{K}_{L,l},\mathcal{K}_{L,r})\in\mathbb{R}^{2(n-1)p\times 2np}
+\end{align}\]</span>
+where <span class="math inline">\(\mathcal{I}=\mathbf{1}_n\otimes I_p\in\mathbb{R}^{np\times p}\)</span>
+</div>
+
+From the error dynamics <a href="sec-ediff.html#eq:edyHm">(11.8)</a> and the decomposition of <span class="math inline">\(\mathcal{B}\)</span>, multiply <span class="math inline">\(\mathcal{K}^{-1}\)</span> on the both sides of <a href="sec-ediff.html#eq:edyHm">(11.8)</a>, we have,
+<span class="math display">\[\begin{align}
+\mathcal{K}^{-1}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k+1}}\\
+\tilde{\mathcal{Y}_{k+1}}\\
+\end{array}
+\right)&amp;:=
+\left(
+\begin{array}{c}
+\bar z_{k+1}\\
+\hat z_{k+1}\\
+\check z_{k+1}
+\end{array}
+\right)\\
+&amp;=
+\mathcal{D}(\mathcal{K}^{-1}I_{2np}\mathcal{K}-\alpha_k\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K})\mathcal{K}^{-1}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
++
+\alpha_k\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)\\
+&amp;=
+\mathcal{D}(I_{2np}-\alpha_k\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K})
+\left(
+\begin{array}{c}
+\bar z_{k}\\
+\hat z_{k}\\
+\check z_{k}
+\end{array}
+\right) + 
+\alpha_k\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)
+\end{align}\]</span>
+Moreover,
+<span class="math display">\[\begin{align}
+\mathcal{K}^{-1}\mathcal{T}_k\mathcal{K}&amp;=
+\left(
+\begin{array}{cc}
+\frac{1}{n}\mathcal{I}^T&amp;0\\
+0&amp;\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}\mathcal{K}_{L,l}&amp;\frac{1}{c}\mathcal{K}_{L,r}
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+\mathcal{H}_k&amp;0\\
+0&amp;0
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+\mathcal{I}&amp;0&amp;c\mathcal{K}_{R,u}\\
+0&amp;\mathcal{I}&amp;c\mathcal{K}_{R,l}
+\end{array}
+\right)\\
+&amp;=\left(\begin{array}{ccc}
+\frac{1}{n} \mathcal{I}^T \mathcal{H}_{k}\mathcal{I} &amp; 0 &amp; \frac{c}{n} \mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u} \\
+0 &amp; 0 &amp; 0 \\
+\frac{1}{c} \mathcal{K}_{L, l} \mathcal{H}_{k}\mathcal{I} &amp; 0 &amp; \mathcal{K}_{L, l} \mathcal{H}_{k} \mathcal{K}_{R,u}
+\end{array}\right)
+\end{align}\]</span>
+We can see that, for <span class="math inline">\(\hat z_k\)</span>, we have
+<span class="math display">\[\begin{equation}
+\hat z_{k+1} = \hat z_k+\alpha_k\sum_{i=1}^n (\nabla f_i(x_{i,k})-g(x_{i,k},\xi_{i,k}))
+\end{equation}\]</span>
+<p>From assumption <a href="sec-ediff.html#exr:edg">11.3</a>, <span class="math inline">\(E[\Vert \hat z_{k}\Vert^2]\)</span> will stat at <span class="math inline">\(0\)</span> if the initial value <span class="math inline">\(\hat z_0=0\)</span>. Hence we only check <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> in the following.</p>
 
 </div>
 </div>
@@ -278,6 +525,9 @@ This is because,
 <div id="refs" class="references">
 <div id="ref-yuan2019performance">
 <p>Yuan, Kun, Sulaiman A Alghunaim, Bicheng Ying, and Ali H Sayed. 2019. “On the Performance of Exact Diffusion over Adaptive Networks.” In <em>2019 Ieee 58th Conference on Decision and Control (Cdc)</em>, 4898–4903. IEEE.</p>
+</div>
+<div id="ref-yuan2018exact">
+<p>Yuan, Kun, Bicheng Ying, Xiaochuan Zhao, and Ali H Sayed. 2018. “Exact Diffusion for Distributed Optimization and Learning—Part Ii: Convergence Analysis.” <em>IEEE Transactions on Signal Processing</em> 67 (3). IEEE: 724–39.</p>
 </div>
 </div>
             </section>
