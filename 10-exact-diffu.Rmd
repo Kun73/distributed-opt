@@ -260,7 +260,7 @@ Note that
 \begin{equation}\mathcal{B}_l=\mathcal{B}\left(
 \begin{array}{c}
 I_{np}\\
-I_{np}
+0
 \end{array}
 \right)
 \end{equation}
@@ -375,8 +375,27 @@ Moreover,
 \frac{1}{c} \mathcal{K}_{L, l} \mathcal{H}_{k}\mathcal{I} & 0 & \mathcal{K}_{L, l} \mathcal{H}_{k} \mathcal{K}_{R,u}
 \end{array}\right)
 \end{align}
+and,
+\begin{align}
+\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)&=
+\mathcal{K}^{-1}\mathcal{B}\left(
+\begin{array}{c}
+I_{np}\\
+0
+\end{array}
+\right)
+\mathcal{S}_k(\mathcal{X}_k)\\
+&=
+\left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+0\\
+D_1\mathcal{K}_{L,l}
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)
+\end{align}
 We can see that, for $\hat z_k$, we have 
 \begin{equation}
-\hat z_{k+1} = \hat z_k+\alpha_k\sum_{i=1}^n (\nabla f_i(x_{i,k})-g(x_{i,k},\xi_{i,k}))
+\hat z_{k+1} = \hat z_k
 \end{equation}
-From assumption \@ref(exr:edg), $E[\Vert \hat z_{k}\Vert^2]$ will stat at $0$ if the initial value $\hat z_0=0$. Hence we only check $(\bar z_k,\check z_k)^T$ in the following.
+Hence we only check $(\bar z_k,\check z_k)^T$, where $\bar z_k\in\mathbb{R}^{p}$, and $\check z_k\in\mathbb{R}^{2(n-1)p}$ in the following.
