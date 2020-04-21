@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-04-16" />
+<meta name="date" content="2020-04-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,7 +115,9 @@
 <li class="chapter" data-level="10.2" data-path="comparison.html"><a href="comparison.html#convergence-rate"><i class="fa fa-check"></i><b>10.2</b> Convergence rate</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="sec-ediff.html"><a href="sec-ediff.html"><i class="fa fa-check"></i><b>11</b> Exact diffusion</a><ul>
-<li class="chapter" data-level="11.1" data-path="sec-ediff.html"><a href="sec-ediff.html#decreasing-stepsize"><i class="fa fa-check"></i><b>11.1</b> Decreasing stepsize</a></li>
+<li class="chapter" data-level="11.1" data-path="sec-ediff.html"><a href="sec-ediff.html#decreasing-stepsize"><i class="fa fa-check"></i><b>11.1</b> Decreasing stepsize</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="sec-ediff.html"><a href="sec-ediff.html#preliminary-results"><i class="fa fa-check"></i><b>11.1.1</b> Preliminary results</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="sec-PUDA.html"><a href="sec-PUDA.html"><i class="fa fa-check"></i><b>12</b> Decentralized Proximal Gradient Algorithms with Linear Convergence Rates</a><ul>
 <li class="chapter" data-level="12.1" data-path="sec-PUDA.html"><a href="sec-PUDA.html#uda"><i class="fa fa-check"></i><b>12.1</b> UDA</a></li>
@@ -399,7 +401,7 @@ Note that
 <span class="math display">\[\begin{equation}\mathcal{B}_l=\mathcal{B}\left(
 \begin{array}{c}
 I_{np}\\
-I_{np}
+0
 \end{array}
 \right)
 \end{equation}\]</span>
@@ -511,14 +513,122 @@ Moreover,
 \frac{1}{n} \mathcal{I}^T \mathcal{H}_{k}\mathcal{I} &amp; 0 &amp; \frac{c}{n} \mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u} \\
 0 &amp; 0 &amp; 0 \\
 \frac{1}{c} \mathcal{K}_{L, l} \mathcal{H}_{k}\mathcal{I} &amp; 0 &amp; \mathcal{K}_{L, l} \mathcal{H}_{k} \mathcal{K}_{R,u}
+\end{array}\right)\\
+&amp;=\left(
+\begin{array}{ccc}
+\frac{1}{n}\sum_{i=1}^n H_{i,k} &amp; 0 &amp; \frac{c}{n}\mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u}\\
+0&amp;0&amp;0\\
+\frac{1}{c}\mathcal{K}_L\mathcal{T}_k\mathcal{R}_1 &amp; 0 &amp; \mathcal{K}_L\mathcal{T}_k\mathcal{K}_R
 \end{array}\right)
+
+\end{align}\]</span>
+This is because,
+<span class="math display">\[\begin{align}
+\mathcal{T}_k=\left(
+\begin{array}{cc}
+\mathcal{H}_k &amp; 0\\
+0 &amp;0
+\end{array}
+\right)
+\end{align}\]</span>
+<p>We also have,</p>
+<span class="math display">\[\begin{align}
+\mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)&amp;=
+\mathcal{K}^{-1}\mathcal{B}\left(
+\begin{array}{c}
+I_{np}\\
+0
+\end{array}
+\right)
+\mathcal{S}_k(\mathcal{X}_k)\\
+&amp;=\mathcal{D}\mathcal{K}^{-1}
+\left(
+\begin{array}{c}
+I_{np}\\
+0
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&amp;=\left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+0\\
+\frac{1}{c}D_1\mathcal{K}_{L,l}
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&amp;=\left(\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+0\\
+\frac{1}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)
 \end{align}\]</span>
 We can see that, for <span class="math inline">\(\hat z_k\)</span>, we have
 <span class="math display">\[\begin{equation}
-\hat z_{k+1} = \hat z_k+\alpha_k\sum_{i=1}^n (\nabla f_i(x_{i,k})-g(x_{i,k},\xi_{i,k}))
+\hat z_{k+1} = \hat z_k
 \end{equation}\]</span>
-<p>From assumption <a href="sec-ediff.html#exr:edg">11.3</a>, <span class="math inline">\(E[\Vert \hat z_{k}\Vert^2]\)</span> will stat at <span class="math inline">\(0\)</span> if the initial value <span class="math inline">\(\hat z_0=0\)</span>. Hence we only check <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> in the following.</p>
+<p>Hence we only check <span class="math inline">\((\bar z_k,\check z_k)^T\)</span>, where <span class="math inline">\(\bar z_k\in\mathbb{R}^{p}\)</span>, and <span class="math inline">\(\check z_k\in\mathbb{R}^{2(n-1)p}\)</span> in the following.</p>
 
+<div class="lemma">
+<span id="lem:tedy" class="lemma"><strong>Lemma 11.3  (Transformed Error Dynamics)  </strong></span>Under assumption <a href="sec-ediff.html#exr:edfi">11.1</a> and <a href="sec-ediff.html#exr:edw">11.2</a>, the transformed error dynamics for exact diffusion is,
+<span class="math display">\[\begin{align}
+\left(\begin{array}{c}
+       \bar z_{k+1}\\
+       \check z_{k+1}
+       \end{array}
+\right)
+&amp;=\left(\begin{array}{cc}
+        I_p - \frac{\alpha_k}{n}\sum_{i=1}^n H_{i,k} &amp; -\frac{\alpha_k c}{n}\mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u}\\
+        -\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k\mathcal{R}_1&amp;
+          \mathcal{D}_1-\alpha_k\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k\mathcal{K}_R
+        \end{array}
+\right)
+\left(\begin{array}{c}
+       \bar z_{k}\\
+       \check z_{k}
+       \end{array}
+\right)\\
+&amp;\quad + \alpha_k \left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}D_1\mathcal{K}_{L}\mathcal{B}_l
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&amp;:=A_k 
+\left(\begin{array}{c}
+       \bar z_{k}\\
+       \check z_{k}
+       \end{array}
+\right)
++\alpha_k \left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}D_1\mathcal{K}_{L}\mathcal{B}_l
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)
+
+\end{align}\]</span>
+and,
+<span class="math display">\[\begin{align}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
+=(\mathcal{R}_1, c\mathcal{K}_R)
+\left(\begin{array}{c}
+       \bar z_k\\
+       \check z_k
+       \end{array}
+\right)
+\end{align}\]</span>
+</div>
+
+<p>Next we do a non-asymptotic analysis to check the convergence of <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> under a decreasing stepsize <span class="math inline">\(\alpha_k:=\frac{1}{k+m}\)</span>.</p>
+<div id="preliminary-results" class="section level3">
+<h3><span class="header-section-number">11.1.1</span> Preliminary results</h3>
+
+</div>
 </div>
 </div>
 <h3>References</h3>
