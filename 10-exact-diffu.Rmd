@@ -373,9 +373,28 @@ Moreover,
 \frac{1}{n} \mathcal{I}^T \mathcal{H}_{k}\mathcal{I} & 0 & \frac{c}{n} \mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u} \\
 0 & 0 & 0 \\
 \frac{1}{c} \mathcal{K}_{L, l} \mathcal{H}_{k}\mathcal{I} & 0 & \mathcal{K}_{L, l} \mathcal{H}_{k} \mathcal{K}_{R,u}
+\end{array}\right)\\
+&=\left(
+\begin{array}{ccc}
+\frac{1}{n}\sum_{i=1}^n H_{i,k} & 0 & \frac{c}{n}\mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u}\\
+0&0&0\\
+\frac{1}{c}\mathcal{K}_L\mathcal{T}_k\mathcal{R}_1 & 0 & \mathcal{K}_L\mathcal{T}_k\mathcal{K}_R
 \end{array}\right)
+
 \end{align}
-and,
+
+This is because, 
+\begin{align}
+\mathcal{T}_k=\left(
+\begin{array}{cc}
+\mathcal{H}_k & 0\\
+0 &0
+\end{array}
+\right)
+\end{align}
+
+We also have,
+
 \begin{align}
 \mathcal{K}^{-1}\mathcal{B}_l\mathcal{S}_k(\mathcal{X}_k)&=
 \mathcal{K}^{-1}\mathcal{B}\left(
@@ -385,17 +404,94 @@ I_{np}\\
 \end{array}
 \right)
 \mathcal{S}_k(\mathcal{X}_k)\\
-&=
+&=\mathcal{D}\mathcal{K}^{-1}
 \left(
+\begin{array}{c}
+I_{np}\\
+0
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&=\left(
 \begin{array}{c}
 \frac{1}{n}\mathcal{I}^T\\
 0\\
-D_1\mathcal{K}_{L,l}
+\frac{1}{c}D_1\mathcal{K}_{L,l}
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&=\left(\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+0\\
+\frac{1}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l
 \end{array}
 \right)\mathcal{S}_k(\mathcal{X}_k)
 \end{align}
+
 We can see that, for $\hat z_k$, we have 
 \begin{equation}
 \hat z_{k+1} = \hat z_k
 \end{equation}
-Hence we only check $(\bar z_k,\check z_k)^T$, where $\bar z_k\in\mathbb{R}^{p}$, and $\check z_k\in\mathbb{R}^{2(n-1)p}$ in the following.
+Hence we only check $(\bar z_k,\check z_k)^T$, where $\bar z_k\in\mathbb{R}^{p}$, and $\check z_k\in\mathbb{R}^{2(n-1)p}$ in the following. 
+
+```{lemma,tedy, name = "Transformed Error Dynamics"}
+Under assumption \@ref(exr:edfi) and \@ref(exr:edw), the transformed error dynamics for exact diffusion is, 
+\begin{align}
+\left(\begin{array}{c}
+       \bar z_{k+1}\\
+       \check z_{k+1}
+       \end{array}
+\right)
+&=\left(\begin{array}{cc}
+        I_p - \frac{\alpha_k}{n}\sum_{i=1}^n H_{i,k} & -\frac{\alpha_k c}{n}\mathcal{I}^T\mathcal{H}_k\mathcal{K}_{R,u}\\
+        -\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k\mathcal{R}_1&
+          \mathcal{D}_1-\alpha_k\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k\mathcal{K}_R
+        \end{array}
+\right)
+\left(\begin{array}{c}
+       \bar z_{k}\\
+       \check z_{k}
+       \end{array}
+\right)\\
+&\quad + \alpha_k \left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}D_1\mathcal{K}_{L}\mathcal{B}_l
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)\\
+&:=A_k 
+\left(\begin{array}{c}
+       \bar z_{k}\\
+       \check z_{k}
+       \end{array}
+\right)
++\alpha_k \left(
+\begin{array}{c}
+\frac{1}{n}\mathcal{I}^T\\
+\frac{1}{c}D_1\mathcal{K}_{L}\mathcal{B}_l
+\end{array}
+\right)\mathcal{S}_k(\mathcal{X}_k)
+
+\end{align}
+and, 
+\begin{align}
+\left(
+\begin{array}{c}
+\tilde{\mathcal{X}_{k}}\\
+\tilde{\mathcal{Y}_{k}}\\
+\end{array}
+\right)
+=(\mathcal{R}_1, c\mathcal{K}_R)
+\left(\begin{array}{c}
+       \bar z_k\\
+       \check z_k
+       \end{array}
+\right)
+\end{align}
+
+
+```
+
+Next we do a non-asymptotic analysis to check the convergence of $(\bar z_k,\check z_k)^T$ under a decreasing stepsize $\alpha_k:=\frac{1}{k+m}$.
+
+### Preliminary results
+
+
