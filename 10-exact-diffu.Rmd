@@ -490,7 +490,7 @@ and,
 
 ```
 
-Next we do a non-asymptotic analysis to check the convergence of $(\bar z_k,\check z_k)^T$ under a decreasing stepsize $\alpha_k:=\frac{1}{k+m}$.
+Next we do a non-asymptotic analysis to check the convergence of $(\bar z_k,\check z_k)^T$ under a decreasing stepsize $\alpha_k:=\frac{\theta}{k+m}$, for some $\theta$.
 
 ### Preliminary results
 
@@ -526,11 +526,16 @@ We further let $\alpha_k\leq \frac{1}{3\mu}$ and choose $\gamma = \frac{3}{8}\al
 \end{align}
 
 Substituting \@ref(eq:barz2) and \@ref(eq:betaeq0) into \@ref(eq:barz) and take full expectation on both sides, we have 
-lemma \@ref(lem:barzk).
+lemma \@ref(lem:barzk). Notice that 
+\begin{equation}
+\Vert \mathcal{K}_{R,u}\Vert^2=
+\Vert \left(I_{np},0\right)\mathcal{K}_{R}\Vert^2\leq \Vert \mathcal{K}_{R}\Vert^2
+\end{equation}
+
 ```{lemma, barzk}
 Under assumptions \@ref(exr:edfi), \@ref(exr:edw), and \@ref(exr:estg), supposing $\alpha_k\leq \min\{\frac{1}{\delta},\frac{1}{3\mu}\}$, then 
 \begin{align}
-E \left[\Vert \bar z_{k+1}\Vert^2\right]\leq (1-\frac{3}{2}\alpha_k\mu)\Vert \bar z_k\Vert^2 + \frac{3\alpha_k c^2\Vert \mathcal{K}_{R,u}\Vert^2\delta^2}{n\mu}\Vert \check z_k\Vert^2 + \frac{\alpha_k^2\sigma^2}{n}
+E \left[\Vert \bar z_{k+1}\Vert^2\right]\leq (1-\frac{3}{2}\alpha_k\mu)\Vert E\left[\bar z_k\Vert^2\right] + \frac{3\alpha_k c^2\Vert \mathcal{K}_{R}\Vert^2\delta^2}{n\mu}\Vert E\left[\check z_k\Vert^2\right] + \frac{\alpha_k^2\sigma^2}{n}
 \end{align}
 
 ```
@@ -540,7 +545,7 @@ Similarly, for $E\left[\Vert \check z_{k+1}\Vert^2|\mathcal{F}_{k}\right]$, we h
 \begin{align}
 
 E\left[\Vert \check z_{k+1}\Vert^2|\mathcal{F}_{k}\right]&=\Vert \mathcal{D}_1\check z_k-\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k(\mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k)\Vert^2\\
-&\quad + \frac{\alpha_k^2\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l}{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2\right]
+&\quad + \frac{\alpha_k^2\Vert\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l}\Vert^2{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2|\mathcal{F}_k\right]
 (\#eq:checkz)
 \end{align}
 
@@ -570,6 +575,8 @@ Then similar as \@ref(eq:barz1), we have
 &\leq (1+\gamma)\lambda' \Vert \check z_k\Vert^2 + (1+\frac{1}{\gamma})\frac{\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\Vert \mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k\Vert^2\\
 &\leq (1+\gamma)\lambda' \Vert \check z_k\Vert^2 + (1+\frac{1}{\gamma})\frac{\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\left(2n\Vert \bar z_k\Vert^2+2c^2\Vert \mathcal{K}_R\Vert^2\Vert\check z_k\Vert^2\right)\\
 &\leq (1+\frac{1}{\gamma})\frac{2n\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\Vert \bar z_k\Vert^2  \\
-&\quad + \left[(1+\gamma)\lambda'+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\delta^2})\right]\Vert \check z_k\Vert^2
+&\quad + \left[(1+\gamma)\lambda'+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2})\right]\Vert \check z_k\Vert^2
 (\#eq:checkz2)
 \end{align}
+
+Then we have, 
