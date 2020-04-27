@@ -545,7 +545,7 @@ Similarly, for $E\left[\Vert \check z_{k+1}\Vert^2|\mathcal{F}_{k}\right]$, we h
 \begin{align}
 
 E\left[\Vert \check z_{k+1}\Vert^2|\mathcal{F}_{k}\right]&=\Vert \mathcal{D}_1\check z_k-\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k(\mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k)\Vert^2\\
-&\quad + \frac{\alpha_k^2\Vert\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l}\Vert^2{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2|\mathcal{F}_k\right]
+&\quad + \frac{\alpha_k^2\Vert\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l\Vert^2}{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2|\mathcal{F}_k\right]
 (\#eq:checkz)
 \end{align}
 
@@ -568,6 +568,10 @@ Let $\lambda :=\max \{|\lambda_2(W)|,|\lambda_n(W)|\}$, denote $\lambda' = (1+\l
 \end{array}
 \right)\Vert^2=\Vert \mathcal{I}\Vert^2=n
 \end{align}
+Moreover, from the decomposition of $\mathcal{B}$ and $\mathcal{B}_l^T=\mathcal{B}^T(I_{np},0)$, we have, 
+\begin{equation}
+\vert \mathcal{B}_l\Vert^2\leq \Vert \mathcal{B}\Vert^2\leq 1
+\end{equation}
 
 Then similar as \@ref(eq:barz1), we have 
 \begin{align}
@@ -579,4 +583,87 @@ Then similar as \@ref(eq:barz1), we have
 (\#eq:checkz2)
 \end{align}
 
+<!--
+Before choosing $\gamma$, we first check the original error dynamics $(\tilde{\mathcal{X}_k},\tilde{\mathcal{Y}_k})^T$ according to 
+\begin{align}
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)&=
+\left(\begin{array}{cc}
+\mathcal{R}_1&c\mathcal{K}_R
+\end{array}
+\right)\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)\\
+&=
+\left(\begin{array}{cc}
+\mathcal{I}&c\mathcal{K}_{R,u}\\
+0&c\mathcal{K}_{R,l}
+\end{array}
+\right)\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)
+\end{align}
+
+Hence,
+
+\begin{align}
+&\quad E\left[\Vert \tilde{\mathcal{X}_{k+1}}\Vert^2\right]=E\left[\Vert \mathcal{I}\bar z_{k+1}+c\mathcal{K}_{R,u}\check z_{k+1}\Vert^2\right]\\
+&\leq 2nE\left[\Vert \bar z_{k+1}\Vert^2\right]+2c^2\Vert \mathcal{K}_R\Vert^2E\left[\Vert \check z_{k+1}\Vert^2\right]\\
+&\leq \left[2n(1+\gamma_1)(1-\alpha_k\mu)^2+2c^2\Vert \mathcal{K}_R\Vert^2(1+\frac{1}{\gamma_2})\frac{2n\alpha_k^2\lambda'\Vert\mathcal{K}_L\Vert^2\delta^2}{c}\right]E\left[\Vert \bar z_k\Vert^2\right]\\
+&\quad+ \left[2n(1+\frac{1}{\gamma_1})\frac{\alpha_k^2c^2\delta^2\Vert \mathcal{K}_R\Vert^2}{n} + 2c^2\Vert \mathcal{K}_R\Vert^2\lambda'\left((1+\gamma_2)+2(1+\frac{1}{\gamma_2})c\alpha_k^2\Vert\mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2\right)\right]\\
+&\cdot E\left[\Vert \check z_k\Vert^2\right]
+
+(\#eq:xbarzcheckz)
+\end{align}
+-->
+
 Then we have, 
+\begin{align}
+&\quad E\left[\Vert \check z_{k+1}\Vert^2\right]\\
+&\leq (1+\frac{1}{\gamma})\frac{2n\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\delta^2}{c}E\left[\Vert \bar z_k\Vert^2\right]  
++ \alpha_k^2\frac{\lambda'\Vert\mathcal{K}_L\Vert^2\sigma^2}{nc^2}\\
+&\quad + \left[(1+\gamma)\lambda'+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda'\Vert \mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2})\right]E\left[\Vert \check z_k\Vert^2\right]
+(\#eq:checkzkgamma)
+\end{align}
+
+Denote, 
+\begin{equation}
+B(k)=E\left[\Vert \bar z_k\Vert^2\right], H(k) = E\left[\Vert\check z_k\Vert^2\right]
+\end{equation}
+
+We want to derive uniform bounds $\hat B$ and $\hat H$ for $B(k)$ and $H(k)$ respectively, such that 
+\begin{equation}
+B(k)\leq \frac{\hat B}{(m+k)^a},\quad H(k)\leq \frac{\hat H}{(m+k)^b}
+\end{equation}
+where $a,b$ are some positive integers. Noting that the relationship between $(\tilde{\mathcal{X}_k},\tilde{\mathcal{Y}_k})^T$ and $(\bar z_k,\check z_k)^T$ is
+\begin{align}
+\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)&=\left(\begin{array}{c}
+\mathcal{L}_1^T\\
+\frac{1}{c}\mathcal{K}_L\end{array}\right)
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)\\
+&=\left(\begin{array}{cc}
+\frac{1}{n}\mathcal{I}^T&0\\
+\frac{1}{c}\mathcal{K}_{L,l}&\frac{1}{c}\mathcal{K}_{L,r}
+\end{array}
+\right)
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)
+\end{align}
