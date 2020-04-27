@@ -24,7 +24,7 @@
 <meta name="author" content="Kun Huang" />
 
 
-<meta name="date" content="2020-04-23" />
+<meta name="date" content="2020-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -624,7 +624,7 @@ and,
 \end{align}\]</span>
 </div>
 
-<p>Next we do a non-asymptotic analysis to check the convergence of <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> under a decreasing stepsize <span class="math inline">\(\alpha_k:=\frac{1}{k+m}\)</span>.</p>
+<p>Next we do a non-asymptotic analysis to check the convergence of <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> under a decreasing stepsize <span class="math inline">\(\alpha_k:=\frac{\theta}{k+m}\)</span>, for some <span class="math inline">\(\theta\)</span>.</p>
 <div id="preliminary-results" class="section level3">
 <h3><span class="header-section-number">11.1.1</span> Preliminary results</h3>
 We first check a less restrictive situation where assumption <a href="sec-ediff.html#exr:edg">11.3</a> becomes <a href="sec-dsgt.html#exr:estg">4.1</a>. Then,
@@ -654,11 +654,16 @@ We further let <span class="math inline">\(\alpha_k\leq \frac{1}{3\mu}\)</span> 
 &amp;\leq(1-\frac{3}{2}\alpha_k\mu)\Vert \bar z_k\Vert^2 + \frac{3\alpha_k c^2\Vert \mathcal{K}_{R,u}\Vert^2\delta^2}{n\mu}\Vert \check z_k\Vert^2
 \tag{11.12}
 \end{align}\]</span>
-Substituting <a href="sec-ediff.html#eq:barz2">(11.12)</a> and <a href="sec-ediff.html#eq:betaeq0">(11.9)</a> into <a href="sec-ediff.html#eq:barz">(11.10)</a> and take full expectation on both sides, we have lemma <a href="sec-ediff.html#lem:barzk">11.4</a>. 
+Substituting <a href="sec-ediff.html#eq:barz2">(11.12)</a> and <a href="sec-ediff.html#eq:betaeq0">(11.9)</a> into <a href="sec-ediff.html#eq:barz">(11.10)</a> and take full expectation on both sides, we have lemma <a href="sec-ediff.html#lem:barzk">11.4</a>. Notice that
+<span class="math display">\[\begin{equation}
+\Vert \mathcal{K}_{R,u}\Vert^2=
+\Vert \left(I_{np},0\right)\mathcal{K}_{R}\Vert^2\leq \Vert \mathcal{K}_{R}\Vert^2
+\end{equation}\]</span>
+
 <div class="lemma">
 <span id="lem:barzk" class="lemma"><strong>Lemma 11.4  </strong></span>Under assumptions <a href="sec-ediff.html#exr:edfi">11.1</a>, <a href="sec-ediff.html#exr:edw">11.2</a>, and <a href="sec-dsgt.html#exr:estg">4.1</a>, supposing <span class="math inline">\(\alpha_k\leq \min\{\frac{1}{\delta},\frac{1}{3\mu}\}\)</span>, then
 <span class="math display">\[\begin{align}
-E \left[\Vert \bar z_{k+1}\Vert^2\right]\leq (1-\frac{3}{2}\alpha_k\mu)\Vert \bar z_k\Vert^2 + \frac{3\alpha_k c^2\Vert \mathcal{K}_{R,u}\Vert^2\delta^2}{n\mu}\Vert \check z_k\Vert^2 + \frac{\alpha_k^2\sigma^2}{n}
+E \left[\Vert \bar z_{k+1}\Vert^2\right]\leq (1-\frac{3}{2}\alpha_k\mu)\Vert E\left[\bar z_k\Vert^2\right] + \frac{3\alpha_k c^2\Vert \mathcal{K}_{R}\Vert^2\delta^2}{n\mu}\Vert E\left[\check z_k\Vert^2\right] + \frac{\alpha_k^2\sigma^2}{n}
 \end{align}\]</span>
 </div>
 
@@ -666,7 +671,7 @@ E \left[\Vert \bar z_{k+1}\Vert^2\right]\leq (1-\frac{3}{2}\alpha_k\mu)\Vert \ba
 <span class="math display" id="eq:checkz">\[\begin{align}
 
 E\left[\Vert \check z_{k+1}\Vert^2|\mathcal{F}_{k}\right]&amp;=\Vert \mathcal{D}_1\check z_k-\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k(\mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k)\Vert^2\\
-&amp;\quad + \frac{\alpha_k^2\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l}{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2\right]
+&amp;\quad + \frac{\alpha_k^2\Vert\mathcal{D}_1\mathcal{K}_L\mathcal{B}_l\Vert^2}{c^2}E\left[\Vert \mathcal{S}_k(\mathcal{X}_k)\Vert^2|\mathcal{F}_k\right]
 \tag{11.13}
 \end{align}\]</span>
 Let <span class="math inline">\(\lambda :=\max \{|\lambda_2(W)|,|\lambda_n(W)|\}\)</span>, denote <span class="math inline">\(\lambda&#39; = (1+\lambda_2(W))/2\in(0,1)\)</span>, then from lemma 4 in <span class="citation">(Yuan et al. <a href="#ref-yuan2018exact">2018</a>)</span>, <span class="math inline">\(\Vert \mathcal{D}_1\Vert=\sqrt{\lambda&#39;}\)</span>. Additionally,
@@ -688,14 +693,99 @@ Let <span class="math inline">\(\lambda :=\max \{|\lambda_2(W)|,|\lambda_n(W)|\}
 \end{array}
 \right)\Vert^2=\Vert \mathcal{I}\Vert^2=n
 \end{align}\]</span>
+Moreover, from the decomposition of <span class="math inline">\(\mathcal{B}\)</span> and <span class="math inline">\(\mathcal{B}_l^T=\mathcal{B}^T(I_{np},0)\)</span>, we have,
+<span class="math display">\[\begin{equation}
+\vert \mathcal{B}_l\Vert^2\leq \Vert \mathcal{B}\Vert^2\leq 1
+\end{equation}\]</span>
 Then similar as <a href="sec-ediff.html#eq:barz1">(11.11)</a>, we have
 <span class="math display" id="eq:checkz2">\[\begin{align}
 &amp;\quad \Vert \mathcal{D}_1\check z_k-\frac{\alpha_k}{c}\mathcal{D}_1\mathcal{K}_L\mathcal{T}_k(\mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k)\Vert^2\\
 &amp;\leq (1+\gamma)\lambda&#39; \Vert \check z_k\Vert^2 + (1+\frac{1}{\gamma})\frac{\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\Vert \mathcal{R}_1\bar z_k+c\mathcal{K}_R\check z_k\Vert^2\\
 &amp;\leq (1+\gamma)\lambda&#39; \Vert \check z_k\Vert^2 + (1+\frac{1}{\gamma})\frac{\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\left(2n\Vert \bar z_k\Vert^2+2c^2\Vert \mathcal{K}_R\Vert^2\Vert\check z_k\Vert^2\right)\\
 &amp;\leq (1+\frac{1}{\gamma})\frac{2n\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\delta^2}{c}\Vert \bar z_k\Vert^2  \\
-&amp;\quad + \left[(1+\gamma)\lambda&#39;+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\delta^2})\right]\Vert \check z_k\Vert^2
+&amp;\quad + \left[(1+\gamma)\lambda&#39;+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2})\right]\Vert \check z_k\Vert^2
 \tag{11.14}
+\end{align}\]</span>
+<!--
+Before choosing $\gamma$, we first check the original error dynamics $(\tilde{\mathcal{X}_k},\tilde{\mathcal{Y}_k})^T$ according to 
+\begin{align}
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)&=
+\left(\begin{array}{cc}
+\mathcal{R}_1&c\mathcal{K}_R
+\end{array}
+\right)\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)\\
+&=
+\left(\begin{array}{cc}
+\mathcal{I}&c\mathcal{K}_{R,u}\\
+0&c\mathcal{K}_{R,l}
+\end{array}
+\right)\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)
+\end{align}
+
+Hence,
+
+\begin{align}
+&\quad E\left[\Vert \tilde{\mathcal{X}_{k+1}}\Vert^2\right]=E\left[\Vert \mathcal{I}\bar z_{k+1}+c\mathcal{K}_{R,u}\check z_{k+1}\Vert^2\right]\\
+&\leq 2nE\left[\Vert \bar z_{k+1}\Vert^2\right]+2c^2\Vert \mathcal{K}_R\Vert^2E\left[\Vert \check z_{k+1}\Vert^2\right]\\
+&\leq \left[2n(1+\gamma_1)(1-\alpha_k\mu)^2+2c^2\Vert \mathcal{K}_R\Vert^2(1+\frac{1}{\gamma_2})\frac{2n\alpha_k^2\lambda'\Vert\mathcal{K}_L\Vert^2\delta^2}{c}\right]E\left[\Vert \bar z_k\Vert^2\right]\\
+&\quad+ \left[2n(1+\frac{1}{\gamma_1})\frac{\alpha_k^2c^2\delta^2\Vert \mathcal{K}_R\Vert^2}{n} + 2c^2\Vert \mathcal{K}_R\Vert^2\lambda'\left((1+\gamma_2)+2(1+\frac{1}{\gamma_2})c\alpha_k^2\Vert\mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2\right)\right]\\
+&\cdot E\left[\Vert \check z_k\Vert^2\right]
+
+(\#eq:xbarzcheckz)
+\end{align}
+-->
+Then we have,
+<span class="math display" id="eq:checkzkgamma">\[\begin{align}
+&amp;\quad E\left[\Vert \check z_{k+1}\Vert^2\right]\\
+&amp;\leq (1+\frac{1}{\gamma})\frac{2n\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\delta^2}{c}E\left[\Vert \bar z_k\Vert^2\right]  
++ \alpha_k^2\frac{\lambda&#39;\Vert\mathcal{K}_L\Vert^2\sigma^2}{nc^2}\\
+&amp;\quad + \left[(1+\gamma)\lambda&#39;+(1+\frac{1}{\gamma})({2c\alpha_k^2\lambda&#39;\Vert \mathcal{K}_L\Vert^2\Vert \mathcal{K}_R\Vert^2\delta^2})\right]E\left[\Vert \check z_k\Vert^2\right]
+\tag{11.15}
+\end{align}\]</span>
+Denote,
+<span class="math display">\[\begin{equation}
+B(k)=E\left[\Vert \bar z_k\Vert^2\right], H(k) = E\left[\Vert\check z_k\Vert^2\right]
+\end{equation}\]</span>
+We want to derive uniform bounds <span class="math inline">\(\hat B\)</span> and <span class="math inline">\(\hat H\)</span> for <span class="math inline">\(B(k)\)</span> and <span class="math inline">\(H(k)\)</span> respectively, such that
+<span class="math display">\[\begin{equation}
+B(k)\leq \frac{\hat B}{(m+k)^a},\quad H(k)\leq \frac{\hat H}{(m+k)^b}
+\end{equation}\]</span>
+where <span class="math inline">\(a,b\)</span> are some positive integers. Noting that the relationship between <span class="math inline">\((\tilde{\mathcal{X}_k},\tilde{\mathcal{Y}_k})^T\)</span> and <span class="math inline">\((\bar z_k,\check z_k)^T\)</span> is
+<span class="math display">\[\begin{align}
+\left(\begin{array}{c}
+\bar z_k\\
+\check z_k
+\end{array}
+\right)&amp;=\left(\begin{array}{c}
+\mathcal{L}_1^T\\
+\frac{1}{c}\mathcal{K}_L\end{array}\right)
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)\\
+&amp;=\left(\begin{array}{cc}
+\frac{1}{n}\mathcal{I}^T&amp;0\\
+\frac{1}{c}\mathcal{K}_{L,l}&amp;\frac{1}{c}\mathcal{K}_{L,r}
+\end{array}
+\right)
+\left(\begin{array}{c}
+\tilde{\mathcal{X}_k}\\
+\tilde{\mathcal{Y}_k}
+\end{array}
+\right)
 \end{align}\]</span>
 
 </div>
